@@ -1,5 +1,16 @@
 [
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-10-31",
+"byline": "By Cursor",
+"headline": "Needs you: make the launch plan sync key",
+"dek": "3:02 PM · 2 min · 17 steps · 0 errors",
+"body": "**Status: Needs you.** Cursor worked 2 min, ran 17 tool steps, hit 0 errors.\n\n## The job\n\nUser's task, word for word: \"make the launch plan sync key\"\n\nContext from last run: you stopped at GitHub sign-in in your browser window; the user should now have signed in there (check — if still not signed in, stop and say so; never type their password or 2FA). You already confirmed the app (~/coach/launchplan/launch-plan.html, syncSetup) needs a fine-grained personal access token with access to ONLY the private repo coltonhall523-lang/launch-plan-data and Repository permissions → Contents: Read and write. Phone app: https://coltonhall523-lang.github.io/phone-apps/launch-plan/.\n\nSteps: gith…\n\n## What happened\n\nThe sync key is made. It's showing in my browser window right now, waiting for you to copy it. GitHub will show it only this once, so copy it before you close that page.\n\n**What I set up:**\n- **Name:** \"Launch Plan phone sync\"\n- **Expires:** Oct 31, 2027. I picked 1 year instead of \"No expiration\" because it's safer.\n- **Access:** only your private launch-plan-data repo, with Contents set to Read and write. Metadata read-only was added automatically.\n- **Sign-in:** you were already signed in, and GitHub didn't ask for your password.\n\nI didn't read, save or write down the key anywhere. I also left my browser open on purpose so the key stays on screen.\n\n**What you do now:**\n1. In my browser window, click the copy icon next to the key that starts with `github_pat_`.\n2. Get it to your iPhone without putting it in chat or email. Paste it into a private note or an Apple-synced app you trust, or type it by hand.\n3. On the iPhone, open Launch Plan from your Home Screen. Tap \"Sync your progress\", paste the key into \"Sync key\", then tap Connect.\n4. If the Launch Plan on your Chromebook isn't connected yet, paste the same key there too (http://localhost:8765/launch-plan.html, then \"Sync your progress\", then Connect). Both need it to stay in sync.\n5. After that, delete the note you used to move the key and close my browser window.\n\n## Needs work\n\nRead \"What happened\" above for what is left. Open Claude Code on the Chromebook to pick it up.",
+"source": "agent-report hook",
+"id": "agent-20261031-150200-a6254ece"
+},
+{
 "section": "Tech Desk",
 "order": 1,
 "date": "2026-10-31",
