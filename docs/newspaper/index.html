@@ -155,6 +155,31 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid var(
 .endc{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center}
 .endc .c-mast{font-size:11cqw}
 .endc p{margin:0;color:var(--ink-2);font-style:italic;max-width:30ch}
+/* trash can: stories and editions go here first, and can be restored */
+.trashbtn{display:inline-flex;align-items:center;gap:6px;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:0;padding:2px 4px;cursor:pointer}
+.trashbtn svg{width:15px;height:15px;flex:none}
+.trashbtn:hover,.trashbtn:focus-visible{color:var(--accent)}
+.tag{display:flex;align-items:center;gap:8px}
+.tag .trashbtn{border-left:1px solid var(--hair);padding:0 0 0 8px;color:var(--muted)}
+.rbar #trashStory{display:inline-flex;align-items:center;gap:6px}
+.rbar #trashStory svg{width:15px;height:15px}
+.tbox{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px}
+.tbox[hidden]{display:none}
+.tpanel{background:var(--sheet);color:var(--ink);border:1px solid var(--rule);width:min(560px,100%);max-height:min(80vh,720px);display:flex;flex-direction:column;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+.tpanel header{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-bottom:3px double var(--rule)}
+.tpanel h2{font-family:var(--f-head);font-weight:900;font-size:24px;margin:0}
+.tpanel .tlist{overflow:auto;padding:4px 16px;flex:1}
+.trow{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--hair)}
+.trow .tt{flex:1;min-width:0}
+.trow .tt b{display:block;font-family:var(--f-head);font-size:16px;line-height:1.25}
+.trow .tt span{font-family:var(--f-label);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tpanel button.tb{font-family:var(--f-label);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--paper);border:1px solid var(--hair);border-radius:3px;padding:7px 10px;cursor:pointer;white-space:nowrap}
+.tpanel button.tb.danger{color:var(--accent);border-color:var(--accent)}
+.tpanel footer{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 16px;border-top:1px solid var(--rule);font-family:var(--f-label);font-size:12px;letter-spacing:.06em;color:var(--muted)}
+.tempty{padding:36px 0;text-align:center;font-style:italic;color:var(--ink-2)}
+.toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:95;display:flex;gap:14px;align-items:center;background:var(--ink);color:var(--sheet);padding:10px 16px;border-radius:4px;font-family:var(--f-label);font-size:13px;letter-spacing:.06em;box-shadow:0 6px 20px rgba(0,0,0,.35);max-width:calc(100vw - 32px)}
+.toast[hidden]{display:none}
+.toast button{font:inherit;font-weight:700;text-transform:uppercase;color:var(--sheet);background:none;border:1px solid currentColor;border-radius:3px;padding:4px 9px;cursor:pointer}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
@@ -162,7 +187,7 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid var(
   <div class="ear"><span id="volno">Vol. I</span><span>Filed by Claude and the Coach</span></div>
   <header class="mast"><h1>The Newspaper</h1>
     <div class="motto">All the reports fit to print, from your faceless YouTube desk</div></header>
-  <div class="dateline"><span id="today"></span><span id="count">The Newsstand</span></div>
+  <div class="dateline"><span id="today"></span><span id="count">The Newsstand</span><button class="trashbtn" id="trashBtn" type="button" aria-label="Open the trash can"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 10v7M14 10v7"/></svg><span id="trashCount">Trash</span></button></div>
   <main id="rack">
     <div class="notice"><h2>Stop the presses…</h2><p>Today's edition is being set in type. The papers load from the archive in a moment.</p></div>
   </main>
@@ -174,12 +199,22 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid var(
     <button id="toStand" type="button" aria-label="Back to the newsstand">←<span class="wide"> Newsstand</span></button>
     <div class="rtitle" id="rtitle"></div>
     <select id="toc" aria-label="Jump to a story"></select>
+    <button id="trashStory" type="button" aria-label="Move this story to the trash"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 10v7M14 10v7"/></svg><span class="wide">Trash story</span></button>
     <div class="pager"><button id="prev" type="button" aria-label="Previous page">‹</button><span id="pgno"></span><button id="next" type="button" aria-label="Next page">›</button></div>
   </header>
   <div class="stagewrap" id="stagewrap"><div class="book" id="book"></div></div>
   <div class="hint" id="hint">Drag a page to turn it, or tap its edge · ← → keys work too</div>
   <div id="measure"></div>
 </div>
+
+<div class="tbox" id="tbox" hidden role="dialog" aria-modal="true" aria-labelledby="ttitle">
+  <div class="tpanel">
+    <header><h2 id="ttitle">The Trash Can</h2><button class="tb" type="button" id="tclose">Close</button></header>
+    <div class="tlist" id="tlist"></div>
+    <footer><span>Trash is kept on this device. Restore puts a story back in its edition.</span><button class="tb danger" type="button" id="tempty">Empty trash</button></footer>
+  </div>
+</div>
+<div class="toast" id="toast" hidden role="status"><span id="toastMsg"></span><button type="button" id="toastUndo">Undo</button></div>
 
 <script>
 /* Sections in print order. A story's `section` must be one of these names. */
@@ -188,7 +223,13 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
-let stories = [], editions = [], ready = false;
+let all = [], stories = [], editions = [], ready = false;
+
+/* ---- the trash can: {id: date trashed}; "deleted forever" ids stay hidden for good ---- */
+const readJSON = (k, d) => { try { return JSON.parse(store.get(k)) ?? d; } catch { return d; } };
+let trash = readJSON('np-trash', {}), gone = new Set(readJSON('np-gone', []));
+const saveTrash = () => { store.set('np-trash', JSON.stringify(trash)); store.set('np-gone', JSON.stringify([...gone])); };
+const TRASH_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 10v7M14 10v7"/></svg>';
 
 /* ---- a small Markdown reader for report bodies ---- */
 function inline(t) {
@@ -295,9 +336,11 @@ function drawStand() {
   rack.innerHTML = `<div class="rack">${editions.map((ed, i) => `<div class="slot">
       <div class="hold"><button class="paper" type="button" data-ed="${esc(ed.date)}" aria-label="Read the ${esc(fmtLong(ed.date))} edition"><div class="pg mini">${coverHTML(ed)}</div>${i === 0 ? '<span class="stamp">Latest</span>' : ''}</button></div>
       <div class="lip"></div>
-      <div class="tag"><b>No. ${ed.no}</b> · ${esc(fmtShort(ed.date))} · ${ed.stories.length} ${ed.stories.length === 1 ? 'story' : 'stories'}</div></div>`).join('')}</div>`;
+      <div class="tag"><span><b>No. ${ed.no}</b> · ${esc(fmtShort(ed.date))} · ${ed.stories.length} ${ed.stories.length === 1 ? 'story' : 'stories'}</span><button class="trashbtn" type="button" data-trash-ed="${esc(ed.date)}" aria-label="Move the ${esc(fmtLong(ed.date))} edition to the trash">${TRASH_SVG}</button></div></div>`).join('')}</div>`;
 }
 $('#rack').addEventListener('click', e => {
+  const t = e.target.closest('[data-trash-ed]');
+  if (t) { const e2 = editions.find(x => x.date === t.dataset.trashEd); if (e2) toTrash(e2.stories.map(s => s.id), `The ${fmtShort(e2.date)} edition went in the trash`); return; }
   const b = e.target.closest('[data-ed]'); if (!b) return;
   const go = () => { location.hash = 'e-' + b.dataset.ed; };
   document.startViewTransition && !reduce ? document.startViewTransition(go) : go();
@@ -466,6 +509,8 @@ $('#next').onclick = () => turn(1);
 $('#toStand').onclick = () => { location.hash = ''; };
 $('#toc').onchange = e => goToPage(pagesOf[e.target.value]);
 addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !$('#tbox').hidden) { $('#tbox').hidden = true; return; }
+  if (!$('#tbox').hidden) return;
   if ($('#reader').hidden || e.target.closest('select')) return;
   if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); turn(1); }
   else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); turn(-1); }
@@ -473,6 +518,54 @@ addEventListener('keydown', e => {
 });
 let rt = 0;
 addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { if (ed && !$('#reader').hidden) build(firstPage(current)); }, 160); });
+
+/* ---- trash actions ---- */
+function refresh() {
+  stories = all.filter(s => !(s.id in trash) && !gone.has(s.id));
+  buildEditions(); drawStand(); drawTrash();
+  if (!ready) return;
+  if (ed && !$('#reader').hidden) {
+    const e = editions.find(x => x.date === ed.date);
+    if (!e) { location.hash = ''; return; }
+    const keep = firstPage(current); ed = e; flow = flowHTML(e); build(keep);
+  }
+}
+let undoIds = null, toastT = 0;
+function toast(msg, ids) {
+  undoIds = ids; $('#toastMsg').textContent = msg; $('#toastUndo').hidden = !ids; $('#toast').hidden = false;
+  clearTimeout(toastT); toastT = setTimeout(() => { $('#toast').hidden = true; undoIds = null; }, 6000);
+}
+function toTrash(ids, msg) {
+  const when = new Date().toISOString();
+  ids.forEach(id => { trash[id] = when; });
+  saveTrash(); refresh(); toast(msg, ids);
+}
+function restore(ids) { ids.forEach(id => { delete trash[id]; }); saveTrash(); refresh(); }
+function forever(ids) { ids.forEach(id => { delete trash[id]; gone.add(id); }); saveTrash(); refresh(); }
+function drawTrash() {
+  const ids = Object.keys(trash).filter(id => all.some(s => s.id === id));
+  $('#trashCount').textContent = ids.length ? `Trash (${ids.length})` : 'Trash';
+  const list = ids.map(id => all.find(s => s.id === id)).sort((a, b) => trash[b.id].localeCompare(trash[a.id]));
+  $('#tlist').innerHTML = list.length ? list.map(s => `<div class="trow"><div class="tt"><b>${esc(s.headline)}</b><span>${esc(s.section || '')} · ${esc(fmtShort(s.date))} edition</span></div>
+    <button class="tb" type="button" data-restore="${esc(s.id)}">Restore</button><button class="tb danger" type="button" data-forever="${esc(s.id)}" aria-label="Delete ${esc(s.headline)} forever">Delete</button></div>`).join('')
+    : '<div class="tempty">The trash can is empty.</div>';
+  $('#tempty').disabled = !list.length;
+}
+$('#trashBtn').onclick = () => { drawTrash(); $('#tbox').hidden = false; $('#tclose').focus(); };
+$('#tclose').onclick = () => { $('#tbox').hidden = true; };
+$('#tbox').addEventListener('click', e => {
+  if (e.target === $('#tbox')) return void ($('#tbox').hidden = true);
+  const r = e.target.closest('[data-restore]'), f = e.target.closest('[data-forever]');
+  if (r) restore([r.dataset.restore]);
+  else if (f && confirm('Delete this story forever? It cannot be restored.')) forever([f.dataset.forever]);
+});
+$('#tempty').onclick = () => { const ids = Object.keys(trash); if (ids.length && confirm(`Delete all ${ids.length} trashed ${ids.length === 1 ? 'story' : 'stories'} forever? They cannot be restored.`)) forever(ids); };
+$('#toastUndo').onclick = () => { if (undoIds) restore(undoIds); $('#toast').hidden = true; undoIds = null; };
+$('#trashStory').onclick = () => {
+  if (!ed) return;
+  const s = ed.stories.find(x => x.id === $('#toc').value) || ed.stories[0];
+  if (s) toTrash([s.id], `“${s.headline}” went in the trash`);
+};
 
 async function openEdition(e, storyId) {
   const same = ed === e && !$('#reader').hidden;
@@ -499,8 +592,9 @@ function route() {
   $('#today').textContent = new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   addEventListener('hashchange', route);
   const load = list => {
-    stories = list.filter(s => s.headline);
-    buildEditions(); drawStand();
+    all = list.filter(s => s.headline);
+    stories = all.filter(s => !(s.id in trash) && !gone.has(s.id));
+    buildEditions(); drawStand(); drawTrash();
     const was = ready; ready = true;
     if (!was || $('#reader').hidden) route();
   };
