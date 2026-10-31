@@ -183,7 +183,7 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid var(
 
 <script>
 /* Sections in print order. A story's `section` must be one of these names. */
-const SECTIONS = ['Front Page', 'Fact Check', "Coach's Corner", 'Launch Desk', 'Tech Desk', 'Research Desk', 'Playbook', 'History'];
+const SECTIONS = ['Front Page', 'Agent Desk', 'Fact Check', "Coach's Corner", 'Launch Desk', 'Tech Desk', 'Research Desk', 'Playbook', 'History'];
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
