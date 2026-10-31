@@ -1,0 +1,25 @@
+name: Launch Plan reminder
+on:
+  schedule:
+    - cron: '0 13 * * *'   # 9am Eastern in summer, 8am in winter
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'launch = today''s reminder, test = a test alert to each app'
+        default: launch
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pywebpush==2.5.0
+      - name: Send
+        env:
+          VAPID_PRIVATE: ${{ secrets.VAPID_PRIVATE }}
+          PUSH_SUBS: ${{ secrets.PUSH_SUBS }}
+          MODE: ${{ inputs.mode || 'launch' }}
+        run: |
+          if [ "$MODE" = test ]; then python .github/push/send.py test newspaper || echo 'newspaper: no phone paired'; python .github/push/send.py test launch-plan || echo 'launch-plan: no phone paired'; else python .github/push/send.py launch; fi
