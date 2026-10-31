@@ -144,6 +144,8 @@ input[type=checkbox]{width:auto}
 </style>
 <script>
 /* ---- shared kit: DOM helpers, saved-data store, built-in AI, YouTube paste codes ---- */
+/* empty slots (null, undefined, false) in append/replaceChildren are skipped instead of showing as the word "null" */
+for (const P of [Element.prototype, DocumentFragment.prototype]) for (const fn of ["append", "replaceChildren", "prepend"]) { const o = P[fn]; P[fn] = function (...k) { return o.apply(this, k.filter(x => x != null && x !== false)); }; }
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 function h(tag, attrs = {}, ...kids) {
@@ -244,7 +246,16 @@ const Store = {
 /* ---- AI: the built-in Claude for this page ---- */
 const AI = {
   s: null, ready: null,
-  init() { this.ready = (async () => { try { if (window.claude?.use) this.s = await window.claude.use('sample'); } catch { this.s = null; } if (!this.s && LOCAL_YT) this.s = this.local(); return this.s; })(); return this.ready; },
+  init() { this.ready = (async () => { try { if (window.claude?.use) this.s = await window.claude.use('sample'); } catch { this.s = null; } if (!this.s && LOCAL_YT) this.s = this.local(); this.badge(!!window.claude?.use && !!this.s); return this.s; })(); return this.ready; },
+  /* a lamp under "saved" that says whether the AI buttons will work, and where to fix it */
+  async badge(builtIn) {
+    const at = document.getElementById('saveStatus'); if (!at) return;
+    let el = document.getElementById('aiStatus'); if (!el) { el = document.createElement('span'); el.id = 'aiStatus'; el.className = 'status'; at.after(el); }
+    let who = builtIn ? 'built-in Claude' : '';
+    if (!who && LOCAL_YT) { try { const k = await api('/api/ws/keys'); who = k.anthropic?.connected ? 'Claude' : k.gemini?.connected ? 'Gemini (free)' : ''; } catch {} }
+    el.classList.toggle('local', !who);
+    el.replaceChildren(who ? 'AI ready · ' + who : LOCAL_YT ? Object.assign(document.createElement('a'), { href: '/workstation.html#connections', textContent: 'AI off · plug in free Gemini →', style: 'color:inherit' }) : 'AI not available here');
+  },
   /* run from the local server: Claude through the Workstation's key (no images, no streaming) */
   local() {
     const run = async (prompt, opts = {}) => {
@@ -641,8 +652,8 @@ const Bridge = {
 </div>
 
 <script>
-const ACTIONS = ['Hunted niches','Validated a channel','Wrote a script','Made a thumbnail','Edited','Uploaded','Hiring','Analytics'];
-const MILESTONES = {3:'Second Brain built',7:'20 channels validated',14:'Niche locked',26:'Channel created',35:'First video uploaded',50:'Editor hired',70:'Weekly uploads holding',90:'Keep this niche or move'};
+const ACTIONS = ['Hunted niches','Validated a channel','Deconstructed a video','Wrote a script','Voiced + built (Workstation)','Made a thumbnail','Uploaded','Analytics'];
+const MILESTONES = {3:'Free tools plugged in',7:'20 channels validated',14:'Niche + format locked',21:'5 videos deconstructed',26:'Channel created',35:'First video uploaded',50:'5 videos live',70:'Weekly uploads holding',90:'Keep this niche or move'};
 const PHASE = n => n<=14?'var(--teal)':n<=30?'var(--mustard)':n<=60?'var(--amber)':'var(--rust)';
 const PHASE_NAME = n => n<=14?'Hunt':n<=30?'Build':n<=60?'Launch':'Scale';
 let days = {}, settings = { start: todayISO() }, reviews = [], settingsLoaded = false;
@@ -709,7 +720,7 @@ function openDay(n) {
   const ms = MILESTONES[n];
   const msBox = ms ? h('div', { class: 'panel flat row' }, h('span', { class: 'label', text: 'Milestone' }), h('b', { text: ms }), h('span', { class: 'spacer' }),
       rec.milestone_hit ? h('span', { class: 'stamp ok', style: 'font-size:13px', text: 'Hit ' + fmtDate(rec.milestone_hit) })
-        : h('button', { class: 'btn sm', onclick: async () => { await saveDay(n, { milestone_hit: todayISO() }); close(); toast('Milestone marked as hit'); } , text: 'Mark as hit' })) : null;
+        : h('button', { class: 'btn sm', disabled: future, title: future ? 'Unlocks on this day' : '', onclick: async () => { await saveDay(n, { milestone_hit: todayISO() }); close(); toast('Milestone marked as hit'); } , text: 'Mark as hit' })) : null;
   const close = modal(h('div', { class: 'stack' },
     h('div', { class: 'row' }, h('h2', { text: 'Day ' + n }), h('span', { class: 'pill', style: `color:${PHASE(n)}`, text: PHASE_NAME(n) }), h('span', { class: 'spacer' }),
       h('span', { class: 'muted small', text: dateOf(n).toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' }) })),
@@ -725,9 +736,12 @@ async function saveDay(n, patch, announce) {
   const rec = { day_number: n, actions: [], notes: '', ...(days['d'+n] || {}), ...patch, id: 'd'+n };
   days['d'+n] = rec; render();
   await Store.save('days', rec, announce ? 'Day ' + n : null).catch(() => {});
-  if (rec.actions.includes('Uploaded') && !settings.launchDay) {
-    settings.launchDay = n; await Store.put('settings', { ...settings, id: 'main' });
-    celebrate(n);
+  // the launch day is the first day with an upload; it moves (or clears) if uploads are un-ticked
+  let first = 0; for (let i = 1; i <= 90; i++) if ((days['d'+i]?.actions || []).includes('Uploaded')) { first = i; break; }
+  if ((first || null) !== (settings.launchDay || null)) {
+    const isNew = first && !settings.launchDay;
+    settings.launchDay = first || null; await Store.put('settings', { ...settings, id: 'main' }); render();
+    if (isNew) celebrate(n);
   }
 }
 
@@ -793,7 +807,8 @@ function renderReviews() {
     : h('div', { class: 'empty' }, h('b', { text: 'No reviews yet' }), 'Log a few days, then press "Review my progress" for a straight read on how it is going.'));
 }
 
-$('#startDate').onchange = async e => { if (!e.target.value) return; settings.start = e.target.value; render(); await Store.save('settings', { ...settings, id: 'main' }, 'Start date'); };
+$('#startDate').onchange = async e => { if (!e.target.value) return;
+  if (Object.values(days).some(d => d.actions?.length || d.notes) && !(await ask('Your logs are saved by day number (Day 1, Day 2…). Changing the start date moves every log to a different calendar date. Change it anyway?', 'Change start date'))) { e.target.value = settings.start; return; } settings.start = e.target.value; render(); await Store.save('settings', { ...settings, id: 'main' }, 'Start date'); };
 
 (async () => {
   AI.init(); render();

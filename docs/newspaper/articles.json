@@ -1,6 +1,18 @@
 [
 {
 "section": "Tech Desk",
+"order": 1,
+"date": "2026-10-31",
+"byline": "By Claude",
+"headline": "Claude Goes Caveman: Fewer Words, Same Facts",
+"dek": "A skill on this Chromebook makes Claude answer short and plain, and every technical detail stays in.",
+"body": "Every Claude Code session on this Chromebook now starts in **caveman mode**. A startup hook switches it on, and it stays on until you say \"stop caveman\" or \"normal mode\".\n\n## What it does\n\n- **Answer first.** No \"Sure, happy to help\", no recap, no closing offer.\n- **Short words, short sentences.** Small words like \"the\" can go when the sentence still reads clearly.\n- **Facts stay exact.** Commands, file paths, numbers and error messages are never shortened or changed.\n- **Plain English when it matters.** Security warnings, anything that can't be undone, step-by-step instructions and questions to you get full sentences.\n\n## Why\n\nYou pay for every word Claude writes, and you read it in a terminal. Filler costs twice. A dropped \"not\" costs more than all the words saved, so clear always wins over short.\n\n## Settings\n\n| Command | What it does |\n|---|---|\n| `/caveman` | Normal caveman |\n| `/ultracave` | Even shorter |\n| `/megacave` | Shortest, classical-Chinese style |\n| `/caveman status` | Shows which mode is on |\n| \"normal mode\" | Turns it off |\n\nRelated tools come with it: `/caveman-commit` for short commit messages, `/caveman-review` for one-line code reviews, `/caveman-stats` for token use, and the cavecrew helpers that find, edit and review code with short reports.",
+"source": "caveman plugin (Claude Code skill)",
+"lead": false,
+"id": "caveman-skill"
+},
+{
+"section": "Tech Desk",
 "order": 7,
 "date": "2026-10-29",
 "byline": "By Claude",
@@ -22,6 +34,16 @@
 "source": "Draft email in Gmail",
 "lead": false,
 "id": "coach-skills"
+},
+{
+"section": "Tech Desk",
+"order": 15,
+"date": "2026-10-31",
+"byline": "By Claude",
+"headline": "Workstation Gets a $0 Tool Stack: Free Voice, Gemini, Groq Captions",
+"dek": "Three free connectors added, a setup checklist on the Connections page, Launch Plan bugs fixed, and the Second Brain now deconstructs in one press.",
+"body": "Date: 2026-10-31\n\n## Why these tools\nPicked from the playbook plus the top faceless-automation videos on YouTube (Zinho Automates' Claude build, 185K views; Make Money Matt's free course, 292K; Tube Sensei's free-tools course, 747K). The repeated lessons: lock the visual style on one frame before you spend, keep a brand voice, use image-to-video for light motion, and avoid the overused ElevenLabs voices.\n\n## New connectors\n- Free voice (Kokoro): 54 voices, runs on the Chromebook, no key, fine for monetized videos. About 3x slower than real time, so a 10-minute script takes about 30 minutes.\n- Google Gemini (free key): writing help when Claude isn't plugged in, natural steerable voiceovers, and Nano Banana images (images may need billing).\n- Groq (free key): Whisper gives exact word-timed captions for any voice, and for your own recordings.\n\n## Plug and play\n- Connections page grouped into Start here (free), Upgrade when the channel earns, and Extras. Each card shows its cost and how to get the key, plus a free-setup checklist of what the bench can do right now.\n- Projects automatically switch to tools that are plugged in.\n- The Voice page has 'Try this voice' and a captions status line.\n- Fixed a stray 'null' showing in the top bar and in panels.\n\n## Second Brain\n- An 'AI ready / AI off' light under the save status. Locally it links straight to the Gemini key.\n- Deconstruct runs straight after Pull (optional checkbox). You still confirm before anything goes to the Workstation.\n\n## Launch Plan\n- Future milestones can't be marked as hit.\n- Launch day moves or clears when you un-tick Uploaded.\n- You're warned before the start date moves your logs.\n- Milestones and actions now match the real pipeline: Free tools plugged in, 5 videos deconstructed, 5 videos live; Deconstructed a video and Voiced + built actions.\n\n## Still to do\nPlug in the free keys: Gemini, Groq, Pexels, Pixabay. Republish the claude.ai copies and the phone apps so they get these changes.",
+"id": "connectors-2026-10-31"
 },
 {
 "section": "Fact Check",
@@ -130,6 +152,16 @@
 "source": "~/research/best-faceless-youtube-niches-2026/",
 "lead": false,
 "id": "research-faceless-niches"
+},
+{
+"section": "Tech Desk",
+"order": 14,
+"date": "2026-10-31",
+"byline": "By Claude",
+"headline": "Second Brain, Launch Plan Reviewed; Connector Shopping List Drawn Up",
+"dek": "YouTube pull works, local AI is dead without a key, four Launch Plan bugs, and a free-now, pay-later connector list for the Workstation.",
+"body": "Date: 2026-10-31\n\n## Health check\nAll green: JS syntax for all three apps, server on :8765, YouTube key present, studio keys file chmod 600. Live test: full video pull (stats, description, tags, transcript, top comments) works.\n\n## Second Brain + connectors\n1. No AI key locally. ~/apps/.studio_keys.json is empty, so every AI tool (Deconstruct, script/title/thumbnail gen) fails at localhost. Fix: use the claude.ai copies for AI (built-in Claude), or add a key on the Workstation Connections page.\n2. Local and claude.ai copies drift. After build.sh, republish both artifacts.\n3. Bridge has 0 items: the Deconstruct to Rebuild pipeline has never run end to end with real AI.\n4. Minor: /api/yt returns thumbFile with an absolute local path to the page.\n\n## Launch Plan bugs\na. Logs are keyed by day number, not date. Changing the start date silently moves every log to other calendar days. Fix: lock start date after the first log, or confirm first.\nb. 'Mark as hit' works on future milestones. Fix: add disabled: future to that button in openDay.\nc. launchDay never clears if 'Uploaded' is un-ticked. Fix: recompute launchDay in saveDay.\nd. Milestones/actions don't match the real pipeline: Day 3 'Second Brain built' is already done; Day 50 'Editor hired' contradicts building the Workstation; no 'Deconstructed a video' or 'Built in Workstation' actions.\ne. Local copy saves to browser localStorage only; claude.ai copy is separate data. Pick one home: the claude.ai version.\nf. 'Review my progress' needs AI, so it fails locally too.\n\n## Connector list (free now, upgrade later)\nAlready wired: Pexels, Pixabay (free stock); ElevenLabs (free tier is non-commercial with attribution: Starter plan needed once monetized); fal.ai / Replicate (pay per use, cents per image); OpenAI, Runway, Luma (paid only); Claude API (paid; free path is the claude.ai artifact).\nWorth adding: Gemini API free tier (local AI fallback), Kokoro or Piper local TTS (free, commercial OK), faster-whisper local captions, YouTube upload via OAuth (Channel Hub, parked).\nAlready connected in Claude: vidIQ, Google Drive, NotebookLM, Gmail.",
+"id": "review-2026-10-31"
 },
 {
 "section": "Fact Check",
