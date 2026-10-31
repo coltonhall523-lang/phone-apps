@@ -34,9 +34,7 @@ body.reading .pwa-bell{display:none}
 
   const b64 = buf => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
   const key = s => { const p = '='.repeat((4 - s.length % 4) % 4), raw = atob((s + p).replace(/-/g, '+').replace(/_/g, '/')); return Uint8Array.from(raw, c => c.charCodeAt(0)); };
-  /* Launch Plan reminders count days from the plan's start date, so the code carries it */
-  const extra = () => { if (APP !== 'launch-plan') return {}; try { return { start: JSON.parse(localStorage.getItem('launchplan:settings') || '{}').main?.start || null }; } catch { return {}; } };
-  const codeFor = sub => 'PUSH1:' + b64(new TextEncoder().encode(JSON.stringify({ app: APP, sub: sub.toJSON(), ...extra() })));
+  const codeFor = sub => 'PUSH1:' + b64(new TextEncoder().encode(JSON.stringify({ app: APP, sub: sub.toJSON() })));
   const current = async () => { const r = reg || await navigator.serviceWorker.ready; return r.pushManager.getSubscription(); };
   (async () => { try { if (pushable && Notification.permission === 'granted' && await current()) bell.dataset.on = '1'; } catch {} })();
 
@@ -56,7 +54,7 @@ body.reading .pwa-bell{display:none}
       <div class="pwa-row"><button type="button" class="pwa-go" data-copy>Copy code</button>
         <a class="pwa-btn" href="mailto:?subject=${encodeURIComponent(NAME + ' push code')}&body=${encodeURIComponent(code)}">Email it</a>
         <button type="button" data-test>Test on this phone</button></div>
-      <p class="pwa-muted">${APP === 'launch-plan' ? 'You get a reminder every morning at 9am Eastern during your 90 days. If you change your start date, send a new code.' : 'You get a notification each time a new report is filed.'}</p>
+      <p class="pwa-muted">${APP === 'launch-plan' ? 'You get a reminder every day at 5:30 PM Eastern with that day’s goal.' : 'You get a notification each time a new report is filed.'}</p>
       <button type="button" data-off>Turn notifications off</button>`);
     s.querySelector('[data-copy]').onclick = async e => {
       const ta = s.querySelector('#pwa-code');
@@ -83,7 +81,7 @@ body.reading .pwa-bell{display:none}
       <ol><li>Tap the Share button in Safari.</li><li>Choose <b>Add to Home Screen</b>, then <b>Add</b>.</li><li>Open ${NAME} from your Home Screen and tap this bell again.</li></ol>`);
     if (!pushable) return sheet(`<h2>Notifications aren't available here</h2><p>This browser can't receive push notifications. On iPhone, use iOS 16.4 or newer and open the app from the Home Screen.</p>`);
     try { const sub = await current(); if (sub && Notification.permission === 'granted') return showCode(sub); } catch {}
-    const s = sheet(`<h2>Get notified</h2><p>${APP === 'launch-plan' ? 'A morning reminder with your day number and next milestone.' : 'A notification on this phone each time a new report lands in the paper.'}</p>
+    const s = sheet(`<h2>Get notified</h2><p>${APP === 'launch-plan' ? 'A reminder every day at 5:30 PM Eastern with that day’s goal.' : 'A notification on this phone each time a new report lands in the paper.'}</p>
       <button type="button" class="pwa-go" data-on>Turn on notifications</button>`);
     s.querySelector('[data-on]').onclick = e => turnOn(e.currentTarget);
   };

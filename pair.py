@@ -17,12 +17,14 @@ app, sub = info['app'], info['sub']
 
 path = os.path.join(CFG, 'subs.json')
 subs = json.load(open(path)) if os.path.exists(path) else {}
-entry = {'sub': sub, **({'start': info['start']} if info.get('start') else {})}
+entry = {'sub': sub}
 subs[app] = [s for s in subs.get(app, []) if s['sub']['endpoint'] != sub['endpoint']] + [entry]
 json.dump(subs, open(path, 'w'), indent=1)
 os.chmod(path, 0o600)
 subprocess.run(['gh', 'secret', 'set', 'PUSH_SUBS', '--repo', REPO, '--body', json.dumps(subs)], check=True)
-print(f'Paired {app}' + (f' (plan start {info["start"]})' if info.get('start') else '') + f'; {len(subs[app])} phone(s) on file.')
+# the Launch Plan's 5:30 PM reminder runs in the private data repo
+subprocess.run(['gh', 'secret', 'set', 'PUSH_SUBS', '--repo', 'coltonhall523-lang/launch-plan-data', '--body', json.dumps(subs)], check=True)
+print(f'Paired {app}; {len(subs[app])} phone(s) on file.')
 
 env = dict(os.environ, PUSH_SUBS=json.dumps(subs), VAPID_PRIVATE=json.load(open(os.path.join(CFG, 'vapid.json')))['private'])
 subprocess.run([os.path.join(HOME, '.venv/bin/python3'), os.path.join(os.path.dirname(os.path.abspath(__file__)), '.github/push/send.py'), 'test', app], env=env)

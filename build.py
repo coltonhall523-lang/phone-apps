@@ -4,7 +4,7 @@
 Each app's page is the same file published on claude.ai, wrapped in a real
 document with a manifest, Home Screen icons, the service worker and the
 notification bell (src/pwa.js). Run ./publish.sh to build and push."""
-import glob, hashlib, json, os, shutil, subprocess
+import glob, hashlib, json, os, re, shutil, subprocess
 
 HOME = os.path.expanduser('~')
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -24,11 +24,10 @@ APPS = {
         'fonts': 'UnifrakturMaguntia',
     },
     'launch-plan': {
-        'name': 'Launch Plan', 'short': 'Launch Plan', 'src': f'{HOME}/apps/launch-plan.html',
+        'name': 'Launch Plan', 'short': 'Launch Plan', 'src': f'{HOME}/coach/launchplan/launch-plan.html',
         'theme': '#17100a', 'bg': '#17100a',
         'tokens': '--pwa-bg:var(--panel);--pwa-fg:var(--fg);--pwa-line:var(--line-2);--pwa-accent:var(--amber);--pwa-on-accent:#1d1006',
-        # the progress review needs Claude, which only answers on claude.ai
-        'extra_css': '#reviewBtn{display:none}',
+        'extra_css': '',
         'icon': '''<body style="margin:0;width:100vw;height:100vh;display:grid;place-items:center;background:#17100a">
           <div style="position:relative;width:64vw;height:64vw;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffb347,#f28c28 55%,#a4552c);box-shadow:0 0 0 4vw #0a0603">
           <div style="position:absolute;left:50%;top:9vw;width:4vw;margin-left:-2vw;height:24vw;background:#1a0f05;border-radius:2vw;transform-origin:50% 23vw;transform:rotate(40deg)"></div></div>''',
@@ -88,6 +87,10 @@ def main():
         if app == 'newspaper':
             data = json.dumps(articles(), ensure_ascii=False, indent=0)
             open(os.path.join(d, 'articles.json'), 'w').write(data)
+        if app == 'launch-plan':
+            # the plan's day-by-day data, so the 5:30 PM reminder (launch-plan-data repo) can name today's goal
+            plan = next(b for b in re.findall(r'<script>(.*?)</script>', page, re.S) if 'PLAN DATA' in b)
+            open(os.path.join(d, 'plan.js'), 'w').write(plan)
         version = hashlib.sha1((html + data + sw_src + open(os.path.join(DOCS, 'pwa.js')).read()).encode()).hexdigest()[:10]
         open(os.path.join(d, 'sw.js'), 'w').write(sw_src.replace('__VERSION__', version).replace('__NAME__', cfg['name']))
         json.dump({'name': cfg['name'], 'short_name': cfg['short'], 'start_url': './', 'scope': './', 'display': 'standalone',
