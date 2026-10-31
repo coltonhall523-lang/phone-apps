@@ -1,0 +1,813 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Launch Plan</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Launch Plan">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#17100a">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]{display:none!important}</style>
+</head><body>
+<title>Launch Plan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;600;700&family=Righteous&family=VT323&display=swap">
+<style>
+/* Layout: wood-panel cabinet sidebar + bakelite consoles with amber CRT readouts. Single deliberate dark look. */
+:root{
+  --bg:#17100a; --panel:#241910; --panel-2:#2f2116; --line:#4a3523; --line-2:#6a4c31;
+  --fg:#f2e3c6; --muted:#b59e7d; --dim:#7d6a52;
+  --amber:#f28c28; --amber-2:#ffb347; --crt-bg:#0e0a05; --crt-fg:#ffb000;
+  --teal:#5f8f86; --mustard:#d4a73a; --red:#d1492e; --green:#8fb35a; --rust:#a4552c;
+  --f-display:"Righteous","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-crt:"VT323","Courier New",ui-monospace,monospace;
+  --r:10px; color-scheme:dark;
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.5;
+  background-image:radial-gradient(ellipse at 30% -10%,#3a2615 0,transparent 55%),repeating-linear-gradient(90deg,transparent 0 3px,rgba(0,0,0,.06) 3px 4px)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+*{box-sizing:border-box}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;letter-spacing:.01em;text-wrap:balance;margin:0;color:var(--amber-2)}
+h1{font-size:clamp(26px,4vw,36px)} h2{font-size:22px} h3{font-size:17px;color:var(--fg)}
+p{margin:0} a{color:var(--amber-2)}
+.label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.muted{color:var(--muted)} .small{font-size:13px}
+.num{font-variant-numeric:tabular-nums}
+
+/* app shell */
+.shell{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100%}
+.side{background:linear-gradient(180deg,#3b2817,#2a1b0f);border-right:3px solid #120c06;
+  background-image:repeating-linear-gradient(97deg,rgba(255,220,170,.035) 0 2px,transparent 2px 9px),linear-gradient(180deg,#3b2817,#24170c);
+  padding:20px 14px;padding-left:max(14px,env(safe-area-inset-left,0px));position:sticky;top:env(safe-area-inset-top,0px);height:100vh;overflow:auto}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.brand .dial{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--amber-2),var(--amber) 55%,var(--rust));
+  box-shadow:inset 0 -3px 6px rgba(0,0,0,.4),0 0 0 3px #120c06;position:relative;flex:none}
+.brand .dial::after{content:"";position:absolute;left:50%;top:7px;width:2px;height:13px;background:#1a0f05;transform-origin:50% 12px;transform:rotate(40deg)}
+.brand b{font-family:var(--f-display);font-size:19px;color:var(--fg);font-weight:400;line-height:1.1}
+.brand span{display:block;font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+.navgroup{margin:16px 0 6px;padding-left:8px}
+.nav a{display:flex;align-items:center;gap:10px;padding:8px 10px;margin:3px 0;border-radius:6px;color:var(--fg);text-decoration:none;font-size:14.5px;
+  border:1px solid transparent}
+.nav a::before{content:"";width:8px;height:8px;border-radius:50%;background:#120c06;box-shadow:inset 0 0 0 1px var(--line-2);flex:none}
+.nav a:hover{background:rgba(242,140,40,.08)}
+.nav a.on{background:var(--panel);border-color:var(--line-2);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.nav a.on::before{background:var(--amber);box-shadow:0 0 8px var(--amber)}
+.main{min-width:0;padding-block:28px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.page{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+.pagehead{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;border-bottom:2px dashed var(--line);padding-bottom:14px}
+.pagehead p{max-width:62ch;color:var(--muted)}
+@media (max-width:820px){
+  .shell{grid-template-columns:1fr}
+  .side{position:sticky;height:auto;padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));z-index:5;border-right:0;border-bottom:3px solid #120c06}
+  .brand{margin:0 0 8px} .navgroup{display:none}
+  .nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+  .nav a{white-space:nowrap;margin:0;padding:6px 10px;font-size:13.5px}
+}
+
+/* consoles */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:18px;
+  box-shadow:inset 0 1px 0 rgba(255,230,190,.05),0 6px 0 #0d0804}
+.panel.flat{box-shadow:none;background:var(--panel-2)}
+.crt{background:var(--crt-bg);color:var(--crt-fg);font-family:var(--f-crt);border-radius:14px;padding:12px 14px;position:relative;overflow:hidden;
+  border:3px solid #0a0603;box-shadow:inset 0 0 22px rgba(255,150,0,.12),0 0 0 2px var(--line-2);text-shadow:0 0 6px rgba(255,176,0,.45)}
+.crt::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 1px,transparent 1px 3px)}
+.crt .big{font-size:40px;line-height:1}
+.crt .lbl{font-size:16px;opacity:.75;letter-spacing:.05em;text-transform:uppercase}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.g3{grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr))}
+.stats{display:grid;gap:12px;grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:700px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.stack{display:flex;flex-direction:column;gap:12px}
+.spacer{flex:1}
+
+/* form controls */
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.field>span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+input,select,textarea{font:inherit;color:var(--fg);background:#120c07;border:1px solid var(--line-2);border-radius:6px;padding:9px 11px;width:100%;min-width:0}
+textarea{min-height:110px;resize:vertical;line-height:1.5}
+textarea.tall{min-height:260px}
+input:focus,select:focus,textarea:focus,button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+input[type=checkbox]{width:auto}
+.btn{font-family:var(--f-display);font-size:15px;letter-spacing:.03em;border:0;border-radius:8px;padding:10px 16px;cursor:pointer;color:#1d1006;
+  background:linear-gradient(180deg,var(--amber-2),var(--amber));box-shadow:0 4px 0 var(--rust),inset 0 1px 0 rgba(255,255,255,.35);transition:transform .08s,box-shadow .08s;white-space:nowrap}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--rust)}
+.btn:disabled{opacity:.5;cursor:default}
+.btn.ghost{background:var(--panel-2);color:var(--fg);box-shadow:0 3px 0 #0d0804,inset 0 0 0 1px var(--line-2)}
+.btn.teal{background:linear-gradient(180deg,#79aaa0,var(--teal));box-shadow:0 4px 0 #34524c,inset 0 1px 0 rgba(255,255,255,.3)}
+.btn.danger{background:linear-gradient(180deg,#e2674c,var(--red));box-shadow:0 4px 0 #6d2414;color:#fff3e6}
+.btn.sm{font-size:13px;padding:6px 11px;box-shadow:0 3px 0 var(--rust)}
+.btn.ghost.sm{box-shadow:0 2px 0 #0d0804,inset 0 0 0 1px var(--line-2)}
+.chip{font:inherit;font-size:13.5px;border-radius:999px;padding:7px 13px;border:1px solid var(--line-2);background:#120c07;color:var(--muted);cursor:pointer}
+.chip[aria-pressed=true]{background:var(--amber);color:#1d1006;border-color:var(--amber);box-shadow:0 0 12px rgba(242,140,40,.35)}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;padding:3px 9px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.p-amber{color:var(--amber-2)} .p-teal{color:#8cc0b6} .p-mustard{color:var(--mustard)} .p-red{color:#f07a5e} .p-green{color:var(--green)} .p-muted{color:var(--muted)}
+.stamp{display:inline-block;font-family:var(--f-display);text-transform:uppercase;letter-spacing:.08em;border:3px solid currentColor;border-radius:6px;padding:4px 12px;transform:rotate(-4deg);opacity:.92}
+.ok{color:var(--green)} .bad{color:#f07a5e} .warn{color:var(--mustard)}
+.note{border-left:3px solid var(--mustard);padding:8px 12px;background:rgba(212,167,58,.08);border-radius:0 6px 6px 0;font-size:13.5px;color:var(--fg)}
+.out{white-space:pre-wrap;word-wrap:break-word;background:#120c07;border:1px solid var(--line);border-radius:8px;padding:14px;max-height:520px;overflow:auto;font-size:14.5px;line-height:1.6}
+.checkrow{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;align-items:start;padding:10px 0;border-bottom:1px dashed var(--line)}
+.checkrow:last-child{border-bottom:0}
+.mark{font-family:var(--f-display);font-size:18px;line-height:1.2}
+.empty{text-align:center;padding:36px 16px;color:var(--muted);border:2px dashed var(--line);border-radius:var(--r)}
+.empty b{display:block;font-family:var(--f-display);font-weight:400;color:var(--fg);font-size:18px;margin-bottom:4px}
+.hist{display:flex;flex-direction:column;gap:6px}
+.hist button{all:unset;cursor:pointer;display:flex;gap:10px;justify-content:space-between;padding:8px 10px;border-radius:6px;background:var(--panel-2);border:1px solid var(--line);font-size:13.5px}
+.hist button:hover{border-color:var(--amber)}
+.hist button span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* modal + toast */
+.modal{position:fixed;inset:0;background:rgba(8,5,2,.72);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal .box{background:var(--panel);border:2px solid var(--line-2);border-radius:14px;width:min(620px,100%);max-height:90vh;overflow:auto;padding:20px;box-shadow:0 12px 0 #0a0603}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--crt-bg);color:var(--crt-fg);font-family:var(--f-crt);font-size:20px;
+  padding:8px 18px;border-radius:8px;border:2px solid var(--line-2);z-index:60;text-shadow:0 0 6px rgba(255,176,0,.5);max-width:calc(100% - 32px)}
+.status{font-family:var(--f-crt);font-size:17px;color:var(--crt-fg);display:flex;align-items:center;gap:8px}
+.status::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--crt-fg);box-shadow:0 0 8px var(--crt-fg)}
+.status.local{color:var(--mustard)} .status.local::before{background:var(--mustard)}
+.blink{animation:blink 1.1s steps(2) infinite} @keyframes blink{50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* bridge between the apps */
+.linkbtn{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:9px;width:100%;padding:9px 11px;border-radius:8px;font-weight:600;font-size:14px;color:var(--fg);
+  background:linear-gradient(180deg,#2f2116,#1d130b);border:1px solid var(--line-2);box-shadow:0 3px 0 #0d0804}
+.linkbtn:hover{border-color:var(--amber)} .linkbtn:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.linkbtn .jack{width:12px;height:12px;border-radius:50%;background:radial-gradient(circle,#0a0603 35%,#8a6a45 40%,#5a4028 70%);flex:none}
+.bbadge{margin-left:auto;background:var(--red);color:#fff;border-radius:999px;font-size:12px;min-width:20px;text-align:center;padding:1px 6px;box-shadow:0 0 10px rgba(209,73,46,.6)}
+.brow{display:flex;gap:10px;align-items:center;padding:10px;border-radius:8px;background:var(--panel-2);border:1px solid var(--line)}
+.brow.unread{border-color:var(--amber);box-shadow:inset 3px 0 0 var(--amber)}
+.brow b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+</style>
+<script>
+/* ---- shared kit: DOM helpers, saved-data store, built-in AI, YouTube paste codes ---- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+function h(tag, attrs = {}, ...kids) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v == null || v === false) continue;
+    if (k === 'class') el.className = v;
+    else if (k === 'text') el.textContent = v;
+    else if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
+    else if (k === 'style') el.style.cssText = v;
+    else el.setAttribute(k, v === true ? '' : v);
+  }
+  for (const k of kids.flat()) if (k != null && k !== false) el.append(k.nodeType ? k : String(k));
+  return el;
+}
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+const todayISO = () => { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); };
+const fmtDate = s => s ? new Date(s).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+const fmtNum = n => n == null || isNaN(n) ? '—' : Number(n).toLocaleString();
+const fmtShort = n => { n = Number(n); if (isNaN(n)) return '—'; if (n >= 1e9) return (n/1e9).toFixed(1)+'B'; if (n >= 1e6) return (n/1e6).toFixed(1)+'M'; if (n >= 1e3) return (n/1e3).toFixed(1)+'K'; return String(Math.round(n)); };
+const median = arr => { const a = arr.filter(x => !isNaN(x)).map(Number).sort((x, y) => x - y); if (!a.length) return 0; const m = a.length >> 1; return a.length % 2 ? a[m] : (a[m-1] + a[m]) / 2; };
+const daysBetween = (a, b) => Math.round((new Date(b) - new Date(a)) / 864e5);
+
+function toast(msg) {
+  const t = h('div', { class: 'toast', role: 'status', text: msg });
+  document.body.append(t); setTimeout(() => t.remove(), 2600);
+}
+function modal(content, { onClose } = {}) {
+  const box = h('div', { class: 'box', role: 'dialog', 'aria-modal': 'true' }, content);
+  const m = h('div', { class: 'modal' }, box);
+  const close = () => { m.remove(); document.removeEventListener('keydown', esc); onClose && onClose(); };
+  const esc = e => { if (e.key === 'Escape') close(); };
+  m.addEventListener('click', e => { if (e.target === m) close(); });
+  document.addEventListener('keydown', esc);
+  document.body.append(m);
+  setTimeout(() => box.querySelector('input,textarea,select,button')?.focus(), 30);
+  return close;
+}
+/* in-page confirm (the viewer blocks window.confirm) */
+function ask(question, yesLabel = 'Yes, do it') {
+  return new Promise(res => {
+    let done = false; const fin = v => { if (!done) { done = true; res(v); close(); } };
+    const close = modal(h('div', { class: 'stack' }, h('h3', { text: question }),
+      h('div', { class: 'row' }, h('button', { class: 'btn danger', onclick: () => fin(true), text: yesLabel }),
+        h('button', { class: 'btn ghost', onclick: () => fin(false), text: 'Cancel' }))), { onClose: () => fin(false) });
+  });
+}
+async function copyText(text, btn) {
+  try { await navigator.clipboard.writeText(text); toast('Copied to clipboard'); }
+  catch { const ta = h('textarea', { style: 'position:fixed;opacity:0' }); ta.value = text; document.body.append(ta); ta.select(); try { document.execCommand('copy'); toast('Copied'); } catch { toast('Select the text and copy it manually'); } ta.remove(); }
+}
+
+/* ---- Store: the app's saved files. Uses the artifact's shared database; falls back to this browser. ---- */
+const Store = {
+  db: null, mode: 'local', prefix: 'app', _local: {}, _subs: {},
+  async init(prefix) {
+    this.prefix = prefix;
+    try { if (window.claude?.use) this.db = await window.claude.use('db'); } catch { this.db = null; }
+    this.mode = this.db ? 'cloud' : 'local';
+    const s = document.getElementById('saveStatus');
+    if (s) { s.textContent = this.mode === 'cloud' ? 'Files saved to your account' : 'Saving in this browser only'; s.classList.toggle('local', this.mode !== 'cloud'); }
+  },
+  _lsGet(col) { try { return JSON.parse(localStorage.getItem(this.prefix + ':' + col) || '{}'); } catch { return this._local[col] || {}; } },
+  _lsSet(col, obj) { this._local[col] = obj; try { localStorage.setItem(this.prefix + ':' + col, JSON.stringify(obj)); } catch {} (this._subs[col] || []).forEach(cb => cb(this._toList(obj))); },
+  _toList(obj) { return Object.entries(obj).map(([id, d]) => ({ id, ...d })); },
+  watch(col, cb) {
+    if (this.db) {
+      return this.db.collection(col).onSnapshot(s => cb(s.docs.map(d => ({ id: d.id, ...d.data() }))), e => { console.warn(col, e); cb([]); });
+    }
+    (this._subs[col] ||= []).push(cb); cb(this._toList(this._lsGet(col)));
+    return () => {};
+  },
+  async put(col, obj) {
+    const id = obj.id || uid(); const data = { ...obj }; delete data.id;
+    data.updated_at = new Date().toISOString(); data.created_date ||= data.updated_at;
+    if (this.db) await this.db.collection(col).doc(id).set(JSON.parse(JSON.stringify(data)));
+    else { const all = this._lsGet(col); all[id] = data; this._lsSet(col, all); }
+    return id;
+  },
+  async list(col) {
+    if (this.db) { const s = await this.db.collection(col).get(); return s.docs.map(d => ({ id: d.id, ...d.data() })); }
+    return this._toList(this._lsGet(col));
+  },
+  async get(col, id) {
+    if (this.db) { const s = await this.db.collection(col).doc(id).get(); return s.exists ? { id, ...s.data() } : null; }
+    const d = this._lsGet(col)[id]; return d ? { id, ...d } : null;
+  },
+  async del(col, id) {
+    if (this.db) await this.db.collection(col).doc(id).delete();
+    else { const all = this._lsGet(col); delete all[id]; this._lsSet(col, all); }
+  },
+  async save(col, obj, label) {
+    try { const id = await this.put(col, obj); if (label !== null) toast((label || 'Record') + ' saved ✓'); return id; }
+    catch (e) { toast('Could not save: ' + (e.code === 'quota_exceeded' ? 'storage is full, delete some old records' : (e.message || 'try again'))); throw e; }
+  }
+};
+
+/* ---- AI: the built-in Claude for this page ---- */
+const AI = {
+  s: null, ready: null,
+  init() { this.ready = (async () => { try { if (window.claude?.use) this.s = await window.claude.use('sample'); } catch { this.s = null; } if (!this.s && LOCAL_YT) this.s = this.local(); return this.s; })(); return this.ready; },
+  /* run from the local server: Claude through the Workstation's key (no images, no streaming) */
+  local() {
+    const run = async (prompt, opts = {}) => {
+      if (opts.images?.length) throw { code: 'images_unavailable' };
+      const { text } = await api('/api/ws/claude', { prompt }); opts.onText && opts.onText({ text }); return { text };
+    };
+    run.json = async (prompt, opts = {}) => {
+      const { text } = await run(prompt + '\n\nReply with only the JSON, no other text.', opts);
+      const m = text.match(/[\[{][\s\S]*[\]}]/); if (!m) throw { code: 'invalid_json' };
+      try { return JSON.parse(m[0]); } catch { throw { code: 'invalid_json' }; }
+    };
+    return run;
+  },
+  explain(e) {
+    const c = e && e.code;
+    return ({ not_granted: 'AI access was declined for this page. Reload and choose Allow to use it.',
+      sampling_disabled: 'The built-in AI is not available on this account.',
+      rate_limited: 'Too many AI requests right now. Wait a minute and try again.',
+      session_expired: 'Your session expired. Sign in to Claude again.',
+      refused: 'The AI declined this request. Try rewording the input.',
+      invalid_json: 'The AI answer came back in the wrong shape. Press the button again.',
+      image_rejected: 'That image could not be read. Try a JPG or PNG under 20 MB.',
+      images_unavailable: 'Image reading is not available in this view.',
+      prompt_too_large: 'The input is too long. Trim it and try again.',
+      cancelled: 'Stopped.' })[c] || 'The AI could not answer just now. Try again.';
+  },
+  async need() { await this.ready; if (!this.s) throw { code: 'unavailable_here', message: 'x' }; return this.s; },
+  async json(prompt, opts = {}) { const s = await this.need(); return s.json(prompt, opts); },
+  async text(prompt, opts = {}) { const s = await this.need(); return s(prompt, opts); }
+};
+function aiErr(e) { return e && e.code === 'unavailable_here' ? 'The built-in AI only runs when this app is opened on claude.ai.' : e instanceof Error ? e.message : AI.explain(e); }
+
+/* busy button wrapper */
+async function busy(btn, label, fn) {
+  const old = btn.textContent; btn.disabled = true; btn.textContent = label;
+  try { return await fn(); } finally { btn.disabled = false; btn.textContent = old; }
+}
+
+/* ---- YouTube paste codes produced by yt-pull.py (the page itself cannot reach YouTube) ---- */
+function parseYT(str) {
+  str = (str || '').trim(); if (!str) return null;
+  try { if (str.startsWith('YT1:')) str = decodeURIComponent(escape(atob(str.slice(4).trim()))); return JSON.parse(str); } catch { return null; }
+}
+function ytCodeBox(onData, hint) {
+  const ta = h('textarea', { id: 'yt-' + uid(), placeholder: 'Paste the YT1:… code here', style: 'min-height:64px;font-family:var(--f-crt);font-size:16px' });
+  const wrap = h('details', { class: 'panel flat' },
+    h('summary', { style: 'cursor:pointer;font-weight:600' }, 'Or use the terminal code'),
+    h('div', { class: 'stack', style: 'margin-top:10px' },
+      h('p', { class: 'small muted' }, 'Run this in your Linux terminal, then paste the code it prints:'),
+      h('code', { class: 'crt', style: 'display:block;font-size:17px;word-break:break-all' }, hint),
+      ta,
+      h('div', {}, h('button', { class: 'btn teal sm', onclick: () => { const d = parseYT(ta.value); if (!d) return toast('That code did not read. Copy the whole line starting YT1:'); onData(d); ta.value = ''; wrap.open = false; toast('YouTube data loaded'); }, text: 'Load code' }))));
+  return wrap;
+}
+const LOCAL_YT = /^(localhost|127\.0\.0\.1|penguin\.linux\.test)$/.test(location.hostname) && location.protocol === 'http:';
+/* ---- local server calls (POSTs carry X-Studio so only our own pages can make them) ---- */
+async function api(path, body) {
+  const r = await fetch(path, body === undefined ? { cache: 'no-store' } : { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Studio': '1' }, body: JSON.stringify(body) });
+  let d = {}; try { d = await r.json(); } catch {}
+  if (!r.ok) throw new Error(d.error || 'Request failed (' + r.status + ')');
+  return d;
+}
+
+/* ---- any YouTube link -> {k:'channel'|'video', id}. Channel ids go to vidIQ as "@handle" or "UC…" ---- */
+function parseLink(raw) {
+  let s = (raw || '').trim().replace(/^<|>$/g, ''); if (!s) return null;
+  if (/^@[^\s/?#]+$/.test(s)) return { k: 'channel', id: s };
+  if (/^UC[\w-]{22}$/.test(s)) return { k: 'channel', id: s };
+  if (/^[\w-]{11}$/.test(s) && /[\d_-]/.test(s)) return { k: 'video', id: s };
+  if (/^[\w.\-]{3,30}$/.test(s) && !s.includes('.')) return { k: 'channel', id: '@' + s, guess: true };
+  if (!/^https?:\/\//i.test(s)) s = 'https://' + s;
+  let u; try { u = new URL(s); } catch { return null; }
+  const host = u.hostname.toLowerCase().replace(/^(www\.|m\.|music\.)/, ''), parts = u.pathname.split('/').filter(Boolean).map(decodeURIComponent);
+  const vid = x => /^[\w-]{11}$/.test(x || '') ? { k: 'video', id: x } : null;
+  if (host === 'youtu.be') return vid(parts[0]);
+  if (host !== 'youtube.com' && host !== 'youtube-nocookie.com') return null;
+  if (u.searchParams.get('v')) return vid(u.searchParams.get('v'));
+  if (['shorts', 'live', 'embed', 'v'].includes(parts[0])) return vid(parts[1]);
+  if (parts[0]?.startsWith('@')) return { k: 'channel', id: parts[0] };
+  if (parts[0] === 'channel' && /^UC[\w-]{22}$/.test(parts[1] || '')) return { k: 'channel', id: parts[1] };
+  if ((parts[0] === 'c' || parts[0] === 'user') && parts[1]) return { k: 'channel', id: '@' + parts[1], guess: true };
+  return null;
+}
+const isoSecs = iso => { const m = /^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+(?:\.\d+)?)S)?)?$/.exec(iso || ''); return m ? (+m[1] || 0) * 86400 + (+m[2] || 0) * 3600 + (+m[3] || 0) * 60 + Math.round(+m[4] || 0) : 0; };
+const isoDay = s => s ? String(s).slice(0, 10) : '';
+const fmtDay = s => s ? fmtDate(String(s).slice(0, 10) + 'T12:00') : '—';
+const fmtDur = s => { s = Math.round(s || 0); const hh = Math.floor(s / 3600), mm = Math.floor(s % 3600 / 60), ss = String(s % 60).padStart(2, '0'); return hh ? `${hh}:${String(mm).padStart(2, '0')}:${ss}` : `${mm}:${ss}`; };
+const stripStamps = t => String(t || '').replace(/\[\d{1,2}:\d{2}(?::\d{2})?\]/g, ' ').replace(/\s+/g, ' ').trim();
+
+/* ---- vidIQ through the claude.ai connector. Cached for a day, so a repeat fill of the same link is free. ---- */
+const VQ = {
+  S: 'vidIQ', mcp: null, ready: null, spent: 0, OFF: 'vidIQ fill only works in the claude.ai copy of this app.',
+  CACHE: { cache: { staleTime: 86400000, gcTime: 604800000 } },
+  init() { this.ready = (async () => { try { if (window.claude?.use) this.mcp = await window.claude.use('mcp'); } catch { this.mcp = null; } return this.mcp; })(); this.showCredits(); return this.ready; },
+  async on() { await this.ready; return !!this.mcp; },
+  msg(e) {
+    let m = e?.message || ''; try { const j = JSON.parse(m); m = j.error?.message || j.message || j.error || m; } catch {}
+    return String(m || 'something went wrong').slice(0, 240);
+  },
+  explain(e) {
+    switch (e?.code) {
+      case 'bad_link': return 'That is not a YouTube channel or video link. Paste a youtube.com/@name, /channel/UC…, watch?v=, youtu.be/ or /shorts/ link, or an @handle.';
+      case 'unavailable_here': case 'not_granted': case 'capability_disabled': case 'capability_removed': return this.OFF + ' Use the terminal code instead.';
+      case 'server_not_connected': case 'needs_reauth': case 'server_not_found': return 'Connect (or reconnect) vidIQ in claude.ai Settings → Connectors, then press Fill again.';
+      case 'selection_required': return 'You have more than one vidIQ connector. Choose one when claude.ai asks, then press Fill again.';
+      case 'not_in_manifest': case 'approval_required': case 'consent_required': return 'This page needs your OK to use vidIQ. Press Fill again and choose Allow.';
+      case 'blocked_by_policy': return 'Your organisation does not allow this vidIQ tool.';
+      case 'server_unavailable': case 'rate_limited': return 'vidIQ is busy, try again in a minute.';
+      case 'tool_error': return 'vidIQ said: ' + this.msg(e);
+      default: return 'vidIQ could not answer: ' + this.msg(e);
+    }
+  },
+  async call(tool, input) {
+    if (!await this.on()) throw { code: 'unavailable_here' };
+    const r = await this.mcp.callTool(this.S, tool, input, tool === 'vidiq_balance' ? { cache: false } : this.CACHE);
+    if (!r.cache && tool !== 'vidiq_balance') this.spent += Number(r.payload?._credits?.used ?? 5) || 0;
+    return r.payload || {};
+  },
+  showCredits(n) {
+    const el = document.getElementById('vqStatus'); if (!el) return;
+    if (n == null) { try { n = localStorage.getItem('vq:credits'); } catch {} } else { try { localStorage.setItem('vq:credits', n); } catch {} }
+    if (n == null || n === '') return; el.hidden = false; el.textContent = 'vidIQ credits: ' + n;
+  },
+  async balance() { try { const b = await this.call('vidiq_balance', {}); if (b.totalCredits != null) this.showCredits(b.totalCredits); return b.totalCredits; } catch { return null; } },
+  async channel(id, { format = 'auto', transcript = false, onStep = () => {} } = {}) {
+    onStep('Reading the channel and its newest videos…');
+    const first = format === 'short' ? 'short' : 'long';
+    const [st, lv] = await Promise.all([this.call('vidiq_channel_stats', { channelId: id }), this.call('vidiq_channel_videos', { channelId: id, videoFormat: first, popular: false })]);
+    let vids = lv.videos || [], used = first;
+    if (format === 'auto' && vids.length < 3) {
+      onStep('Few long videos — checking their Shorts…');
+      const sv = await this.call('vidiq_channel_videos', { channelId: id, videoFormat: 'short', popular: false });
+      if ((sv.videos || []).length > vids.length) { vids = sv.videos; used = 'short'; }
+    }
+    const cs = st.currentStats || {}, list = [...vids].sort((a, b) => String(b.publishedAt || '').localeCompare(String(a.publishedAt || '')));
+    const recent = list.slice(0, 24).map(v => ({ id: v.videoId, t: v.title, v: Number(v.viewCount) || 0, dur: isoSecs(v.duration), d: isoDay(v.publishedAt), thumb: v.thumbnail || '' }));
+    const oldest = list[list.length - 1], newest = list[0], total = Number(cs.videos) || 0;
+    const spanDays = oldest ? Math.max(1, daysBetween(oldest.publishedAt, newest.publishedAt)) : 0;
+    const d = { k: 'channel', id: st.channelId || lv.channelId || id, handle: id.startsWith('@') ? id : '', title: st.title || lv.channelTitle || id, thumb: st.thumbnail || '', country: st.country || '',
+      created: isoDay(st.publishedAt), subs: Number(cs.subscribers) || 0, views: Number(cs.views) || 0, videos: total,
+      firstUpload: oldest ? isoDay(oldest.publishedAt) : isoDay(st.publishedAt), firstUploadApprox: !oldest || total > list.length,
+      typical: Math.round(median(recent.slice(0, 20).map(r => r.v))), perMonth: list.length > 1 ? Math.round((list.length - 1) / (spanDays / 30.44) * 10) / 10 : list.length,
+      recent, fetched: list.length, format: used };
+    if (transcript && recent.length) {
+      const top = [...recent].sort((a, b) => b.v - a.v)[0];
+      onStep('Pulling the transcript of their top video…');
+      try { const t = await this.transcript(top.id); if (t) d.transcript = t; else d.transcriptError = 'That video has no transcript.'; }
+      catch (e) { d.transcriptError = this.explain(e); }
+    }
+    return d;
+  },
+  async transcript(videoId) {
+    const r = await this.call('vidiq_video_transcript', { videoId }), text = stripStamps(r.transcription);
+    return text ? { id: videoId, text, language: r.language || '' } : null;
+  },
+  async video(id, { transcript = false, channel = false, format = 'auto', onStep = () => {} } = {}) {
+    onStep('Reading the video…');
+    const v = (await this.call('vidiq_get_videos_by_ids', { videoIds: [id] })).videos?.[0];
+    if (!v) throw { code: 'tool_error', message: 'vidIQ found no video at that link.' };
+    const top = { id: v.id, t: v.title, v: Number(v.viewCount) || 0, dur: isoSecs(v.duration), d: isoDay(v.publishedAt), thumb: v.thumbnail || '' };
+    const video = { id: v.id, title: v.title, channelId: v.channelId, channelTitle: v.channelTitle, publishedAt: v.publishedAt, views: top.v, likes: Number(v.likeCount) || 0, comments: Number(v.commentCount) || 0,
+      dur: top.dur, thumb: top.thumb, description: String(v.description || '').slice(0, 3000), tags: (v.tags || []).slice(0, 40), vph: v.vph, outlierScore: v.outlierScore, engagementRate: v.engagementRate };
+    let tr = null, trErr = '';
+    if (transcript) { onStep('Pulling its transcript…'); try { tr = await this.transcript(v.id); if (!tr) trErr = 'That video has no transcript.'; } catch (e) { trErr = this.explain(e); } }
+    let d;
+    if (channel && v.channelId) { d = await this.channel(v.channelId, { format, onStep }); d.video = video; }
+    else d = { k: 'video', ...video, recent: [] };
+    d.top = top; if (tr) d.transcript = tr; if (trErr) d.transcriptError = trErr;
+    return d;
+  }
+};
+/* ---- a thumbnail from YouTube's image server as a File, or null when the browser blocks it ---- */
+async function fetchThumb(url, name = 'thumbnail') {
+  for (const u of [...new Set([url, String(url || '').replace(/maxresdefault|sddefault/, 'hqdefault')])].filter(Boolean)) {
+    try { const r = await fetch(u); if (!r.ok) continue; const b = await r.blob(); if (/^image\//.test(b.type)) return new File([b], name + '.jpg', { type: b.type }); } catch {}
+  }
+  return null;
+}
+async function loadThumb(url, onFile, slot, name) {
+  slot.replaceChildren(); if (!url) return false;
+  const f = await fetchThumb(url, name); if (f) { onFile(f); return true; }
+  slot.replaceChildren(h('p', { class: 'note' }, 'The browser would not load the thumbnail here. ', h('a', { href: url, target: '_blank', rel: 'noopener', text: 'Open thumbnail ↗' }), ' — save it and drop it here.'));
+  return false;
+}
+
+/* ---- per-page link box: one link, one button, vidIQ fills the page (the old paste code stays underneath) ---- */
+/* Running from yt-server.py: paste a link, press one button, the server asks YouTube */
+function ytPull(onData, hint) {
+  const mode = (hint.match(/ (channel|video|pool) /) || [, 'channel'])[1];
+  const ph = { channel: 'https://youtube.com/@channel', video: 'https://youtube.com/watch?v=…', pool: 'Paste 2–5 channel links, one per line' }[mode];
+  const box = mode === 'pool' ? h('textarea', { placeholder: ph, style: 'min-height:90px' }) : h('input', { type: 'url', placeholder: ph });
+  const go = e => busy(e.currentTarget, 'Pulling…', async () => {
+    const u = box.value.trim(); if (!u) return toast('Paste a YouTube link first.');
+    try {
+      const r = await fetch('/api/yt?mode=' + mode + '&u=' + encodeURIComponent(u)); const d = await r.json();
+      if (!r.ok) return toast(d.error || 'YouTube pull failed.');
+      if (d.k === 'video') { try { const t = await fetch('/thumbs/' + d.id + '.jpg'); if (t.ok) d.thumbBlob = new File([await t.blob()], d.id + '.jpg', { type: 'image/jpeg' }); } catch {} }
+      onData(d); toast('Pulled from YouTube ✓');
+    } catch { toast('The Second Brain server is not running. Start it from the launcher.'); }
+  });
+  box.addEventListener('keydown', e => { if (e.key === 'Enter' && mode !== 'pool') { e.preventDefault(); btn.click(); } });
+  const btn = h('button', { class: 'btn teal', onclick: go, text: '▶ Pull from YouTube' });
+  return h('div', { class: 'panel flat stack' }, h('div', { style: 'font-weight:600' }, '📡 Fill from YouTube'), box, h('div', {}, btn));
+}
+function ytBox(onData, hint, opts = {}) {
+  if (LOCAL_YT) return ytPull(onData, hint);
+  const mode = (hint.match(/ (channel|video|pool) /) || [, 'channel'])[1];
+  const ph = { channel: 'Channel link or @handle', video: 'Video link (watch?v=, youtu.be/, /shorts/…)', pool: 'Competitor channel links or @handles, one per line' }[mode];
+  const box = mode === 'pool' ? h('textarea', { placeholder: ph, style: 'min-height:80px', 'aria-label': ph }) : h('input', { placeholder: ph, 'aria-label': ph });
+  const cost = h('span', { class: 'small muted' }), err = h('div'), off = h('p', { class: 'note', hidden: true, text: VQ.OFF + ' Use the terminal code below.' });
+  const lines = () => box.value.split(/[\n,]+/).map(parseLink).filter(p => p && p.k === 'channel');
+  const upd = () => { cost.textContent = '≈' + (mode === 'pool' ? Math.max(1, lines().length) * 5 : mode === 'channel' ? 10 : opts.transcript ? 10 : 5) + ' credits' + (mode === 'pool' ? ' (5 a channel)' : ''); };
+  box.addEventListener('input', upd); upd();
+  const run = () => busy(btn, 'Asking vidIQ…', async () => {
+    err.replaceChildren();
+    try {
+      if (mode === 'pool') {
+        const ps = lines().slice(0, 5); if (!ps.length) return toast('Paste at least one channel link or @handle.');
+        const channels = [];
+        for (const p of ps) { const s = await VQ.call('vidiq_channel_stats', { channelId: p.id }); channels.push({ title: s.title || p.id, videos: Number(s.currentStats?.videos) || 0 }); }
+        onData({ k: 'pool', channels });
+      } else {
+        const p = parseLink(box.value);
+        if (!p || p.k !== mode) return toast(mode === 'channel' ? 'Paste a channel link or @handle.' : 'Paste a video link.');
+        onData(mode === 'channel' ? await VQ.channel(p.id, { format: 'auto' }) : await VQ.video(p.id, { transcript: !!opts.transcript }));
+      }
+      toast('Filled from vidIQ ✓'); VQ.balance();
+    } catch (e) { err.replaceChildren(h('p', { class: 'note', text: VQ.explain(e) })); }
+  });
+  if (mode !== 'pool') box.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); run(); } });
+  const btn = h('button', { class: 'btn teal sm', onclick: run, text: '⚡ Fill from vidIQ' });
+  const old = ytCodeBox(onData, hint);
+  (VQ.ready || VQ.init()).then(m => { if (!m) { off.hidden = false; btn.disabled = true; old.open = true; } });
+  return h('div', { class: 'panel flat stack' }, h('div', { style: 'font-weight:600' }, '⚡ Fill from vidIQ' + (opts.transcript ? ' (with transcript)' : '')),
+    mode === 'pool' ? box : null, h('div', { class: 'row', style: 'flex-wrap:nowrap' }, mode === 'pool' ? null : box, btn), cost, off, err, old);
+}
+
+/* ---- Bridge: notes passed between the Second Brain and the Workstation ----
+   From the local server they are kept there and both apps see them. On claude.ai the two apps can't share storage,
+   so an item travels as a BR1: code through the clipboard: one click to send, one click to paste. */
+const Bridge = {
+  me: null, NAMES: { brain: 'Second Brain', workstation: 'Workstation' }, PAGES: { brain: '/second-brain.html', workstation: '/workstation.html' },
+  URLS: { brain: 'https://claude.ai/artifact/4a2M7qMLVC3F95Gz2TsMep', workstation: 'https://claude.ai/artifact/HFG3Fow2bPS52urLh4PnTS' },
+  TYPES: { blueprint: 'Blueprint', script: 'Script', title: 'Title', thumbnail: 'Thumbnail', research: 'Research', notes: 'Notes', package: 'Finished video', project: 'Project' },
+  get other() { return this.me === 'brain' ? 'workstation' : 'brain'; },
+  link(app = this.other) { return LOCAL_YT ? this.PAGES[app] : this.URLS[app]; },
+  openLink(text, cls = 'btn teal') { return h('a', { class: cls, href: this.link(), target: '_blank', rel: 'noopener', style: 'text-decoration:none;text-align:center', text: text || 'Open the ' + this.NAMES[this.other] + ' ↗' }); },
+  encode(item) { return 'BR1:' + btoa(unescape(encodeURIComponent(JSON.stringify(item)))); },
+  decode(str) { str = (str || '').trim(); if (!str.startsWith('BR1:')) return null; try { return JSON.parse(decodeURIComponent(escape(atob(str.slice(4).trim())))); } catch { return null; } },
+  async copy(text) {
+    try { await navigator.clipboard.writeText(text); return true; } catch {}
+    const ta = h('textarea', { style: 'position:fixed;opacity:0' }); ta.value = text; document.body.append(ta); ta.select();
+    let ok = false; try { ok = document.execCommand('copy'); } catch {} ta.remove(); return ok;
+  },
+  async send(type, title, data) {
+    const item = { to: this.other, from: this.me, type, title, data };
+    if (LOCAL_YT) {
+      try { await api('/api/bridge', item); toast('Sent to the ' + this.NAMES[this.other] + ' ✓'); this.refresh(); return true; }
+      catch (e) { toast(e.message); return false; }
+    }
+    const code = this.encode(item), other = this.NAMES[this.other], say = h('p', { style: 'font-weight:600' });
+    const copied = ok => { say.className = ok ? 'ok' : 'warn'; say.textContent = ok ? `Copied ✓ — open the ${other}, press 🔗 ${this.NAMES[this.me]}, then 📋 Paste from clipboard.` : 'Your browser blocked the copy. Press Copy again, or open "Show the code" and copy it by hand.'; };
+    copied(await this.copy(code));
+    modal(h('div', { class: 'stack' }, h('h3', { text: 'Send to the ' + other + ': ' + (this.TYPES[type] || type) }), say,
+      h('div', { class: 'row' }, this.openLink('Open the ' + other + ' ↗'), h('button', { class: 'btn ghost', onclick: async () => copied(await this.copy(code)), text: 'Copy again' })),
+      h('details', {}, h('summary', { style: 'cursor:pointer;font-weight:600', text: 'Show the code' }),
+        h('textarea', { readonly: true, style: 'margin-top:8px;min-height:90px;font-family:var(--f-crt);font-size:15px' }, code))));
+    return true;
+  },
+  async all() { return LOCAL_YT ? api('/api/bridge') : []; },
+  async mark(id, read = true) { if (LOCAL_YT) await api('/api/bridge/update', { id, read }).catch(() => {}); },
+  async remove(id) { if (LOCAL_YT) await api('/api/bridge/update', { id, delete: true }).catch(() => {}); },
+  /* sidebar button with an unread badge; onOpen(item) puts an incoming item to use */
+  button(onOpen) {
+    this.onOpen = onOpen;
+    this.badge = h('span', { class: 'bbadge', hidden: true });
+    const b = h('button', { class: 'linkbtn', onclick: () => this.panel(), title: 'Share with the ' + this.NAMES[this.other] }, h('span', { class: 'jack' }), h('span', { text: '🔗 ' + this.NAMES[this.other] }), this.badge);
+    this.refresh(); if (LOCAL_YT) setInterval(() => this.refresh(), 12000);
+    return b;
+  },
+  async refresh() {
+    if (!this.badge) return;
+    try { const n = (await this.all()).filter(i => i.to === this.me && !i.read).length; this.badge.hidden = !n; this.badge.textContent = n; } catch { this.badge.hidden = true; }
+  },
+  async panel() {
+    const list = h('div', { class: 'stack', style: 'gap:8px' }), sent = h('div', { class: 'stack', style: 'gap:6px' }), other = this.NAMES[this.other];
+    const paste = h('textarea', { id: 'br-paste', placeholder: 'Paste a BR1:… code here — it opens by itself', style: 'min-height:56px;font-family:var(--f-crt);font-size:15px' });
+    let close;
+    /* quiet: a half-pasted code is not an error yet; a code meant for the other app always is */
+    const openCode = (str, quiet) => {
+      const it = this.decode(str);
+      if (!it) { if (!quiet) toast('That code did not read. Copy the whole line starting BR1:'); return false; }
+      if (it.to !== this.me) { const n = this.NAMES[it.to] || 'other app'; toast(`That code is meant for the ${n}. Open the ${n} and paste it there.`); return false; }
+      close(); this.onOpen && this.onOpen(it); return true;
+    };
+    paste.addEventListener('input', () => { if (/^\s*BR1:\S{8,}/.test(paste.value)) openCode(paste.value, true); });
+    const blocked = h('p', { class: 'note', hidden: true, text: 'Your browser did not let the page read the clipboard. Click in the box below and paste (Ctrl+V, or ⌘V on a Mac) — it opens by itself.' });
+    const fromClip = async () => {
+      let t; try { t = await navigator.clipboard.readText(); } catch { blocked.hidden = false; paste.focus(); return; }
+      if (!/^\s*BR1:/.test(t || '')) return toast(`No code on the clipboard yet. Press a send button in the ${other} first.`);
+      openCode(t);
+    };
+    const use = async it => { await this.mark(it.id); close(); this.refresh(); this.onOpen && this.onOpen(it); };
+    const row = it => h('div', { class: 'brow' + (it.read ? '' : ' unread') },
+      h('span', { class: 'pill p-teal', text: this.TYPES[it.type] || it.type }),
+      h('div', { style: 'flex:1;min-width:0' }, h('b', { text: it.title || 'Untitled' }), h('div', { class: 'small muted', text: fmtDate(it.at) + (it.read ? '' : ' · new') })),
+      h('button', { class: 'btn sm', onclick: () => use(it), text: 'Open' }),
+      h('button', { class: 'btn ghost sm', 'aria-label': 'Delete', onclick: async () => { await this.remove(it.id); draw(); this.refresh(); }, text: '✕' }));
+    const draw = async () => {
+      let items = []; try { items = await this.all(); } catch { }
+      const inbox = items.filter(i => i.to === this.me), out = items.filter(i => i.from === this.me);
+      list.replaceChildren(...(inbox.length ? inbox.map(row) : [h('div', { class: 'empty' }, h('b', { text: 'Nothing waiting' }), 'Things sent from the ' + other + ' show up here.')]));
+      sent.replaceChildren(...(out.length ? out.slice(0, 12).map(i => h('div', { class: 'row small' }, h('span', { class: 'pill p-muted', text: this.TYPES[i.type] || i.type }), h('span', { style: 'flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap', text: i.title }), h('span', { class: i.read ? 'ok' : 'muted', text: i.read ? 'Opened ✓' : 'Waiting' })))
+        : [h('p', { class: 'small muted', text: 'Nothing sent yet. Look for the "→ ' + other + '" buttons.' })]));
+    };
+    const pasteBox = h('div', { class: 'stack', style: 'margin-top:8px' }, paste, h('div', {}, h('button', { class: 'btn ghost sm', text: 'Open code', onclick: () => openCode(paste.value) })));
+    close = modal(h('div', { class: 'stack' },
+      h('div', { class: 'row' }, h('h2', { text: '🔗 ' + other + ' link' }), h('span', { class: 'spacer' }),
+        LOCAL_YT ? h('span', { class: 'status', text: 'Connected' }) : h('span', { class: 'status local', text: 'Clipboard mode' })),
+      ...(LOCAL_YT ? [this.openLink(),
+        h('div', { class: 'label', text: 'Inbox' }), list,
+        h('details', {}, h('summary', { style: 'cursor:pointer;font-weight:600', text: 'Paste a code instead' }), pasteBox),
+        h('details', {}, h('summary', { style: 'cursor:pointer;font-weight:600', text: 'Sent from here' }), h('div', { style: 'margin-top:8px' }, sent))]
+      : [h('p', { class: 'small muted', text: `On claude.ai the two apps can't see each other's files, so things travel through your clipboard. Press a send button in the ${other}, come back here and press Paste.` }),
+        h('div', { class: 'row' }, h('button', { class: 'btn', onclick: fromClip, text: '📋 Paste from clipboard' }), this.openLink('Open the ' + other + ' ↗', 'btn ghost')),
+        blocked, h('label', { class: 'label', for: 'br-paste', text: 'Or paste the code here' }), pasteBox])));
+    if (LOCAL_YT) draw();
+  }
+};
+</script>
+<style>
+.lp{max-width:1080px;margin:0 auto;padding-block:24px 70px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+.lp-top{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+.lp-top .brand{margin:0}
+.statcard .big{font-size:46px}
+.pace{font-family:var(--f-display);font-size:18px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pace .stamp{font-size:15px}
+.controls{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between}
+.controls label{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.controls input[type=date]{width:auto;padding:5px 8px}
+.nextm{font-size:15px}
+.nextm b{color:var(--amber-2);font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:5px}
+.daygrid{display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:6px;padding:16px;background:#0f0a05;border-radius:14px;border:3px solid #0a0603;box-shadow:0 0 0 2px var(--line-2),inset 0 0 30px rgba(0,0,0,.6)}
+@media (max-width:700px){.daygrid{grid-template-columns:repeat(10,minmax(0,1fr));gap:4px;padding:10px}}
+.sq{all:unset;box-sizing:border-box;position:relative;aspect-ratio:1;max-width:100%;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-family:var(--f-crt);font-size:clamp(14px,2.2vw,20px);color:var(--fg);border:2px solid var(--ph);background:color-mix(in srgb,var(--ph) calc(var(--fill)*100%),transparent)}
+.sq.filled{color:#140c05;text-shadow:none}
+.sq.future{opacity:.32}
+.sq.today{box-shadow:0 0 0 3px var(--bg),0 0 0 6px #fff4c2,0 0 18px 6px rgba(255,190,80,.7);z-index:1}
+.sq:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.sq .ms{position:absolute;top:-5px;right:-5px;width:12px;height:12px;transform:rotate(45deg);background:var(--fg);border:2px solid #0f0a05}
+.sq .ms.hit{background:var(--green)}
+.sq .flag{position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);font-family:var(--f-body);font-size:9px;font-weight:700;letter-spacing:.06em;background:var(--red);color:#fff;padding:0 4px;border-radius:3px;white-space:nowrap;text-transform:uppercase}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.reviewbox{display:grid;gap:12px}
+.rv h4{margin:0 0 3px;font-family:var(--f-display);font-weight:400;color:var(--amber-2);font-size:15px}
+.party{position:fixed;inset:0;z-index:70;display:flex;align-items:center;justify-content:center;background:rgba(8,5,2,.8);flex-direction:column;gap:16px;text-align:center;padding:16px}
+.party .stamp{font-size:clamp(40px,10vw,90px);color:var(--red);animation:slam .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes slam{from{transform:rotate(-4deg) scale(3);opacity:0}to{transform:rotate(-4deg) scale(1);opacity:1}}
+.party canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+</style>
+
+<div class="lp">
+  <div class="lp-top">
+    <div class="brand"><div class="dial"></div><div><b>Launch Plan</b><span>90 days · one channel</span></div></div>
+    <div class="row"><span class="status" id="saveStatus">Connecting…</span><button class="btn teal" id="reviewBtn">Review my progress</button></div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+  <div class="pace" id="pace"></div>
+
+  <div class="controls">
+    <div class="nextm" id="nextm"></div>
+    <label for="startDate">Start date <input type="date" id="startDate"></label>
+  </div>
+
+  <div class="daygrid" id="grid" aria-label="90 day grid"></div>
+
+  <div class="legend">
+    <span><i style="background:var(--teal)"></i>Days 1–14 · Hunt</span>
+    <span><i style="background:var(--mustard)"></i>15–30 · Build</span>
+    <span><i style="background:var(--amber)"></i>31–60 · Launch</span>
+    <span><i style="background:var(--rust)"></i>61–90 · Scale</span>
+    <span><i style="background:var(--fg);transform:rotate(45deg);width:9px;height:9px"></i>Milestone</span>
+    <span>Fuller square = more logged</span>
+  </div>
+
+  <section class="panel stack" id="reviews">
+    <div class="row"><h2>Progress reviews</h2><span class="spacer"></span><span class="small muted">Saved with the date they were made</span></div>
+    <div id="reviewList"></div>
+  </section>
+</div>
+
+<script>
+const ACTIONS = ['Hunted niches','Validated a channel','Wrote a script','Made a thumbnail','Edited','Uploaded','Hiring','Analytics'];
+const MILESTONES = {3:'Second Brain built',7:'20 channels validated',14:'Niche locked',26:'Channel created',35:'First video uploaded',50:'Editor hired',70:'Weekly uploads holding',90:'Keep this niche or move'};
+const PHASE = n => n<=14?'var(--teal)':n<=30?'var(--mustard)':n<=60?'var(--amber)':'var(--rust)';
+const PHASE_NAME = n => n<=14?'Hunt':n<=30?'Build':n<=60?'Launch':'Scale';
+let days = {}, settings = { start: todayISO() }, reviews = [], settingsLoaded = false;
+
+const dateOf = n => { const d = new Date(settings.start + 'T12:00'); d.setDate(d.getDate() + n - 1); return d; };
+const todayN = () => daysBetween(settings.start + 'T12:00', todayISO() + 'T12:00') + 1;
+const acts = n => (days['d'+n]?.actions) || [];
+
+function computed() {
+  const t = todayN(), cur = Math.min(Math.max(t, 0), 90);
+  let streak = 0; let i = Math.min(t, 90);
+  if (i >= 1 && !acts(i).length) i--;
+  while (i >= 1 && acts(i).length) { streak++; i--; }
+  let lastUp = 0; for (let n = 1; n <= Math.min(t, 90); n++) if (acts(n).includes('Uploaded')) lastUp = n;
+  const due = Object.keys(MILESTONES).map(Number).filter(n => n <= t);
+  const hit = Object.keys(MILESTONES).map(Number).filter(n => days['d'+n]?.milestone_hit);
+  const overdue = due.filter(n => !days['d'+n]?.milestone_hit);
+  const next = Object.keys(MILESTONES).map(Number).find(n => !days['d'+n]?.milestone_hit);
+  return { t, cur, streak, lastUp, due, hit, overdue, next };
+}
+
+function render() {
+  const c = computed();
+  $('#startDate').value = settings.start;
+  const sinceUp = c.lastUp ? Math.max(0, c.t - c.lastUp) : null;
+  const cards = [
+    ['Day', c.t < 1 ? 'Starts soon' : c.t > 90 ? 'Done' : c.cur, 'of 90'],
+    ['Current streak', c.streak, c.streak === 1 ? 'day' : 'days'],
+    ['Days remaining', Math.max(0, 90 - Math.max(c.cur, 0)), 'to go'],
+    ['Since last Uploaded', sinceUp == null ? 'Never' : sinceUp, sinceUp == null ? 'no uploads yet' : 'days ago'],
+  ];
+  if (settings.launchDay) cards.push(['Days live', Math.max(0, c.t - settings.launchDay), 'since launch, day ' + settings.launchDay]);
+  $('#stats').style.gridTemplateColumns = '';
+  $('#stats').replaceChildren(...cards.map(([l, v, s]) => h('div', { class: 'crt statcard' }, h('div', { class: 'lbl', text: l }), h('div', { class: 'big num', text: v }), h('div', { class: 'lbl', text: s }))));
+  if (cards.length === 5) $('#stats').lastChild.style.gridColumn = '1 / -1';
+
+  const behind = c.overdue.length;
+  $('#pace').replaceChildren(
+    h('span', { class: 'stamp ' + (behind ? 'bad' : 'ok'), text: behind ? `${behind} milestone${behind > 1 ? 's' : ''} behind` : 'On pace' }),
+    h('span', { class: 'small muted', style: 'font-family:var(--f-body)', text: `${c.due.length} due by today · ${c.hit.length} hit` + (behind ? ' · overdue: ' + c.overdue.map(n => 'Day ' + n).join(', ') : '') }));
+
+  $('#nextm').replaceChildren(c.next
+    ? h('span', {}, 'Next milestone: ', h('b', { text: `Day ${c.next} – ${MILESTONES[c.next]}` }), h('span', { class: 'muted', text: c.next - c.t > 0 ? ` · in ${c.next - c.t} days` : c.next === c.t ? ' · today' : ` · ${c.t - c.next} days overdue` }))
+    : h('span', { text: 'Every milestone hit. Decide: keep this niche or move.' }));
+
+  const grid = $('#grid'); grid.replaceChildren();
+  for (let n = 1; n <= 90; n++) {
+    const a = acts(n), fill = a.length ? 0.25 + 0.75 * Math.min(a.length, 8) / 8 : 0;
+    const cls = ['sq', n > c.t && 'future', n === c.t && 'today', fill > .5 && 'filled'].filter(Boolean).join(' ');
+    const sq = h('button', { class: cls, style: `--ph:${PHASE(n)};--fill:${fill}`, 'aria-label': `Day ${n}, ${a.length} actions${MILESTONES[n] ? ', milestone ' + MILESTONES[n] : ''}`, onclick: () => openDay(n) }, String(n));
+    if (MILESTONES[n]) sq.append(h('span', { class: 'ms' + (days['d'+n]?.milestone_hit ? ' hit' : '') }));
+    if (settings.launchDay === n) sq.append(h('span', { class: 'flag', text: '⚑ Launched' }));
+    grid.append(sq);
+  }
+  renderReviews();
+}
+
+function openDay(n) {
+  const c = computed(), future = n > c.t, rec = days['d'+n] || {};
+  let sel = new Set(rec.actions || []);
+  const notes = h('textarea', { id: 'dayNotes', placeholder: future ? 'Future days unlock when you get there.' : 'What happened today?', style: 'min-height:80px' });
+  notes.value = rec.notes || ''; notes.disabled = future;
+  const chips = ACTIONS.map(a => h('button', { class: 'chip', 'aria-pressed': String(sel.has(a)), disabled: future, onclick: e => { sel.has(a) ? sel.delete(a) : sel.add(a); e.currentTarget.setAttribute('aria-pressed', String(sel.has(a))); } }, a));
+  const ms = MILESTONES[n];
+  const msBox = ms ? h('div', { class: 'panel flat row' }, h('span', { class: 'label', text: 'Milestone' }), h('b', { text: ms }), h('span', { class: 'spacer' }),
+      rec.milestone_hit ? h('span', { class: 'stamp ok', style: 'font-size:13px', text: 'Hit ' + fmtDate(rec.milestone_hit) })
+        : h('button', { class: 'btn sm', onclick: async () => { await saveDay(n, { milestone_hit: todayISO() }); close(); toast('Milestone marked as hit'); } , text: 'Mark as hit' })) : null;
+  const close = modal(h('div', { class: 'stack' },
+    h('div', { class: 'row' }, h('h2', { text: 'Day ' + n }), h('span', { class: 'pill', style: `color:${PHASE(n)}`, text: PHASE_NAME(n) }), h('span', { class: 'spacer' }),
+      h('span', { class: 'muted small', text: dateOf(n).toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' }) })),
+    msBox,
+    future ? h('p', { class: 'note', text: "You can't log a future day. Come back on " + dateOf(n).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) + '.' }) : null,
+    h('div', { class: 'label', text: 'What did you do?' }), h('div', { class: 'chips' }, chips),
+    h('label', { class: 'field', for: 'dayNotes' }, h('span', { text: 'Notes' }), notes),
+    h('div', { class: 'row' }, h('button', { class: 'btn', disabled: future, onclick: async () => { await saveDay(n, { actions: [...sel], notes: notes.value.trim() }, true); close(); } }, 'Save day'),
+      h('button', { class: 'btn ghost', onclick: () => close() }, 'Close'))));
+}
+
+async function saveDay(n, patch, announce) {
+  const rec = { day_number: n, actions: [], notes: '', ...(days['d'+n] || {}), ...patch, id: 'd'+n };
+  days['d'+n] = rec; render();
+  await Store.save('days', rec, announce ? 'Day ' + n : null).catch(() => {});
+  if (rec.actions.includes('Uploaded') && !settings.launchDay) {
+    settings.launchDay = n; await Store.put('settings', { ...settings, id: 'main' });
+    celebrate(n);
+  }
+}
+
+function celebrate(n) {
+  const cv = h('canvas');
+  const p = h('div', { class: 'party', role: 'dialog' }, cv, h('span', { class: 'stamp', text: 'Launched' }),
+    h('p', { style: 'font-family:var(--f-display);font-size:20px', text: `Day ${n}. Your first upload is live. The clock on "Days live" starts now.` }),
+    h('button', { class: 'btn', onclick: () => p.remove(), text: 'Back to work' }));
+  document.body.append(p);
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const ctx = cv.getContext('2d'); cv.width = innerWidth; cv.height = innerHeight;
+  const cols = ['#f28c28', '#ffb347', '#5f8f86', '#d4a73a', '#d1492e', '#f2e3c6'];
+  const bits = Array.from({ length: 160 }, () => ({ x: cv.width / 2, y: cv.height / 2, vx: (Math.random() - .5) * 16, vy: Math.random() * -16 - 3, c: cols[Math.random() * 6 | 0], r: Math.random() * 6 + 3, a: Math.random() * 6 }));
+  let f = 0; (function tick() { ctx.clearRect(0, 0, cv.width, cv.height);
+    bits.forEach(b => { b.x += b.vx; b.y += b.vy; b.vy += .4; b.a += .2; ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(b.a); ctx.fillStyle = b.c; ctx.fillRect(-b.r / 2, -b.r / 4, b.r, b.r / 2); ctx.restore(); });
+    if (++f < 150 && p.isConnected) requestAnimationFrame(tick); })();
+}
+
+/* ---- AI progress review ---- */
+function patternFacts(c) {
+  const t = Math.min(c.t, 90), wd = {};
+  for (let n = 1; n <= t; n++) { const w = dateOf(n).toLocaleDateString('en', { weekday: 'long' }); wd[w] ||= { total: 0, logged: 0 }; wd[w].total++; if (acts(n).length) wd[w].logged++; }
+  const gaps = []; let run = 0, from = 0;
+  for (let n = 1; n <= t; n++) { if (!acts(n).length) { if (!run) from = n; run++; } else { if (run > 3) gaps.push(`days ${from}-${n - 1} (${run} days)`); run = 0; } }
+  if (run > 3) gaps.push(`days ${from}-${t} (${run} days, ongoing)`);
+  const counts = Object.fromEntries(ACTIONS.map(a => [a, 0]));
+  for (let n = 1; n <= t; n++) acts(n).forEach(a => counts[a]++);
+  return { wd, gaps, counts };
+}
+$('#reviewBtn').onclick = e => busy(e.currentTarget, 'Reviewing…', async () => {
+  const c = computed(), t = Math.min(c.t, 90);
+  if (t < 1) return toast('Your 90 days have not started yet.');
+  const { wd, gaps, counts } = patternFacts(c);
+  const log = []; for (let n = 1; n <= t; n++) log.push(`Day ${n} (${dateOf(n).toLocaleDateString('en', { weekday: 'short', month: 'short', day: 'numeric' })}): ${acts(n).join(', ') || 'nothing logged'}${days['d'+n]?.notes ? ' | notes: ' + days['d'+n].notes.slice(0, 160) : ''}`);
+  const ms = Object.entries(MILESTONES).map(([n, m]) => `Day ${n} – ${m}: ${days['d'+n]?.milestone_hit ? 'HIT' : n <= t ? 'OVERDUE' : 'upcoming'}`);
+  const prompt = `You are a blunt accountability coach for someone launching a faceless YouTube channel in 90 days. Today is day ${t} of 90. Current streak: ${c.streak} days.
+Action counts so far: ${JSON.stringify(counts)}
+Weekday logging (logged/total): ${JSON.stringify(wd)}
+Gaps over 3 days: ${gaps.join('; ') || 'none'}
+Milestones:\n${ms.join('\n')}
+Day log:\n${log.join('\n')}
+
+Reply with ONLY a JSON object: {"working": "...", "avoiding": "...", "pattern": "...", "this_week": "..."}
+- working: the action logged most, one or two sentences.
+- avoiding: the action logged least or never. Say it plainly.
+- pattern: any weekday always skipped, or any gap over 3 days. If none, say so.
+- this_week: one concrete thing to do this week tied to the next milestone (${c.next ? 'Day ' + c.next + ' – ' + MILESTONES[c.next] : 'final decision'}).
+Short and direct. No praise padding.`;
+  try {
+    const r = await AI.json(prompt, { cache: false });
+    const rec = { date: todayISO(), day: t, working: String(r.working || ''), avoiding: String(r.avoiding || ''), pattern: String(r.pattern || ''), this_week: String(r.this_week || '') };
+    await Store.save('reviews', rec, 'Review');
+  } catch (err) { toast(aiErr(err)); }
+});
+function renderReviews() {
+  const list = [...reviews].sort((a, b) => (b.created_date || '').localeCompare(a.created_date || ''));
+  $('#reviewList').replaceChildren(list.length ? h('div', { class: 'reviewbox' }, list.map((r, i) =>
+    h('details', { class: 'panel flat', open: i === 0 || null },
+      h('summary', { style: 'cursor:pointer', text: `${fmtDate(r.date)} · Day ${r.day}` }),
+      h('div', { class: 'grid g2', style: 'margin-top:12px' },
+        [['What\'s working', r.working], ['What you\'re avoiding', r.avoiding], ['Your pattern', r.pattern], ['One thing this week', r.this_week]]
+          .map(([k, v]) => h('div', { class: 'rv' }, h('h4', { text: k }), h('p', { text: v })))))))
+    : h('div', { class: 'empty' }, h('b', { text: 'No reviews yet' }), 'Log a few days, then press "Review my progress" for a straight read on how it is going.'));
+}
+
+$('#startDate').onchange = async e => { if (!e.target.value) return; settings.start = e.target.value; render(); await Store.save('settings', { ...settings, id: 'main' }, 'Start date'); };
+
+(async () => {
+  AI.init(); render();
+  await Store.init('launchplan');
+  Store.watch('days', list => { days = Object.fromEntries(list.map(d => [d.id, d])); render(); });
+  Store.watch('reviews', list => { reviews = list; renderReviews(); });
+  try { if (!(await Store.get('settings', 'main'))) await Store.put('settings', { id: 'main', start: todayISO() }); } catch {}
+  Store.watch('settings', list => {
+    const s = list.find(x => x.id === 'main');
+    if (s) { settings = { ...settings, ...s }; delete settings.id; render(); }
+  });
+})();
+</script>
+
+<style>:root{--pwa-bg:var(--panel);--pwa-fg:var(--fg);--pwa-line:var(--line-2);--pwa-accent:var(--amber);--pwa-on-accent:#1d1006}#reviewBtn{display:none}</style>
+<script src="../pwa.js" data-app="launch-plan" data-name="Launch Plan" data-vapid="BIOq-EmEXNOHRX3vT4lHvTBEHK2V0Z_FpY2MSoaBaTihJxcYAiowkH7r5luSh-xxdguvjbKk0a8XFvYO0huOUa4"></script>
+</body></html>

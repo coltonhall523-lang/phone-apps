@@ -1,0 +1,22 @@
+{
+ "name": "The Newspaper",
+ "short_name": "Newspaper",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#eeece5",
+ "theme_color": "#eeece5",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any maskable"
+  }
+ ]
+}

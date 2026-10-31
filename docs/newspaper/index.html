@@ -1,0 +1,524 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Newspaper</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Newspaper">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#eeece5">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]{display:none!important}</style>
+</head><body>
+<title>Newspaper</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Archivo+Narrow:wght@500;700&display=swap">
+<style>
+/* Layout: a newsstand rack of daily editions; tapping one opens a flipbook reader where each edition is paginated into real pages you turn. */
+:root{
+  --paper:#eeece5; --paper-2:#e4e1d7; --sheet:#f5f3ec; --desk:#d3cdbf; --ink:#1c1b17; --ink-2:#3d3a33; --muted:#6a655a; --rule:#1c1b17; --hair:#b9b4a6; --accent:#8e1d14;
+  --wood:#5b4331; --wood-hi:#7a5c44; --wood-lo:#3a2a1e; --tag:#f7f3e3; --stamp:#8e1d14; --stamp-ink:#fbf6ea;
+  --f-mast:"UnifrakturMaguntia","Old English Text MT",Georgia,serif;
+  --f-head:"Playfair Display",Georgia,"Times New Roman",serif;
+  --f-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --f-label:"Archivo Narrow","Arial Narrow",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#171612;--paper-2:#201e19;--sheet:#1e1c18;--desk:#0e0d0b;--ink:#ebe6d8;--ink-2:#cfc9b8;--muted:#a19a88;--rule:#ebe6d8;--hair:#4a463c;--accent:#e57a68;--wood:#3b2c21;--wood-hi:#54402f;--wood-lo:#231a13;--tag:#2a2721;--stamp:#c2483a;--stamp-ink:#fbf6ea;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#171612;--paper-2:#201e19;--sheet:#1e1c18;--desk:#0e0d0b;--ink:#ebe6d8;--ink-2:#cfc9b8;--muted:#a19a88;--rule:#ebe6d8;--hair:#4a463c;--accent:#e57a68;--wood:#3b2c21;--wood-hi:#54402f;--wood-lo:#231a13;--tag:#2a2721;--stamp:#c2483a;--stamp-ink:#fbf6ea;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6}
+body.reading{overflow:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+a{color:inherit}
+a:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.label{font-family:var(--f-label);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.kicker{color:var(--accent)}
+.byline{font-family:var(--f-label);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dek{font-family:var(--f-head);font-style:italic;font-weight:700;line-height:1.35;color:var(--ink-2);margin:0;text-wrap:pretty}
+
+/* ---------- newsstand ---------- */
+.stand{max-width:1180px;margin:0 auto;padding-block:20px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ear{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--f-label);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.mast{text-align:center;margin:8px 0 6px}
+.mast h1{font-family:var(--f-mast);font-weight:400;font-size:clamp(46px,9vw,104px);line-height:1;margin:0;letter-spacing:.01em;text-wrap:balance}
+.motto{font-family:var(--f-body);font-style:italic;color:var(--ink-2);font-size:15px;margin-top:4px}
+.dateline{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:3px double var(--rule);border-bottom:1px solid var(--rule);padding:6px 2px;margin:12px 0 26px;font-family:var(--f-label);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase}
+.dateline span{white-space:nowrap}
+.rack{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr));gap:34px clamp(16px,3vw,34px);padding:26px clamp(14px,3vw,30px) 30px;background:var(--paper-2);border:1px solid var(--hair)}
+@media (min-width:640px){.rack{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}}
+.slot{display:flex;flex-direction:column;min-width:0}
+.hold{aspect-ratio:.878;clip-path:inset(-40px -40px 0 -40px)}
+.paper{position:relative;display:block;width:100%;aspect-ratio:.72;padding:0;border:0;background:none;cursor:pointer;isolation:isolate;transition:transform .25s ease;color:inherit;font:inherit;text-align:left}
+.paper::before,.paper::after{content:"";position:absolute;inset:0;background:var(--sheet);border:1px solid var(--hair);z-index:-1}
+.paper::before{transform:translate(5px,-4px) rotate(1.4deg)}
+.paper::after{transform:translate(-4px,-2px) rotate(-1deg)}
+.paper .pg{box-shadow:0 1px 0 var(--hair),0 6px 14px rgba(0,0,0,.18)}
+.paper:hover,.paper:focus-visible{transform:translateY(-10px) rotate(-.6deg)}
+.lip{position:relative;z-index:2;height:20px;margin-top:-4px;border-radius:2px;background:linear-gradient(var(--wood-hi),var(--wood) 45%,var(--wood-lo));box-shadow:0 6px 10px -4px rgba(0,0,0,.45)}
+.tag{align-self:center;margin-top:10px;padding:4px 10px;background:var(--tag);border:1px solid var(--hair);font-family:var(--f-label);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);text-align:center;font-variant-numeric:tabular-nums}
+.tag b{color:var(--ink)}
+.stamp{position:absolute;top:8%;right:-8px;z-index:3;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:var(--stamp);color:var(--stamp-ink);font-family:var(--f-label);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;transform:rotate(12deg);box-shadow:0 3px 8px rgba(0,0,0,.3)}
+.notice{text-align:center;padding:60px 16px;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.notice h2{font-family:var(--f-head);font-weight:900;font-size:30px;margin:0 0 8px}
+.notice p{margin:0 auto;max-width:52ch;color:var(--ink-2)}
+.colophon{margin-top:44px;text-align:center;font-family:var(--f-label);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- a printed page (shared by rack covers and the reader) ---------- */
+.pg{position:absolute;inset:0;background:var(--sheet);color:var(--ink);overflow:hidden;display:flex;flex-direction:column;container-type:size}
+.pg.mini .cover{padding:5cqw}
+.cover{display:flex;flex-direction:column;height:100%;min-height:0;--ex:2.9cqw;--row:2.6cqw}
+.reader .cover{--ex:max(12px,2.6cqw);--row:max(12px,2.5cqw)}
+.c-ear{display:flex;justify-content:space-between;font-family:var(--f-label);font-size:2.1cqw;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.c-mast{font-family:var(--f-mast);font-size:12.5cqw;line-height:1.05;text-align:center;margin-top:1cqw;white-space:nowrap}
+.c-motto{font-style:italic;text-align:center;color:var(--ink-2);font-size:2.4cqw}
+.c-date{display:flex;justify-content:space-between;gap:2cqw;border-top:3px double var(--rule);border-bottom:1px solid var(--rule);padding:.9cqw .3cqw;margin:2cqw 0 3cqw;font-family:var(--f-label);font-size:2.1cqw;letter-spacing:.1em;text-transform:uppercase}
+.c-lead{display:flex;flex-direction:column;gap:1.4cqw;flex:1;min-height:0}
+.c-kick{font-family:var(--f-label);font-weight:700;font-size:2.2cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.c-head{font-family:var(--f-head);font-weight:900;font-size:7.2cqw;line-height:1.05;text-wrap:balance}
+.c-dek{font-family:var(--f-head);font-style:italic;font-weight:700;font-size:3.3cqw;line-height:1.3;color:var(--ink-2)}
+.c-by{font-family:var(--f-label);font-size:2.1cqw;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.c-ex{flex:1;min-height:0;overflow:hidden;columns:2;column-gap:3.2cqw;column-rule:1px solid var(--hair);column-fill:auto;font-size:var(--ex);line-height:1.45;-webkit-mask-image:linear-gradient(#000 75%,transparent);mask-image:linear-gradient(#000 75%,transparent)}
+.c-ex p{margin:0 0 .6em}
+.c-cont{font-family:var(--f-label);font-weight:700;font-size:var(--row);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.c-inside{margin-top:2.4cqw;border-top:2px solid var(--rule);padding-top:1.2cqw}
+.c-boxhead{font-family:var(--f-label);font-weight:700;font-size:2.2cqw;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.6cqw}
+.c-row{display:flex;gap:2cqw;align-items:baseline;padding:.8cqw 0;border-bottom:1px solid var(--hair);font-size:var(--row);line-height:1.25}
+.c-row:last-child{border-bottom:0}
+.c-sec{flex:none;font-family:var(--f-label);font-weight:700;font-size:.82em;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.c-hl{flex:1;min-width:0;font-family:var(--f-head);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c-pg{flex:none;font-family:var(--f-label);font-weight:700;font-variant-numeric:tabular-nums}
+.reader [data-goto]{cursor:pointer}
+.reader .c-row[data-goto]:hover .c-hl,.reader .c-lead[data-goto]:hover .c-head{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+
+/* ---------- reader ---------- */
+.reader{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;background:var(--desk);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));animation:unfold .45s ease both}
+@keyframes unfold{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.rbar{display:flex;align-items:center;gap:10px;padding:10px 0;min-height:56px;flex-wrap:wrap}
+.rbar button,.rbar select,.endpg button{font-family:var(--f-label);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--sheet);border:1px solid var(--hair);border-radius:3px;padding:7px 11px;cursor:pointer}
+.rbar button:disabled{opacity:.4;cursor:default}
+.rbar select{max-width:min(42vw,320px);text-transform:none;letter-spacing:0;font-weight:500}
+.rtitle{flex:1;min-width:0;font-family:var(--f-mast);font-size:24px;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rtitle small{font-family:var(--f-label);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-left:8px}
+@media (max-width:620px){.rtitle,.wide{display:none}.rbar{flex-wrap:nowrap;gap:6px}.rbar select{flex:1;min-width:0;max-width:none}#pgno{min-width:0}}
+.pager{display:flex;align-items:center;gap:6px}
+#pgno{font-family:var(--f-label);font-size:13px;letter-spacing:.06em;text-transform:uppercase;min-width:9ch;text-align:center;font-variant-numeric:tabular-nums}
+.stagewrap{flex:1;min-height:0;display:grid;place-items:center;position:relative}
+.book{position:relative;touch-action:none;user-select:none;-webkit-user-select:none;transition:transform .5s ease;filter:drop-shadow(0 10px 18px rgba(0,0,0,.28))}
+.book.single{overflow:hidden}
+.leaf{position:absolute;top:0;transform-origin:left center;transform-style:preserve-3d;will-change:transform}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
+.face.back{transform:rotateY(180deg)}
+.face.front::after,.face.back::after{content:"";position:absolute;top:0;bottom:0;width:26px;pointer-events:none}
+.face.front::after{left:0;background:linear-gradient(90deg,rgba(0,0,0,.16),transparent)}
+.face.back::after{right:0;background:linear-gradient(270deg,rgba(0,0,0,.16),transparent)}
+.shade{position:absolute;inset:0;pointer-events:none;opacity:0}
+.front .shade{background:linear-gradient(90deg,rgba(0,0,0,.05),rgba(0,0,0,.45))}
+.back .shade{background:linear-gradient(270deg,rgba(0,0,0,.05),rgba(0,0,0,.45))}
+.curl{position:absolute;right:0;bottom:0;width:22px;height:22px;pointer-events:none;background:linear-gradient(315deg,var(--desk) 48%,var(--hair) 50%,var(--paper-2) 62%,var(--sheet));box-shadow:-2px -2px 4px rgba(0,0,0,.12)}
+.hint{text-align:center;font-family:var(--f-label);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 0 10px}
+#measure{position:absolute;left:-30000px;top:0;visibility:hidden;pointer-events:none}
+
+/* running head, folio and flowed story text inside a page */
+.rh{display:flex;justify-content:space-between;gap:10px;height:20px;margin-bottom:8px;border-bottom:1px solid var(--rule);font-family:var(--f-label);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden}
+.rh .m{font-family:var(--f-mast);font-size:15px;letter-spacing:0;text-transform:none;color:var(--ink)}
+.folio{height:16px;margin-top:8px;text-align:center;font-family:var(--f-label);font-size:11px;letter-spacing:.1em;color:var(--muted);font-variant-numeric:tabular-nums}
+.clip{position:relative;overflow:hidden;flex:none}
+.flow{position:absolute;top:0;left:0;column-fill:auto;font-size:var(--pfs,15px);line-height:1.5;hyphens:auto;-webkit-hyphens:auto}
+.st+.st{break-before:column;-webkit-column-break-before:always}
+.sthead{display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:12px;break-inside:avoid}
+.sthead h1{font-family:var(--f-head);font-weight:900;font-size:1.75em;line-height:1.08;margin:0;text-wrap:balance}
+.sthead .dek{font-size:1.05em}
+.flow .body>p:first-of-type::first-letter{font-family:var(--f-head);font-weight:900;float:left;font-size:3.3em;line-height:.82;padding:5px 7px 0 0;color:var(--accent)}
+.flow .body h2,.flow .body h3,.flow .body h4{font-family:var(--f-head);font-weight:900;line-height:1.15;margin:1.1em 0 .4em;text-wrap:balance;break-after:avoid}
+.flow .body h2{font-size:1.3em;border-top:1px solid var(--rule);padding-top:.4em}
+.flow .body h3{font-size:1.15em}
+.flow .body h4{font-size:1em}
+.flow .body p{margin:0 0 .75em;text-align:justify}
+.flow .body ul,.flow .body ol{margin:0 0 .8em;padding-left:1.3em}
+.flow .body li{margin:.2em 0}
+.flow .body blockquote{margin:.8em 0;padding:2px 0 2px 12px;border-left:3px solid var(--accent);font-style:italic;color:var(--ink-2)}
+.flow .body code{font-family:ui-monospace,"Courier New",monospace;font-size:.84em;background:var(--paper-2);padding:1px 4px;border-radius:3px;overflow-wrap:anywhere}
+.flow .body pre{background:var(--paper-2);padding:8px 10px;font-size:12.5px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}
+.flow .body pre code{background:none;padding:0}
+.flow .body hr{border:0;border-top:3px double var(--rule);margin:1.2em 0}
+.flow .body a{color:var(--accent);text-underline-offset:2px;overflow-wrap:anywhere}
+.flow .tablewrap{overflow-x:auto;margin:0 0 1em;border-top:2px solid var(--rule);border-bottom:2px solid var(--rule);touch-action:pan-x}
+.flow table{border-collapse:collapse;width:100%;font-size:12.5px;line-height:1.35;font-variant-numeric:tabular-nums}
+.flow th{font-family:var(--f-label);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;text-align:left;padding:6px 7px;border-bottom:1px solid var(--rule);vertical-align:bottom}
+.flow td{padding:5px 7px;border-bottom:1px solid var(--hair);vertical-align:top}
+.flow tr:last-child td{border-bottom:0}
+.flow .onfile{margin-top:.6em}
+.flow .end{text-align:center;color:var(--accent);font-size:.7em;margin:.6em 0 0}
+.endc{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center}
+.endc .c-mast{font-size:11cqw}
+.endc p{margin:0;color:var(--ink-2);font-style:italic;max-width:30ch}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="stand" id="stand">
+  <div class="ear"><span id="volno">Vol. I</span><span>Filed by Claude and the Coach</span></div>
+  <header class="mast"><h1>The Newspaper</h1>
+    <div class="motto">All the reports fit to print, from your faceless YouTube desk</div></header>
+  <div class="dateline"><span id="today"></span><span id="count">The Newsstand</span></div>
+  <main id="rack">
+    <div class="notice"><h2>Stop the presses…</h2><p>Today's edition is being set in type. The papers load from the archive in a moment.</p></div>
+  </main>
+  <div class="colophon">Pick up any edition to read it · New editions arrive as Claude and the Coach file reports</div>
+</div>
+
+<div class="reader" id="reader" hidden>
+  <header class="rbar">
+    <button id="toStand" type="button" aria-label="Back to the newsstand">←<span class="wide"> Newsstand</span></button>
+    <div class="rtitle" id="rtitle"></div>
+    <select id="toc" aria-label="Jump to a story"></select>
+    <div class="pager"><button id="prev" type="button" aria-label="Previous page">‹</button><span id="pgno"></span><button id="next" type="button" aria-label="Next page">›</button></div>
+  </header>
+  <div class="stagewrap" id="stagewrap"><div class="book" id="book"></div></div>
+  <div class="hint" id="hint">Drag a page to turn it, or tap its edge · ← → keys work too</div>
+  <div id="measure"></div>
+</div>
+
+<script>
+/* Sections in print order. A story's `section` must be one of these names. */
+const SECTIONS = ['Front Page', 'Fact Check', "Coach's Corner", 'Launch Desk', 'Tech Desk', 'Research Desk', 'Playbook', 'History'];
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
+let stories = [], editions = [], ready = false;
+
+/* ---- a small Markdown reader for report bodies ---- */
+function inline(t) {
+  t = esc(t);
+  t = t.replace(/`([^`]+)`/g, '<code>$1</code>');
+  t = t.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  t = t.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  t = t.replace(/(^|[\s(])\*([^*\s][^*]*)\*/g, '$1<em>$2</em>');
+  return t;
+}
+function md(src) {
+  const lines = String(src || '').replace(/\r/g, '').split('\n'), out = [];
+  let i = 0;
+  const isTable = l => /^\s*\|.*\|\s*$/.test(l);
+  while (i < lines.length) {
+    let l = lines[i];
+    if (!l.trim()) { i++; continue; }
+    if (/^```/.test(l)) { const buf = []; i++; while (i < lines.length && !/^```/.test(lines[i])) buf.push(lines[i++]); i++; out.push('<pre><code>' + esc(buf.join('\n')) + '</code></pre>'); continue; }
+    const h = /^(#{1,4})\s+(.*)$/.exec(l);
+    if (h) { const n = Math.min(4, h[1].length + 1); out.push(`<h${n}>${inline(h[2])}</h${n}>`); i++; continue; }
+    if (/^\s*(---|\*\*\*)\s*$/.test(l)) { out.push('<hr>'); i++; continue; }
+    if (isTable(l) && i + 1 < lines.length && /^\s*\|[\s:|-]+\|\s*$/.test(lines[i + 1])) {
+      const row = r => r.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+      const head = row(l); i += 2; const body = [];
+      while (i < lines.length && isTable(lines[i])) body.push(row(lines[i++]));
+      out.push('<div class="tablewrap"><table><thead><tr>' + head.map(c => `<th>${inline(c)}</th>`).join('') + '</tr></thead><tbody>' +
+        body.map(r => '<tr>' + r.map(c => `<td>${inline(c)}</td>`).join('') + '</tr>').join('') + '</tbody></table></div>');
+      continue;
+    }
+    if (/^\s*>/.test(l)) { const buf = []; while (i < lines.length && /^\s*>/.test(lines[i])) buf.push(lines[i++].replace(/^\s*>\s?/, '')); out.push('<blockquote>' + inline(buf.join(' ')) + '</blockquote>'); continue; }
+    if (/^\s*([-*]|\d+[.)])\s+/.test(l)) {
+      /* lists, nested by indentation */
+      const stack = [];
+      while (i < lines.length && (/^\s*([-*]|\d+[.)])\s+/.test(lines[i]) || (/^\s{2,}\S/.test(lines[i]) && stack.length))) {
+        const m = /^(\s*)([-*]|\d+[.)])\s+(.*)$/.exec(lines[i]);
+        if (!m) { stack.length && (stack[stack.length - 1].items[stack[stack.length - 1].items.length - 1] += ' ' + inline(lines[i].trim())); i++; continue; }
+        const depth = m[1].replace(/\t/g, '  ').length, tag = /\d/.test(m[2]) ? 'ol' : 'ul';
+        while (stack.length && depth < stack[stack.length - 1].depth) { const done = stack.pop(); const html = `<${done.tag}>` + done.items.map(x => `<li>${x}</li>`).join('') + `</${done.tag}>`; stack[stack.length - 1] ? stack[stack.length - 1].items[stack[stack.length - 1].items.length - 1] += html : out.push(html); }
+        if (!stack.length || depth > stack[stack.length - 1].depth) stack.push({ depth, tag, items: [] });
+        stack[stack.length - 1].items.push(inline(m[3])); i++;
+      }
+      while (stack.length) { const done = stack.pop(); const html = `<${done.tag}>` + done.items.map(x => `<li>${x}</li>`).join('') + `</${done.tag}>`; stack.length ? stack[stack.length - 1].items[stack[stack.length - 1].items.length - 1] += html : out.push(html); }
+      continue;
+    }
+    const buf = [];
+    while (i < lines.length && lines[i].trim() && !/^(#{1,4}\s|```|\s*([-*]|\d+[.)])\s+|\s*>)/.test(lines[i]) && !isTable(lines[i])) buf.push(lines[i++].trim());
+    out.push('<p>' + inline(buf.join(' ')) + '</p>');
+  }
+  return out.join('\n');
+}
+/* the first few plain paragraphs, for front-page excerpts */
+function excerpt(body, n = 2) {
+  const paras = String(body || '').split(/\n\s*\n/).map(p => p.trim()).filter(p => p && !/^(#|\||[-*]\s|\d+[.)]\s|```|>)/.test(p));
+  return paras.slice(0, n).map(p => '<p>' + inline(p.replace(/\n/g, ' ')) + '</p>').join('');
+}
+
+/* ---- dates ---- */
+const fmtLong = d => { const x = new Date((d || '') + 'T12:00'); return isNaN(x) ? 'Undated' : x.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }); };
+const fmtShort = d => { const x = new Date((d || '') + 'T12:00'); return isNaN(x) ? 'Undated' : x.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' }); };
+const secIdx = s => { const i = SECTIONS.indexOf(s.section); return i < 0 ? 99 : i; };
+const byline = s => `<div class="byline">${esc(s.byline || 'Staff report')}${s.date ? ' · ' + esc(fmtShort(s.date)) : ''}</div>`;
+
+/* ---- editions: one paper per filing date ---- */
+function buildEditions() {
+  const by = {};
+  for (const s of stories) (by[s.date || 'undated'] ||= []).push(s);
+  const first = Object.keys(by).filter(d => d !== 'undated').sort()[0];
+  editions = Object.entries(by).map(([date, list]) => {
+    const lead = list.find(s => s.lead) || [...list].sort((a, b) => String(b.body || '').length - String(a.body || '').length)[0];
+    const rest = list.filter(s => s !== lead).sort((a, b) => secIdx(a) - secIdx(b) || (a.order ?? 99) - (b.order ?? 99));
+    const no = first && date !== 'undated' ? Math.round((new Date(date + 'T12:00') - new Date(first + 'T12:00')) / 864e5) + 1 : 1;
+    return { date, lead, stories: [lead, ...rest], no };
+  }).sort((a, b) => b.date.localeCompare(a.date));
+}
+
+/* front page of an edition; `pages` (story id -> page index) adds page numbers inside the reader */
+function coverHTML(ed, pages) {
+  const L = ed.lead, rest = ed.stories.slice(1), go = s => pages ? ` data-goto="${pages[s.id]}"` : '';
+  return `<div class="cover">
+    <div class="c-ear"><span>Vol. I · No. ${ed.no}</span><span>${ed.stories.length} ${ed.stories.length === 1 ? 'story' : 'stories'} · Free</span></div>
+    <div class="c-mast">The Newspaper</div>
+    <div class="c-motto">All the reports fit to print</div>
+    <div class="c-date"><span>${esc(fmtLong(ed.date))}</span><span>Chromebook Edition</span></div>
+    <div class="c-lead"${go(L)}>
+      <div class="c-kick">${esc(L.section)}</div><div class="c-head">${esc(L.headline)}</div>
+      ${L.dek ? `<div class="c-dek">${esc(L.dek)}</div>` : ''}<div class="c-by">${esc(L.byline || 'Staff report')}</div>
+      <div class="c-ex">${excerpt(L.body, 4)}</div>
+      ${pages ? `<div class="c-cont">Continued on page ${pages[L.id] + 1} →</div>` : ''}
+    </div>
+    ${rest.length ? `<div class="c-inside"><div class="c-boxhead">Inside this edition</div>${rest.slice(0, 6).map(s =>
+      `<div class="c-row"${go(s)}><span class="c-sec">${esc(s.section)}</span><span class="c-hl">${esc(s.headline)}</span>${pages ? `<span class="c-pg">${pages[s.id] + 1}</span>` : ''}</div>`).join('')}</div>` : ''}
+  </div>`;
+}
+
+/* ---- the newsstand ---- */
+function drawStand() {
+  const rack = $('#rack');
+  $('#count').textContent = editions.length ? `${editions.length} ${editions.length === 1 ? 'edition' : 'editions'} on the stand` : 'The Newsstand';
+  if (editions[0]) $('#volno').textContent = `Vol. I · No. ${editions[0].no}`;
+  if (!editions.length) {
+    rack.innerHTML = `<div class="notice"><h2>No papers on the stand yet</h2><p>Editions appear here as soon as Claude or the Coach files a report. Ask in Claude Code: “put that report in the newspaper”.</p></div>`;
+    return;
+  }
+  rack.innerHTML = `<div class="rack">${editions.map((ed, i) => `<div class="slot">
+      <div class="hold"><button class="paper" type="button" data-ed="${esc(ed.date)}" aria-label="Read the ${esc(fmtLong(ed.date))} edition"><div class="pg mini">${coverHTML(ed)}</div>${i === 0 ? '<span class="stamp">Latest</span>' : ''}</button></div>
+      <div class="lip"></div>
+      <div class="tag"><b>No. ${ed.no}</b> · ${esc(fmtShort(ed.date))} · ${ed.stories.length} ${ed.stories.length === 1 ? 'story' : 'stories'}</div></div>`).join('')}</div>`;
+}
+$('#rack').addEventListener('click', e => {
+  const b = e.target.closest('[data-ed]'); if (!b) return;
+  const go = () => { location.hash = 'e-' + b.dataset.ed; };
+  document.startViewTransition && !reduce ? document.startViewTransition(go) : go();
+});
+
+/* ---- the reader: paginate an edition with CSS columns, then bind the pages into turnable leaves ---- */
+const GAP = 40;
+let ed = null, flow = '', pagesOf = {}, starts = [], T = 0, L = 0, current = 0, maxCur = 0, spread = false, W = 0, H = 0, cw = 0, ch = 0, pad = 0, leaves = [], busy = false, drag = null;
+
+function flowHTML(e) {
+  return e.stories.map(s => `<section class="st" data-id="${esc(s.id)}"><header class="sthead"><div class="label kicker">${esc(s.section)}</div>
+    <h1>${esc(s.headline)}</h1>${s.dek ? `<p class="dek">${esc(s.dek)}</p>` : ''}${byline(s)}</header>
+    <div class="body">${md(s.body)}</div>${s.source ? `<p class="byline onfile">On file: ${esc(s.source)}</p>` : ''}<p class="end">■</p></section>`).join('');
+}
+const toCur = p => spread ? Math.ceil(p / 2) : p;
+const firstPage = c => spread ? Math.max(0, 2 * c - 1) : c;
+const storyAt = p => { let s = null; for (const x of starts) if (x.page <= p) s = x; return s; };
+
+function pageHTML(i) {
+  if (i < 0 || i >= T) return '<div class="pg"></div>';
+  const box = `padding:${pad}px`;
+  if (i === 0) return `<div class="pg" style="${box}">${coverHTML(ed, pagesOf)}</div>`;
+  const rh = s => `<div class="rh"><span class="m">The Newspaper</span><span>${esc(s)}</span></div>`;
+  if (i === T - 1) {
+    const idx = editions.indexOf(ed), older = editions[idx + 1], newer = editions[idx - 1];
+    return `<div class="pg" style="${box}">${rh(fmtShort(ed.date))}<div class="endc"><div class="c-mast">The Newspaper</div>
+      <p>That's the whole ${esc(fmtLong(ed.date))} edition.</p>
+      <button type="button" data-act="stand">Back to the newsstand</button>
+      ${older ? `<button type="button" data-ed="${esc(older.date)}">Older: ${esc(fmtShort(older.date))} edition</button>` : ''}
+      ${newer ? `<button type="button" data-ed="${esc(newer.date)}">Newer: ${esc(fmtShort(newer.date))} edition</button>` : ''}</div><div class="folio">${i + 1}</div></div>`;
+  }
+  const s = storyAt(i);
+  return `<div class="pg" style="${box}">${rh((s ? s.section : '') + ' · ' + fmtShort(ed.date))}
+    <div class="clip" style="width:${cw}px;height:${ch}px"><div class="flow" style="width:${cw}px;height:${ch}px;column-width:${cw}px;column-gap:${GAP}px;transform:translateX(${-(i - 1) * (cw + GAP)}px)">${flow}</div></div>
+    <div class="folio">${i + 1}</div></div>`;
+}
+
+function build(keepPage) {
+  const wrap = $('#stagewrap'), aw = wrap.clientWidth, ah = wrap.clientHeight;
+  spread = aw >= 860 && ah >= 420;
+  if (spread) { H = Math.min(ah - 8, 1000); W = Math.min(aw / 2, H * .72); H = Math.min(H, W / .62); }
+  else { W = Math.min(aw, 580); H = Math.min(ah - 4, W * 1.62); }
+  W = Math.floor(W); H = Math.floor(H);
+  pad = W < 440 ? 16 : 26;
+  cw = W - pad * 2; ch = H - pad * 2 - 28 - 24;
+  const reader = $('#reader');
+  reader.style.setProperty('--pfs', W < 440 ? '14.5px' : '15.5px');
+
+  /* lay the edition out once, offscreen, as one long row of page-wide columns */
+  const m = $('#measure');
+  m.innerHTML = `<div class="flow" style="width:${cw}px;height:${ch}px;column-width:${cw}px;column-gap:${GAP}px">${flow}</div>`;
+  /* the reader may still be scaling in, so measure in its own units */
+  const f = m.firstElementChild, fr = f.getBoundingClientRect(), k = fr.width / cw || 1, col = el => Math.floor(((el.getBoundingClientRect().left - fr.left) / k + 2) / (cw + GAP));
+  pagesOf = {}; starts = [];
+  f.querySelectorAll('.st').forEach(el => { const p = 1 + col(el.firstElementChild); pagesOf[el.dataset.id] = p; starts.push({ page: p, section: ed.stories.find(s => s.id === el.dataset.id)?.section || '' }); });
+  const ends = f.querySelectorAll('.end'), n = ends.length ? col(ends[ends.length - 1]) + 1 : 1;
+  m.innerHTML = '';
+  T = n + 2;
+  L = spread ? Math.ceil(T / 2) : T;
+  maxCur = toCur(T - 1);
+
+  const book = $('#book');
+  book.className = 'book' + (spread ? '' : ' single');
+  book.style.width = (spread ? 2 * W : W) + 'px'; book.style.height = H + 'px';
+  book.innerHTML = Array.from({ length: L }, (_, k) => `<div class="leaf" style="left:${spread ? W : 0}px;width:${W}px;height:${H}px">
+    <div class="face front"><div class="fc"></div><div class="shade"></div>${k < L - 1 || !spread ? '<div class="curl"></div>' : ''}</div>
+    <div class="face back"><div class="fc"></div><div class="shade"></div></div></div>`).join('');
+  leaves = [...book.children];
+
+  $('#toc').innerHTML = ed.stories.map(s => `<option value="${esc(s.id)}">p. ${pagesOf[s.id] + 1} · ${esc(s.headline)}</option>`).join('');
+  current = Math.min(maxCur, Math.max(0, toCur(keepPage || 0)));
+  place(); fill(); ui();
+}
+
+function setAngle(leaf, a) {
+  leaf.style.transform = `perspective(${W * 3.2}px) rotateY(${-a}deg)`;
+  const fs = leaf.querySelector('.front .shade'), bs = leaf.querySelector('.back .shade');
+  fs.style.opacity = Math.min(1, a / 90) * .9;
+  bs.style.opacity = Math.min(1, (180 - a) / 90) * .9;
+}
+function place() {
+  leaves.forEach((lf, k) => { const flipped = k < current; lf.style.zIndex = flipped ? k + 1 : 2 * L - k; setAngle(lf, flipped ? 180 : 0); });
+  const book = $('#book');
+  book.style.transform = spread && current === 0 ? `translateX(${-W / 2}px)` : spread && current >= L ? `translateX(${W / 2}px)` : 'none';
+}
+/* only the leaves near the open spread hold page content */
+function fill(extra) {
+  leaves.forEach((lf, k) => {
+    const near = (k >= current - 2 && k <= current + 1) || k === extra;
+    if (near && lf.dataset.k !== 'y') {
+      lf.querySelector('.front .fc').innerHTML = pageHTML(spread ? 2 * k : k);
+      lf.querySelector('.back .fc').innerHTML = spread ? pageHTML(2 * k + 1) : '<div class="pg"></div>';
+      lf.dataset.k = 'y';
+    } else if (!near && Math.abs(k - current) > 4 && lf.dataset.k === 'y') {
+      lf.querySelector('.front .fc').innerHTML = ''; lf.querySelector('.back .fc').innerHTML = ''; lf.dataset.k = '';
+    }
+  });
+}
+function ui() {
+  const p = firstPage(current), last = spread ? Math.min(T - 1, 2 * current) : p;
+  $('#pgno').textContent = spread && current > 0 && last > p ? `Pages ${p + 1}–${last + 1} of ${T}` : innerWidth <= 620 ? `${p + 1} / ${T}` : `Page ${p + 1} of ${T}`;
+  $('#prev').disabled = current <= 0; $('#next').disabled = current >= maxCur;
+  const s = [...ed.stories].reverse().find(x => pagesOf[x.id] <= last);
+  if (s) $('#toc').value = s.id;
+  store.set('np-page-' + ed.date, String(p));
+}
+function animate(k, from, to, done) {
+  const lf = leaves[k], t0 = performance.now(), dur = reduce ? 0 : 220 + 560 * Math.abs(to - from) / 180;
+  busy = true; lf.style.zIndex = 1000;
+  const step = t => {
+    const p = dur ? Math.min(1, (t - t0) / dur) : 1, e = 1 - Math.pow(1 - p, 3);
+    setAngle(lf, from + (to - from) * e);
+    if (p < 1) requestAnimationFrame(step); else { busy = false; done(); }
+  };
+  requestAnimationFrame(step);
+}
+function turn(dir) {
+  if (busy || !ed) return;
+  if (dir > 0 && current < maxCur) { const k = current; fill(k + 1); animate(k, 0, 180, () => { current++; place(); fill(); ui(); }); }
+  else if (dir < 0 && current > 0) { const k = current - 1; fill(k - 1); animate(k, 180, 0, () => { current--; place(); fill(); ui(); }); }
+}
+function goToPage(p) {
+  const c = Math.min(maxCur, Math.max(0, toCur(p)));
+  if (c === current) return;
+  if (Math.abs(c - current) === 1) return turn(c - current);
+  current = c; place(); fill(); ui();
+}
+
+/* drag to turn: grab the right page to go forward, the left page (or left edge on a phone) to go back */
+const book = $('#book');
+book.addEventListener('pointerdown', e => {
+  if (busy || e.button > 0 || e.target.closest('.tablewrap, pre, a[href], button, [data-goto]')) return;
+  const x = e.clientX - book.getBoundingClientRect().left;
+  let dir = spread ? (x > W ? 1 : -1) : (x > W * .3 ? 1 : -1);
+  if ((dir > 0 && current >= maxCur) || (dir < 0 && current <= 0)) dir = 0;
+  drag = { dir, x0: e.clientX, t0: performance.now(), moved: false, k: dir > 0 ? current : current - 1, a: dir > 0 ? 0 : 180 };
+  try { book.setPointerCapture(e.pointerId); } catch {}
+});
+book.addEventListener('pointermove', e => {
+  if (!drag || !drag.dir) return;
+  const dx = e.clientX - drag.x0, span = spread ? 2 * W : W;
+  if (!drag.moved && Math.abs(dx) < 8) return;
+  if (!drag.moved) { drag.moved = true; fill(drag.dir > 0 ? drag.k + 1 : drag.k - 1); leaves[drag.k].style.zIndex = 1000; }
+  const r = Math.max(0, Math.min(1, (drag.dir > 0 ? -dx : dx) / span));
+  drag.a = drag.dir > 0 ? r * 180 : 180 - r * 180;
+  setAngle(leaves[drag.k], drag.a);
+});
+const endDrag = e => {
+  if (!drag) return;
+  const d = drag; drag = null;
+  if (!d.dir) return;
+  if (!d.moved) return turn(d.dir);
+  const v = (e.clientX - d.x0) / Math.max(1, performance.now() - d.t0), prog = d.dir > 0 ? d.a / 180 : (180 - d.a) / 180;
+  const done = prog > .33 || (d.dir > 0 ? v < -.45 : v > .45);
+  const to = d.dir > 0 ? (done ? 180 : 0) : (done ? 0 : 180);
+  animate(d.k, d.a, to, () => { if (done) current += d.dir; place(); fill(); ui(); });
+};
+book.addEventListener('pointerup', endDrag);
+book.addEventListener('pointercancel', endDrag);
+book.addEventListener('click', e => {
+  const g = e.target.closest('[data-goto]'), a = e.target.closest('[data-act="stand"]'), o = e.target.closest('[data-ed]');
+  if (g) goToPage(+g.dataset.goto); else if (a) location.hash = ''; else if (o) location.hash = 'e-' + o.dataset.ed;
+});
+$('#prev').onclick = () => turn(-1);
+$('#next').onclick = () => turn(1);
+$('#toStand').onclick = () => { location.hash = ''; };
+$('#toc').onchange = e => goToPage(pagesOf[e.target.value]);
+addEventListener('keydown', e => {
+  if ($('#reader').hidden || e.target.closest('select')) return;
+  if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); turn(1); }
+  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); turn(-1); }
+  else if (e.key === 'Escape') location.hash = '';
+});
+let rt = 0;
+addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { if (ed && !$('#reader').hidden) build(firstPage(current)); }, 160); });
+
+async function openEdition(e, storyId) {
+  const same = ed === e && !$('#reader').hidden;
+  ed = e; flow = flowHTML(e);
+  $('#rtitle').innerHTML = `The Newspaper<small>${esc(fmtLong(e.date))} · No. ${e.no}</small>`;
+  $('#reader').hidden = false; document.body.classList.add('reading');
+  try { await document.fonts.ready; } catch {}
+  const keep = same ? firstPage(current) : +(store.get('np-page-' + e.date) || 0);
+  build(keep);
+  if (storyId && pagesOf[storyId] != null) { current = Math.min(maxCur, toCur(pagesOf[storyId])); place(); fill(); ui(); }
+}
+
+function route() {
+  if (!ready) return;
+  const h = decodeURIComponent((location.hash || '').slice(1));
+  let e = null, sid = null;
+  if (h.startsWith('e-')) e = editions.find(x => x.date === h.slice(2));
+  else if (h.startsWith('a-')) { sid = h.slice(2); e = editions.find(x => x.stories.some(s => s.id === sid)); }
+  if (e) openEdition(e, sid);
+  else { $('#reader').hidden = true; document.body.classList.remove('reading'); ed = null; }
+}
+
+(function boot() {
+  $('#today').textContent = new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  addEventListener('hashchange', route);
+  const load = list => {
+    stories = list.filter(s => s.headline);
+    buildEditions(); drawStand();
+    const was = ready; ready = true;
+    if (!was || $('#reader').hidden) route();
+  };
+  (async () => {
+    let db = null;
+    try { db = window.claude?.use ? await window.claude.use('db') : null; } catch { db = null; }
+    if (db) {
+      db.collection('articles').onSnapshot(snap => load(snap.docs.map(d => ({ id: d.id, ...d.data() }))),
+        () => { $('#rack').innerHTML = `<div class="notice"><h2>The archive didn't answer</h2><p>Reload the page to try again.</p></div>`; });
+      return;
+    }
+    /* outside claude.ai (the phone app copy), the paper prints from a bundled archive file */
+    try { const r = await fetch('articles.json', { cache: 'no-cache' }); if (!r.ok) throw 0; load(await r.json()); }
+    catch { $('#rack').innerHTML = `<div class="notice"><h2>The press is off</h2><p>This paper prints from its archive on claude.ai. Open it there, signed in, to read the editions.</p></div>`; }
+  })();
+})();
+</script>
+
+<style>:root{--pwa-bg:var(--sheet);--pwa-fg:var(--ink);--pwa-line:var(--hair);--pwa-accent:var(--accent);--pwa-on-accent:var(--sheet)}</style>
+<script src="../pwa.js" data-app="newspaper" data-name="The Newspaper" data-vapid="BIOq-EmEXNOHRX3vT4lHvTBEHK2V0Z_FpY2MSoaBaTihJxcYAiowkH7r5luSh-xxdguvjbKk0a8XFvYO0huOUa4"></script>
+</body></html>
