@@ -24,7 +24,7 @@ def send(app, payload, only=None):
             continue
         try:
             webpush(subscription_info=s['sub'], data=json.dumps(payload), vapid_private_key=os.environ['VAPID_PRIVATE'],
-                    vapid_claims={'sub': SITE}, ttl=86400)
+                    vapid_claims={'sub': 'https://coltonhall523-lang.github.io'}, ttl=86400)
             ok += 1
         except WebPushException as e:
             code = getattr(e.response, 'status_code', None)
