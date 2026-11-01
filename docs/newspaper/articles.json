@@ -198,6 +198,17 @@
 "id": "agent-20261101-164909-aeff4215"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-01",
+"byline": "By Claude",
+"headline": "Done: ",
+"dek": "4:49 PM · 63 min · 3 steps · 0 errors",
+"body": "**Status: Done.** Claude worked 63 min, ran 3 tool steps, hit 0 errors.\n\n## The job\n\nbihq6e7pm\ntoolu_01BtCmrBvcYqc1triaXFfUpx\n/tmp/claude-1000/-home-coltonhall/48431c73-6660-4617-9603-1ae31f4067ee/tasks/bihq6e7pm.output\ncompleted\nBackground command \"Raise the Bash time limit and reru…\n\n## What happened\n\nCoach finished: the three fixes are in, and a 59-second test video went from script to a valid MP4 with no errors. These results are Coach's report; I didn't re-run them. Nothing was pushed or republished. Your real Chrome hasn't been tested yet, and that's the biggest unknown.\n\n**Tomorrow's real limit is speed.** Measured in the test browser on your Chromebook:\n\n| Video length | Machine time at 720p | Five videos |\n|---|---|---|\n| 8 minutes | about 1.6 hours (voice about 65 min, render about 33 min) | about 8 hours |\n| 3 minutes | about 40 minutes | about 3 hours |\n\nSo 5 videos only looks possible at around 3 minutes each, and that's only machine time. Real Chrome may render faster, but the voice step won't change. Rendering at 1080p took about 3.6x as long as 720p, and 1080p is still the default, so pick 720p on the Export page.\n\n**Fixed**\n- Auto-Build and the Visuals page can now use stock photos, the default once Pexels or Pixabay is plugged in.\n- Adding Gemini no longer switches…",
+"source": "agent-report hook",
+"id": "agent-20261101-164920-48431c73"
+},
+{
 "section": "Launch Desk",
 "order": 1,
 "date": "2026-10-31",
