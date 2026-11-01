@@ -61,6 +61,7 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid var(
 .tag{align-self:center;margin-top:10px;padding:4px 10px;background:var(--tag);border:1px solid var(--hair);font-family:var(--f-label);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);text-align:center;font-variant-numeric:tabular-nums}
 .tag b{color:var(--ink)}
 .stamp{position:absolute;top:8%;right:-8px;z-index:3;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:var(--stamp);color:var(--stamp-ink);font-family:var(--f-label);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;transform:rotate(12deg);box-shadow:0 3px 8px rgba(0,0,0,.3)}
+.shelf{font-size:1.15rem;margin:26px 0 10px;text-align:center;letter-spacing:.02em}
 .notice{text-align:center;padding:60px 16px;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
 .notice h2{font-family:var(--f-head);font-weight:900;font-size:30px;margin:0 0 8px}
 .notice p{margin:0 auto;max-width:52ch;color:var(--ink-2)}
@@ -218,7 +219,7 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid var(
 
 <script>
 /* Sections in print order. A story's `section` must be one of these names. */
-const SECTIONS = ['Front Page', 'Agent Desk', 'Fact Check', "Coach's Corner", 'Launch Desk', 'Tech Desk', 'Research Desk', 'Playbook', 'History'];
+const SECTIONS = ['Daily Paper', 'Front Page', 'Agent Desk', 'Fact Check', "Coach's Corner", 'Launch Desk', 'Tech Desk', 'Research Desk', 'Playbook', 'History'];
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -294,24 +295,28 @@ const byline = s => `<div class="byline">${esc(s.byline || 'Staff report')}${s.d
 
 /* ---- editions: one paper per filing date ---- */
 function buildEditions() {
+  /* the Daily Paper is its own title on its own shelf; everything else goes in that date's Newspaper */
   const by = {};
-  for (const s of stories) (by[s.date || 'undated'] ||= []).push(s);
-  const first = Object.keys(by).filter(d => d !== 'undated').sort()[0];
-  editions = Object.entries(by).map(([date, list]) => {
+  for (const s of stories) (by[(s.section === 'Daily Paper' ? 'daily-' : '') + (s.date || 'undated')] ||= []).push(s);
+  const firstOf = daily => Object.keys(by).filter(k => k.startsWith('daily-') === daily && !k.endsWith('undated')).sort()[0]?.replace('daily-', '');
+  editions = Object.entries(by).map(([key, list]) => {
+    const daily = key.startsWith('daily-'), date = key.replace('daily-', ''), first = firstOf(daily);
     const lead = list.find(s => s.lead) || [...list].sort((a, b) => String(b.body || '').length - String(a.body || '').length)[0];
     const rest = list.filter(s => s !== lead).sort((a, b) => secIdx(a) - secIdx(b) || (a.order ?? 99) - (b.order ?? 99));
     const no = first && date !== 'undated' ? Math.round((new Date(date + 'T12:00') - new Date(first + 'T12:00')) / 864e5) + 1 : 1;
-    return { date, lead, stories: [lead, ...rest], no };
+    return { key, daily, date, lead, stories: [lead, ...rest], no };
   }).sort((a, b) => b.date.localeCompare(a.date));
 }
+
+const paperName = e => e.daily ? 'The Daily Paper' : 'The Newspaper';
 
 /* front page of an edition; `pages` (story id -> page index) adds page numbers inside the reader */
 function coverHTML(ed, pages) {
   const L = ed.lead, rest = ed.stories.slice(1), go = s => pages ? ` data-goto="${pages[s.id]}"` : '';
   return `<div class="cover">
     <div class="c-ear"><span>Vol. I · No. ${ed.no}</span><span>${ed.stories.length} ${ed.stories.length === 1 ? 'story' : 'stories'} · Free</span></div>
-    <div class="c-mast">The Newspaper</div>
-    <div class="c-motto">All the reports fit to print</div>
+    <div class="c-mast">${paperName(ed)}</div>
+    <div class="c-motto">${ed.daily ? 'Today’s work, and how to do it' : 'All the reports fit to print'}</div>
     <div class="c-date"><span>${esc(fmtLong(ed.date))}</span><span>Chromebook Edition</span></div>
     <div class="c-lead"${go(L)}>
       <div class="c-kick">${esc(L.section)}</div><div class="c-head">${esc(L.headline)}</div>
@@ -328,19 +333,21 @@ function coverHTML(ed, pages) {
 function drawStand() {
   const rack = $('#rack');
   $('#count').textContent = editions.length ? `${editions.length} ${editions.length === 1 ? 'edition' : 'editions'} on the stand` : 'The Newsstand';
-  if (editions[0]) $('#volno').textContent = `Vol. I · No. ${editions[0].no}`;
+  const papers = editions.filter(e => !e.daily), dailies = editions.filter(e => e.daily);
+  if (papers[0]) $('#volno').textContent = `Vol. I · No. ${papers[0].no}`;
   if (!editions.length) {
     rack.innerHTML = `<div class="notice"><h2>No papers on the stand yet</h2><p>Editions appear here as soon as Claude or the Coach files a report. Ask in Claude Code: “put that report in the newspaper”.</p></div>`;
     return;
   }
-  rack.innerHTML = `<div class="rack">${editions.map((ed, i) => `<div class="slot">
-      <div class="hold"><button class="paper" type="button" data-ed="${esc(ed.date)}" aria-label="Read the ${esc(fmtLong(ed.date))} edition"><div class="pg mini">${coverHTML(ed)}</div>${i === 0 ? '<span class="stamp">Latest</span>' : ''}</button></div>
+  const shelf = (title, list) => list.length ? `<h2 class="shelf">${title}</h2><div class="rack">${list.map((ed, i) => `<div class="slot">
+      <div class="hold"><button class="paper" type="button" data-ed="${esc(ed.key)}" aria-label="Read ${paperName(ed)} for ${esc(fmtLong(ed.date))}"><div class="pg mini">${coverHTML(ed)}</div>${i === 0 ? '<span class="stamp">Latest</span>' : ''}</button></div>
       <div class="lip"></div>
-      <div class="tag"><span><b>No. ${ed.no}</b> · ${esc(fmtShort(ed.date))} · ${ed.stories.length} ${ed.stories.length === 1 ? 'story' : 'stories'}</span><button class="trashbtn" type="button" data-trash-ed="${esc(ed.date)}" aria-label="Move the ${esc(fmtLong(ed.date))} edition to the trash">${TRASH_SVG}</button></div></div>`).join('')}</div>`;
+      <div class="tag"><span><b>No. ${ed.no}</b> · ${esc(fmtShort(ed.date))} · ${ed.stories.length} ${ed.stories.length === 1 ? 'story' : 'stories'}</span><button class="trashbtn" type="button" data-trash-ed="${esc(ed.key)}" aria-label="Move ${paperName(ed)} for ${esc(fmtLong(ed.date))} to the trash">${TRASH_SVG}</button></div></div>`).join('')}</div>` : '';
+  rack.innerHTML = shelf('The Daily Paper', dailies) + shelf('The Newspaper', papers);
 }
 $('#rack').addEventListener('click', e => {
   const t = e.target.closest('[data-trash-ed]');
-  if (t) { const e2 = editions.find(x => x.date === t.dataset.trashEd); if (e2) toTrash(e2.stories.map(s => s.id), `The ${fmtShort(e2.date)} edition went in the trash`); return; }
+  if (t) { const e2 = editions.find(x => x.key === t.dataset.trashEd); if (e2) toTrash(e2.stories.map(s => s.id), `${paperName(e2)} for ${fmtShort(e2.date)} went in the trash`); return; }
   const b = e.target.closest('[data-ed]'); if (!b) return;
   const go = () => { location.hash = 'e-' + b.dataset.ed; };
   document.startViewTransition && !reduce ? document.startViewTransition(go) : go();
@@ -365,12 +372,12 @@ function pageHTML(i) {
   if (i === 0) return `<div class="pg" style="${box}">${coverHTML(ed, pagesOf)}</div>`;
   const rh = s => `<div class="rh"><span class="m">The Newspaper</span><span>${esc(s)}</span></div>`;
   if (i === T - 1) {
-    const idx = editions.indexOf(ed), older = editions[idx + 1], newer = editions[idx - 1];
-    return `<div class="pg" style="${box}">${rh(fmtShort(ed.date))}<div class="endc"><div class="c-mast">The Newspaper</div>
-      <p>That's the whole ${esc(fmtLong(ed.date))} edition.</p>
+    const sameTitle = editions.filter(x => x.daily === ed.daily), idx = sameTitle.indexOf(ed), older = sameTitle[idx + 1], newer = sameTitle[idx - 1];
+    return `<div class="pg" style="${box}">${rh(fmtShort(ed.date))}<div class="endc"><div class="c-mast">${paperName(ed)}</div>
+      <p>That's all of ${paperName(ed)} for ${esc(fmtLong(ed.date))}.</p>
       <button type="button" data-act="stand">Back to the newsstand</button>
-      ${older ? `<button type="button" data-ed="${esc(older.date)}">Older: ${esc(fmtShort(older.date))} edition</button>` : ''}
-      ${newer ? `<button type="button" data-ed="${esc(newer.date)}">Newer: ${esc(fmtShort(newer.date))} edition</button>` : ''}</div><div class="folio">${i + 1}</div></div>`;
+      ${older ? `<button type="button" data-ed="${esc(older.key)}">Older: ${esc(fmtShort(older.date))} edition</button>` : ''}
+      ${newer ? `<button type="button" data-ed="${esc(newer.key)}">Newer: ${esc(fmtShort(newer.date))} edition</button>` : ''}</div><div class="folio">${i + 1}</div></div>`;
   }
   const s = storyAt(i);
   return `<div class="pg" style="${box}">${rh((s ? s.section : '') + ' · ' + fmtShort(ed.date))}
@@ -445,7 +452,7 @@ function ui() {
   $('#prev').disabled = current <= 0; $('#next').disabled = current >= maxCur;
   const s = [...ed.stories].reverse().find(x => pagesOf[x.id] <= last);
   if (s) $('#toc').value = s.id;
-  store.set('np-page-' + ed.date, String(p));
+  store.set('np-page-' + ed.key, String(p));
 }
 function animate(k, from, to, done) {
   const lf = leaves[k], t0 = performance.now(), dur = reduce ? 0 : 220 + 560 * Math.abs(to - from) / 180;
@@ -525,7 +532,7 @@ function refresh() {
   buildEditions(); drawStand(); drawTrash();
   if (!ready) return;
   if (ed && !$('#reader').hidden) {
-    const e = editions.find(x => x.date === ed.date);
+    const e = editions.find(x => x.key === ed.key);
     if (!e) { location.hash = ''; return; }
     const keep = firstPage(current); ed = e; flow = flowHTML(e); build(keep);
   }
@@ -570,10 +577,10 @@ $('#trashStory').onclick = () => {
 async function openEdition(e, storyId) {
   const same = ed === e && !$('#reader').hidden;
   ed = e; flow = flowHTML(e);
-  $('#rtitle').innerHTML = `The Newspaper<small>${esc(fmtLong(e.date))} · No. ${e.no}</small>`;
+  $('#rtitle').innerHTML = `${paperName(e)}<small>${esc(fmtLong(e.date))} · No. ${e.no}</small>`;
   $('#reader').hidden = false; document.body.classList.add('reading');
   try { await document.fonts.ready; } catch {}
-  const keep = same ? firstPage(current) : +(store.get('np-page-' + e.date) || 0);
+  const keep = same ? firstPage(current) : +(store.get('np-page-' + e.key) || 0);
   build(keep);
   if (storyId && pagesOf[storyId] != null) { current = Math.min(maxCur, toCur(pagesOf[storyId])); place(); fill(); ui(); }
 }
@@ -582,7 +589,7 @@ function route() {
   if (!ready) return;
   const h = decodeURIComponent((location.hash || '').slice(1));
   let e = null, sid = null;
-  if (h.startsWith('e-')) e = editions.find(x => x.date === h.slice(2));
+  if (h.startsWith('e-')) e = editions.find(x => x.key === h.slice(2));
   else if (h.startsWith('a-')) { sid = h.slice(2); e = editions.find(x => x.stories.some(s => s.id === sid)); }
   if (e) openEdition(e, sid);
   else { $('#reader').hidden = true; document.body.classList.remove('reading'); ed = null; }
