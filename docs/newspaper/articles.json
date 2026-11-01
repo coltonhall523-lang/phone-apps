@@ -201,6 +201,18 @@
 "id": "connectors-2026-10-31"
 },
 {
+"section": "Daily Paper",
+"lead": true,
+"order": 0,
+"date": "2026-11-01",
+"byline": "By Claude",
+"headline": "Channel Day: Create It, Then Make Test Videos One and Two",
+"dek": "Day 5 is still open, and tomorrow's test day depends on the channel existing tonight.",
+"source": "Launch Plan",
+"body": "## Today's Tasks\n\n**Day 5: Create the channel and make test videos #1 and #2.** 180 minutes.\n\n**Done when:** the channel exists with 2-Step Verification on and your phone verified, and videos #1 and #2 are ready to post.\n\n**Still open from earlier:** Day 4's niche pick. You need it before video #1. Days 2 and 3 are quick tests you can fold into tomorrow's test run.\n\n## Recommended Breakdown\n\n1. **15 min:** Brainstorm channel names with Claude. Avoid real company brands.\n2. **20 min:** Turn on 2-Step Verification and create the channel on your own Google account.\n3. **25 min:** In Studio, go to Settings, Channel, Feature eligibility. Verify your phone and request advanced features.\n4. **60 min:** Make video #1 in the Workstation, with its title and thumbnail.\n5. **60 min:** Make video #2 the same way. Start #3 only if time is left.\n\n## Progress: Last 3 Days\n\nDays 2, 3 and 4 are all still marked open in the plan, so no plan task was finished. The time went to tools instead: the Couch Potato character, the comic chat window and a rebuilt Newspaper. Coach's last read put you at 55% ready to build and 20% ready to post, so the real videos are the next step.",
+"id": "daily-2026-11-01"
+},
+{
 "section": "Fact Check",
 "lead": true,
 "order": 1,
