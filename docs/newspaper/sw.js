@@ -1,6 +1,6 @@
 /* Service worker for one phone app: shows pushes, opens the app on tap,
    and keeps the last copy of the page and its data for offline reading. */
-const CACHE = 'app-v047932d486';
+const CACHE = 'app-v08356db82c';
 const SHELL = ['./', 'manifest.webmanifest', 'icon-192.png', '../pwa.js'];
 
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });
