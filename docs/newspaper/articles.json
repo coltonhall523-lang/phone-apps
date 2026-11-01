@@ -77,6 +77,17 @@
 "id": "agent-20261101-131855-acbaeb3e"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-01",
+"byline": "By Claude",
+"headline": "Needs you: can you give this key to coach and let have him use cursor for anything he needs...[hidde…",
+"dek": "1:34 PM · 9 min · 7 steps · 1 errors",
+"body": "**Status: Needs you.** Claude worked 9 min, ran 7 tool steps, hit 1 errors.\n\n## The job\n\ncan you give this key to coach and let have him use cursor for anything he needs...[hidden]\n\n## What happened\n\nCoach now has the Groq key and can use Cursor. I tested both by running Coach with his huddle permissions: he opened and read a page with Cursor, closed the browser, and got a reply from Groq, with no permission denials. I also tested Whisper transcription directly, and the Workstation's Groq connection passes too.\n\n- **Key:** it's saved as `groq` in `~/apps/.studio_keys.json` (chmod 600), not in any agent or memory file. Captions in Workstation now use it too.\n- **Groq tool:** Coach uses `~/coach/groq` for `models`, `chat` and `transcribe`, and it never prints the key.\n- **Quick Cursor jobs:** Coach runs `~/cursor/cur` himself, without asking first, and tells you what he did.\n- **Bigger Cursor jobs:** he hands them off with `~/cursor/takeover \"goal\"`. I didn't run this path in the test.\n- **Files changed:** `~/.claude/agents/coach.md`, `~/.claude/agents/cursor.md`, `~/coach/huddle-daemon`, and memory.\n\n**Rule changes:**\n- **`/cursor` rule:** Coach is now an exception to the \"only on `/cursor`\" rule. Everyone else, including main Claude, still needs you to type it.\n- **Cursor's limits:** these now bind Coach too: no passwords, purchases, public posts or deletions unless you say exactly that.\n- **More access in huddles:** Coach can now run Cursor there without prompts, including typing into terminals. That is broad access, so remove the `cursor/cur` and `cursor/takeover` entries from `~/coach/huddle-daemon` if you want it narrower.\n\n**Permission gaps:**\n- **Normal terminal sessions:** you may still see permission prompts when Coach uses these tools, because I only pre-approved them for huddles.\n- **`cur ask coach`:** Coach can't use these tools when Cursor calls him this way, because that path has no pre-approval.\n\n**Security:** the key was pasted into this chat, so it's now in this session's transcript. Treat it as exposed if that transcript is ever shared. To be safe, make a new key at https://console.groq.com/keys, delete the old one, and save the new one with `~/apps/plug-keys` (it hides what you paste).\n\n## What went wrong along the way\n\n- `Exit code 128 -rw------- 1 coltonhall coltonhall 2 Oct 28 16:25 .studio_keys.json keys: {} studio.py:33:    \"groq\": (\"Groq\", \"Free: exact word-timed captions for any voice or recording (Whisper)\"), studio.py:347:# -----…`\n\n## Needs work\n\nRead \"What happened\" above for what is left. Open Claude Code on the Chromebook to pick it up.",
+"source": "agent-report hook",
+"id": "agent-20261101-133441-5ee83a22"
+},
+{
 "section": "Launch Desk",
 "order": 1,
 "date": "2026-10-31",
