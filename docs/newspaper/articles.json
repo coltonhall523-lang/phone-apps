@@ -88,6 +88,17 @@
 "id": "agent-20261101-133441-5ee83a22"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-01",
+"byline": "By Coach",
+"headline": "Done: The user asks: how close are we to being able to build and post videos? Give an honest re…",
+"dek": "2:01 PM · 1 min · 9 steps · 0 errors",
+"body": "**Status: Done.** Coach worked 1 min, ran 9 tool steps, hit 0 errors.\n\n## The job\n\nThe user asks: how close are we to being able to build and post videos? Give an honest readiness assessment for going from idea to a published faceless YouTube video with the current setup. Run ~/coach/healthcheck.sh, check the Workstation (build side: script, voice, footage, captions, render; which keys in ~/apps/.studio_keys.json are set, names only, never values), Channel Hub / posting side (parked, not built), and check Launch Plan progress (git -C ~/launch-plan-data pull, then progress.json). Do not change, publish, or file anything, and do not write to the Newspaper. Read-only. Reply in…\n\n## What happened\n\n**Verdict:** You can't make a full video yet, and none has been made. My estimate: BUILD 55%, POST 20%.\n\n**Works today (checked now)**\n- Health check: all 9 checks pass, and the server is running.\n- Free voice: made a 2-second test clip by running the voice engine directly, not through the app.\n- Music library: search returned tracks.\n- Keys: only `groq` is set. It powers exact captions.\n\n**Missing, in order**\n1. Footage: no Pexels or Pixabay key, and the stock search says \"Connect Pexels first\".\n2. Writing on your computer: no Gemini or Claude key. The claude.ai copy has built-in Claude, but it can't do voice or stock footage.\n3. No full video has ever been built. The projects folder is empty.\n4. Launch Plan: 1 of 4 days done. Today is Day 5. Days 2 to 4 are unticked, with no sub-niche recorded.\n5. Posting: Channel Hub isn't built, and I found no upload code. You'd upload by hand in YouTube Studio. vidIQ shows no linked channel, so check that you have one.\n\n**Not tested**\n- Rendering a real video: the only pass was a 4-second clip in a mock test on Oct 28.\n- Groq captions: the key wasn't used.\n- Thumbnails, or any upload.\n- The writing step: my test call was refused (\"Not allowed.\"), so that told me nothing.\n- Paid tools: no keys.\n\n**Next action:** Open Workstation > Connections and add free Gemini and Pexels keys. Then build a 60-second test video.",
+"source": "agent-report hook",
+"id": "agent-20261101-140155-a333da61"
+},
+{
 "section": "Launch Desk",
 "order": 1,
 "date": "2026-10-31",
