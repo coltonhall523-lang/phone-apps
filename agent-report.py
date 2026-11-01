@@ -109,10 +109,10 @@ def main():
     first = short(first or 'a job', 90)
 
     body = [f'**Status: {status}.** {who} worked {mins} min, ran {tools} tool steps, hit {len(errors)} errors.', '',
-            '## The job', '', short(task_s, 600), '', '## What happened', '', short(final_s, 5000) or '_No final report._']
+            '## The job', '', short(task_s, 200), '', '## What happened', '', short(final_s, 1000) or '_No final report._']
     if errors:
         body += ['', '## What went wrong along the way', '']
-        body += [f'- `{short(scrub(e).replace(chr(10), " ").replace("`", "'"), 220)}`' for e in errors[-8:]]
+        body += [f'- `{short(scrub(e).replace(chr(10), " ").replace("`", "'"), 120)}`' for e in errors[-3:]]
     if status != 'Done':
         body += ['', '## Needs work', '', 'Read "What happened" above for what is left. Open Claude Code on the Chromebook to pick it up.']
 

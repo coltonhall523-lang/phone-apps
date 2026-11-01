@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Archivo+Narrow:wght@500;700&display=swap">
 <style>
-/* Layout: a newsstand rack of daily editions; tapping one opens a flipbook reader where each edition is paginated into real pages you turn. */
+/* Layout: a newsstand where every topic is its own newspaper: one sheet, printed front and back, that flips over. */
 :root{
   --paper:#eeece5; --paper-2:#e4e1d7; --sheet:#f5f3ec; --desk:#d3cdbf; --ink:#1c1b17; --ink-2:#3d3a33; --muted:#6a655a; --rule:#1c1b17; --hair:#b9b4a6; --accent:#8e1d14;
   --wood:#5b4331; --wood-hi:#7a5c44; --wood-lo:#3a2a1e; --tag:#f7f3e3; --stamp:#8e1d14; --stamp-ink:#fbf6ea;
@@ -33,204 +33,134 @@ body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-siz
 body.reading{overflow:hidden}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
 a{color:inherit}
-a:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.label{font-family:var(--f-label);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
-.kicker{color:var(--accent)}
-.byline{font-family:var(--f-label);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.dek{font-family:var(--f-head);font-style:italic;font-weight:700;line-height:1.35;color:var(--ink-2);margin:0;text-wrap:pretty}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+button{cursor:pointer}
 
-/* ---------- newsstand ---------- */
+/* newsstand */
 .stand{max-width:1180px;margin:0 auto;padding-block:20px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.ear{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--f-label);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .mast{text-align:center;margin:8px 0 6px}
-.mast h1{font-family:var(--f-mast);font-weight:400;font-size:clamp(46px,9vw,104px);line-height:1;margin:0;letter-spacing:.01em;text-wrap:balance}
-.motto{font-family:var(--f-body);font-style:italic;color:var(--ink-2);font-size:15px;margin-top:4px}
-.dateline{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:3px double var(--rule);border-bottom:1px solid var(--rule);padding:6px 2px;margin:12px 0 26px;font-family:var(--f-label);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase}
-.dateline span{white-space:nowrap}
-.rack{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr));gap:34px clamp(16px,3vw,34px);padding:26px clamp(14px,3vw,30px) 30px;background:var(--paper-2);border:1px solid var(--hair)}
+.mast h1{font-family:var(--f-mast);font-weight:400;font-size:clamp(46px,9vw,104px);line-height:1;margin:0}
+.motto{font-style:italic;color:var(--ink-2);font-size:15px;margin-top:4px}
+.dateline{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-top:3px double var(--rule);border-bottom:1px solid var(--rule);padding:6px 2px;margin:12px 0 22px;font-family:var(--f-label);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase}
+.shelf{font-family:var(--f-head);font-weight:900;font-size:1.15rem;margin:26px 0 10px;text-align:center}
+.rack{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr));gap:30px clamp(16px,3vw,34px);padding:24px clamp(14px,3vw,30px);background:var(--paper-2);border:1px solid var(--hair)}
 @media (min-width:640px){.rack{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}}
 .slot{display:flex;flex-direction:column;min-width:0}
-.hold{aspect-ratio:.878;clip-path:inset(-40px -40px 0 -40px)}
-.paper{position:relative;display:block;width:100%;aspect-ratio:.72;padding:0;border:0;background:none;cursor:pointer;isolation:isolate;transition:transform .25s ease;color:inherit;font:inherit;text-align:left}
-.paper::before,.paper::after{content:"";position:absolute;inset:0;background:var(--sheet);border:1px solid var(--hair);z-index:-1}
-.paper::before{transform:translate(5px,-4px) rotate(1.4deg)}
-.paper::after{transform:translate(-4px,-2px) rotate(-1deg)}
-.paper .pg{box-shadow:0 1px 0 var(--hair),0 6px 14px rgba(0,0,0,.18)}
-.paper:hover,.paper:focus-visible{transform:translateY(-10px) rotate(-.6deg)}
-.lip{position:relative;z-index:2;height:20px;margin-top:-4px;border-radius:2px;background:linear-gradient(var(--wood-hi),var(--wood) 45%,var(--wood-lo));box-shadow:0 6px 10px -4px rgba(0,0,0,.45)}
-.tag{align-self:center;margin-top:10px;padding:4px 10px;background:var(--tag);border:1px solid var(--hair);font-family:var(--f-label);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);text-align:center;font-variant-numeric:tabular-nums}
-.tag b{color:var(--ink)}
-.stamp{position:absolute;top:8%;right:-8px;z-index:3;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:var(--stamp);color:var(--stamp-ink);font-family:var(--f-label);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;transform:rotate(12deg);box-shadow:0 3px 8px rgba(0,0,0,.3)}
-.shelf{font-size:1.15rem;margin:26px 0 10px;text-align:center;letter-spacing:.02em}
-.notice{text-align:center;padding:60px 16px;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.cover{position:relative;display:block;width:100%;aspect-ratio:.72;padding:0;border:1px solid var(--hair);background:var(--sheet);color:var(--ink);text-align:left;font:inherit;overflow:hidden;container-type:size;box-shadow:0 6px 14px rgba(0,0,0,.18);transition:transform .25s ease}
+.cover:hover,.cover:focus-visible{transform:translateY(-6px) rotate(-.6deg)}
+.cv{position:absolute;inset:0;padding:5cqw;display:flex;flex-direction:column;gap:1.6cqw}
+.cv .m{font-family:var(--f-mast);font-size:11.5cqw;line-height:1.05;text-align:center;white-space:nowrap}
+.cv .d{display:flex;justify-content:space-between;border-top:3px double var(--rule);border-bottom:1px solid var(--rule);padding:.8cqw .3cqw;font-family:var(--f-label);font-size:3cqw;letter-spacing:.08em;text-transform:uppercase}
+.cv .k{font-family:var(--f-label);font-weight:700;font-size:3.4cqw;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-top:1.6cqw}
+.cv .h{font-family:var(--f-head);font-weight:900;font-size:8cqw;line-height:1.08;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;flex:none}
+.cv .x{font-size:4.2cqw;line-height:1.35;color:var(--ink-2);flex:1;min-height:0;overflow:hidden;-webkit-mask-image:linear-gradient(#000 60%,transparent);mask-image:linear-gradient(#000 60%,transparent)}
+.stamp{position:absolute;bottom:6px;right:6px;width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:var(--stamp);color:var(--stamp-ink);font-family:var(--f-label);font-weight:700;font-size:10px;letter-spacing:.1em;text-transform:uppercase;transform:rotate(12deg)}
+.lip{position:relative;height:14px;margin-top:-3px;border-radius:2px;background:linear-gradient(var(--wood-hi),var(--wood) 45%,var(--wood-lo));box-shadow:0 6px 10px -4px rgba(0,0,0,.45)}
+.tag{align-self:center;display:flex;align-items:center;gap:8px;margin-top:8px;padding:3px 8px;background:var(--tag);border:1px solid var(--hair);font-family:var(--f-label);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.icon{display:inline-flex;align-items:center;gap:6px;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:0;padding:2px 4px;min-height:24px}
+.icon svg{width:15px;height:15px;flex:none}
+.icon:hover{color:var(--accent)}
+.notice{text-align:center;padding:60px 16px}
 .notice h2{font-family:var(--f-head);font-weight:900;font-size:30px;margin:0 0 8px}
 .notice p{margin:0 auto;max-width:52ch;color:var(--ink-2)}
-.colophon{margin-top:44px;text-align:center;font-family:var(--f-label);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 
-/* ---------- a printed page (shared by rack covers and the reader) ---------- */
-.pg{position:absolute;inset:0;background:var(--sheet);color:var(--ink);overflow:hidden;display:flex;flex-direction:column;container-type:size}
-.pg.mini .cover{padding:5cqw}
-.cover{display:flex;flex-direction:column;height:100%;min-height:0;--ex:2.9cqw;--row:2.6cqw}
-.reader .cover{--ex:max(12px,2.6cqw);--row:max(12px,2.5cqw)}
-.c-ear{display:flex;justify-content:space-between;font-family:var(--f-label);font-size:2.1cqw;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.c-mast{font-family:var(--f-mast);font-size:12.5cqw;line-height:1.05;text-align:center;margin-top:1cqw;white-space:nowrap}
-.c-motto{font-style:italic;text-align:center;color:var(--ink-2);font-size:2.4cqw}
-.c-date{display:flex;justify-content:space-between;gap:2cqw;border-top:3px double var(--rule);border-bottom:1px solid var(--rule);padding:.9cqw .3cqw;margin:2cqw 0 3cqw;font-family:var(--f-label);font-size:2.1cqw;letter-spacing:.1em;text-transform:uppercase}
-.c-lead{display:flex;flex-direction:column;gap:1.4cqw;flex:1;min-height:0}
-.c-kick{font-family:var(--f-label);font-weight:700;font-size:2.2cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
-.c-head{font-family:var(--f-head);font-weight:900;font-size:7.2cqw;line-height:1.05;text-wrap:balance}
-.c-dek{font-family:var(--f-head);font-style:italic;font-weight:700;font-size:3.3cqw;line-height:1.3;color:var(--ink-2)}
-.c-by{font-family:var(--f-label);font-size:2.1cqw;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.c-ex{flex:1;min-height:0;overflow:hidden;columns:2;column-gap:3.2cqw;column-rule:1px solid var(--hair);column-fill:auto;font-size:var(--ex);line-height:1.45;-webkit-mask-image:linear-gradient(#000 75%,transparent);mask-image:linear-gradient(#000 75%,transparent)}
-.c-ex p{margin:0 0 .6em}
-.c-cont{font-family:var(--f-label);font-weight:700;font-size:var(--row);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
-.c-inside{margin-top:2.4cqw;border-top:2px solid var(--rule);padding-top:1.2cqw}
-.c-boxhead{font-family:var(--f-label);font-weight:700;font-size:2.2cqw;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.6cqw}
-.c-row{display:flex;gap:2cqw;align-items:baseline;padding:.8cqw 0;border-bottom:1px solid var(--hair);font-size:var(--row);line-height:1.25}
-.c-row:last-child{border-bottom:0}
-.c-sec{flex:none;font-family:var(--f-label);font-weight:700;font-size:.82em;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
-.c-hl{flex:1;min-width:0;font-family:var(--f-head);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.c-pg{flex:none;font-family:var(--f-label);font-weight:700;font-variant-numeric:tabular-nums}
-.reader [data-goto]{cursor:pointer}
-.reader .c-row[data-goto]:hover .c-hl,.reader .c-lead[data-goto]:hover .c-head{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
-
-/* ---------- reader ---------- */
-.reader{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;background:var(--desk);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));animation:unfold .45s ease both}
-@keyframes unfold{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
-.rbar{display:flex;align-items:center;gap:10px;padding:10px 0;min-height:56px;flex-wrap:wrap}
-.rbar button,.rbar select,.endpg button{font-family:var(--f-label);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--sheet);border:1px solid var(--hair);border-radius:3px;padding:7px 11px;cursor:pointer}
-.rbar button:disabled{opacity:.4;cursor:default}
-.rbar select{max-width:min(42vw,320px);text-transform:none;letter-spacing:0;font-weight:500}
-.rtitle{flex:1;min-width:0;font-family:var(--f-mast);font-size:24px;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rtitle small{font-family:var(--f-label);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-left:8px}
-@media (max-width:620px){.rtitle,.wide{display:none}.rbar{flex-wrap:nowrap;gap:6px}.rbar select{flex:1;min-width:0;max-width:none}#pgno{min-width:0}}
-.pager{display:flex;align-items:center;gap:6px}
-#pgno{font-family:var(--f-label);font-size:13px;letter-spacing:.06em;text-transform:uppercase;min-width:9ch;text-align:center;font-variant-numeric:tabular-nums}
-.stagewrap{flex:1;min-height:0;display:grid;place-items:center;position:relative}
-.book{position:relative;touch-action:none;user-select:none;-webkit-user-select:none;transition:transform .5s ease;filter:drop-shadow(0 10px 18px rgba(0,0,0,.28))}
-.book.single{overflow:hidden}
-.leaf{position:absolute;top:0;transform-origin:left center;transform-style:preserve-3d;will-change:transform}
-.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
-.face.back{transform:rotateY(180deg)}
-.face.front::after,.face.back::after{content:"";position:absolute;top:0;bottom:0;width:26px;pointer-events:none}
-.face.front::after{left:0;background:linear-gradient(90deg,rgba(0,0,0,.16),transparent)}
-.face.back::after{right:0;background:linear-gradient(270deg,rgba(0,0,0,.16),transparent)}
-.shade{position:absolute;inset:0;pointer-events:none;opacity:0}
-.front .shade{background:linear-gradient(90deg,rgba(0,0,0,.05),rgba(0,0,0,.45))}
-.back .shade{background:linear-gradient(270deg,rgba(0,0,0,.05),rgba(0,0,0,.45))}
-.curl{position:absolute;right:0;bottom:0;width:22px;height:22px;pointer-events:none;background:linear-gradient(315deg,var(--desk) 48%,var(--hair) 50%,var(--paper-2) 62%,var(--sheet));box-shadow:-2px -2px 4px rgba(0,0,0,.12)}
+/* reader: one sheet, front and back */
+.reader{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;background:var(--desk);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.rbar{display:flex;align-items:center;gap:8px;padding:10px 0;min-height:56px}
+.rbar button{font-family:var(--f-label);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--sheet);border:1px solid var(--hair);border-radius:3px;padding:8px 11px;display:inline-flex;align-items:center;gap:6px;min-height:36px}
+.rbar svg{width:15px;height:15px}
+.rbar .sp{flex:1}
+#flip{background:var(--accent);border-color:var(--accent);color:var(--sheet)}
+.stage{flex:1;min-height:0;display:grid;place-items:center;perspective:1800px}
+.sheet{position:relative;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.3,.7,.3,1);touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:pointer}
+.sheet.turned{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;background:var(--sheet);color:var(--ink);backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 10px 24px rgba(0,0,0,.3);container-type:size}
+.face.b{transform:rotateY(180deg)}
+.sheet:not(.turned) .face.b,.sheet.turned .face.f{pointer-events:none}
 .hint{text-align:center;font-family:var(--f-label);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 0 10px}
-#measure{position:absolute;left:-30000px;top:0;visibility:hidden;pointer-events:none}
+.f-mast{font-family:var(--f-mast);font-size:min(12cqw,58px);line-height:1.05;text-align:center;white-space:nowrap}
+.f-date{display:flex;justify-content:space-between;gap:8px;border-top:3px double var(--rule);border-bottom:1px solid var(--rule);padding:3px 2px;margin:4px 0 10px;font-family:var(--f-label);font-size:11px;letter-spacing:.09em;text-transform:uppercase;white-space:nowrap}
+.f-k{font-family:var(--f-label);font-weight:700;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.f-h{font-family:var(--f-head);font-weight:900;font-size:min(7.2cqw,36px);line-height:1.08;margin:3px 0 5px;text-wrap:balance}
+.f-d{font-family:var(--f-head);font-style:italic;font-weight:700;font-size:min(4.1cqw,17px);line-height:1.28;color:var(--ink-2);margin:0 0 5px}
+.f-by{font-family:var(--f-label);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--rule);padding-bottom:6px;margin-bottom:9px}
+.rh{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--rule);padding-bottom:3px;margin-bottom:9px;font-family:var(--f-label);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.rh .m{font-family:var(--f-mast);font-size:16px;letter-spacing:0;text-transform:none;color:var(--ink)}
+.folio{flex:none;margin-top:6px;text-align:center;font-family:var(--f-label);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 
-/* running head, folio and flowed story text inside a page */
-.rh{display:flex;justify-content:space-between;gap:10px;height:20px;margin-bottom:8px;border-bottom:1px solid var(--rule);font-family:var(--f-label);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden}
-.rh .m{font-family:var(--f-mast);font-size:15px;letter-spacing:0;text-transform:none;color:var(--ink)}
-.folio{height:16px;margin-top:8px;text-align:center;font-family:var(--f-label);font-size:11px;letter-spacing:.1em;color:var(--muted);font-variant-numeric:tabular-nums}
-.clip{position:relative;overflow:hidden;flex:none}
-.flow{position:absolute;top:0;left:0;column-fill:auto;font-size:var(--pfs,15px);line-height:1.5;hyphens:auto;-webkit-hyphens:auto}
-.st+.st{break-before:column;-webkit-column-break-before:always}
-.sthead{display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:12px;break-inside:avoid}
-.sthead h1{font-family:var(--f-head);font-weight:900;font-size:1.75em;line-height:1.08;margin:0;text-wrap:balance}
-.sthead .dek{font-size:1.05em}
-.flow .body>p:first-of-type::first-letter{font-family:var(--f-head);font-weight:900;float:left;font-size:3.3em;line-height:.82;padding:5px 7px 0 0;color:var(--accent)}
-.flow .body h2,.flow .body h3,.flow .body h4{font-family:var(--f-head);font-weight:900;line-height:1.15;margin:1.1em 0 .4em;text-wrap:balance;break-after:avoid}
-.flow .body h2{font-size:1.3em;border-top:1px solid var(--rule);padding-top:.4em}
-.flow .body h3{font-size:1.15em}
-.flow .body h4{font-size:1em}
-.flow .body p{margin:0 0 .75em;text-align:justify}
-.flow .body ul,.flow .body ol{margin:0 0 .8em;padding-left:1.3em}
-.flow .body li{margin:.2em 0}
-.flow .body blockquote{margin:.8em 0;padding:2px 0 2px 12px;border-left:3px solid var(--accent);font-style:italic;color:var(--ink-2)}
-.flow .body code{font-family:ui-monospace,"Courier New",monospace;font-size:.84em;background:var(--paper-2);padding:1px 4px;border-radius:3px;overflow-wrap:anywhere}
-.flow .body pre{background:var(--paper-2);padding:8px 10px;font-size:12.5px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}
-.flow .body pre code{background:none;padding:0}
-.flow .body hr{border:0;border-top:3px double var(--rule);margin:1.2em 0}
-.flow .body a{color:var(--accent);text-underline-offset:2px;overflow-wrap:anywhere}
-.flow .tablewrap{overflow-x:auto;margin:0 0 1em;border-top:2px solid var(--rule);border-bottom:2px solid var(--rule);touch-action:pan-x}
-.flow table{border-collapse:collapse;width:100%;font-size:12.5px;line-height:1.35;font-variant-numeric:tabular-nums}
-.flow th{font-family:var(--f-label);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;text-align:left;padding:6px 7px;border-bottom:1px solid var(--rule);vertical-align:bottom}
-.flow td{padding:5px 7px;border-bottom:1px solid var(--hair);vertical-align:top}
-.flow tr:last-child td{border-bottom:0}
-.flow .onfile{margin-top:.6em}
-.flow .end{text-align:center;color:var(--accent);font-size:.7em;margin:.6em 0 0}
-.endc{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center}
-.endc .c-mast{font-size:11cqw}
-.endc p{margin:0;color:var(--ink-2);font-style:italic;max-width:30ch}
-/* trash can: stories and editions go here first, and can be restored */
-.trashbtn{display:inline-flex;align-items:center;gap:6px;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:0;padding:2px 4px;cursor:pointer}
-.trashbtn svg{width:15px;height:15px;flex:none}
-.trashbtn:hover,.trashbtn:focus-visible{color:var(--accent)}
-.tag{display:flex;align-items:center;gap:8px}
-.tag .trashbtn{border-left:1px solid var(--hair);padding:0 0 0 8px;color:var(--muted)}
-.rbar #trashStory{display:inline-flex;align-items:center;gap:6px}
-.rbar #trashStory svg{width:15px;height:15px}
+.tx{flex:1;min-height:0;overflow:hidden;font-size:var(--fs,14px);line-height:1.42;hyphens:auto;-webkit-hyphens:auto;column-fill:auto;column-gap:18px;column-rule:1px solid var(--hair)}
+.tx.two{columns:2}
+.tx.scroll{overflow-y:auto;columns:auto;-webkit-overflow-scrolling:touch;user-select:text;-webkit-user-select:text;cursor:auto}
+.f .tx>p:first-child::first-letter{font-family:var(--f-head);font-weight:900;float:left;font-size:3em;line-height:.82;padding:4px 6px 0 0;color:var(--accent)}
+.tx h2,.tx h3,.tx h4{font-family:var(--f-head);font-weight:900;line-height:1.15;margin:.8em 0 .3em;break-after:avoid}
+.tx>:first-child{margin-top:0}
+.tx h2{font-size:1.2em;border-top:1px solid var(--rule);padding-top:.3em}
+.tx>h2:first-child{border-top:0;padding-top:0}
+.tx h3{font-size:1.1em}.tx h4{font-size:1em}
+.tx p{margin:0 0 .55em}
+.tx ul,.tx ol{margin:0 0 .6em;padding-left:1.2em}
+.tx li{margin:.12em 0}
+.tx blockquote{margin:.6em 0;padding:1px 0 1px 10px;border-left:3px solid var(--accent);font-style:italic;color:var(--ink-2)}
+.tx code{font-family:ui-monospace,"Courier New",monospace;font-size:.84em;background:var(--paper-2);padding:1px 3px;border-radius:3px;overflow-wrap:anywhere}
+.tx pre{background:var(--paper-2);padding:6px 8px;font-size:.84em;white-space:pre-wrap;overflow-wrap:anywhere;margin:0 0 .6em}
+.tx pre code{background:none;padding:0}
+.tx hr{border:0;border-top:3px double var(--rule);margin:.8em 0}
+.tx a{color:var(--accent);overflow-wrap:anywhere}
+.tx .tablewrap{overflow-x:auto;margin:0 0 .7em;border-top:2px solid var(--rule);border-bottom:2px solid var(--rule)}
+.tx table{border-collapse:collapse;width:100%;font-size:.88em;line-height:1.3}
+.tx th{font-family:var(--f-label);font-size:.85em;letter-spacing:.06em;text-transform:uppercase;text-align:left;padding:4px 5px;border-bottom:1px solid var(--rule)}
+.tx td{padding:3px 5px;border-bottom:1px solid var(--hair);vertical-align:top}
+.tx .end{text-align:center;color:var(--accent);font-size:.7em;margin:.4em 0}
+.tx .file{font-family:var(--f-label);font-size:.78em;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);overflow-wrap:anywhere}
+.more{break-inside:avoid;border-top:2px solid var(--rule);margin-top:10px;padding-top:4px}
+.more b{display:block;font-family:var(--f-label);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:2px}
+.more button{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--hair);padding:5px 0;font-family:var(--f-head);font-weight:700;font-size:13.5px;line-height:1.2;color:var(--ink);min-height:30px}
+.more button:hover{text-decoration:underline}
+
+/* trash: papers can always be put back */
 .tbox{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px}
-.tbox[hidden]{display:none}
-.tpanel{background:var(--sheet);color:var(--ink);border:1px solid var(--rule);width:min(560px,100%);max-height:min(80vh,720px);display:flex;flex-direction:column;box-shadow:0 10px 40px rgba(0,0,0,.4)}
-.tpanel header{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-bottom:3px double var(--rule)}
+.tpanel{background:var(--sheet);color:var(--ink);border:1px solid var(--rule);width:min(560px,100%);max-height:min(80vh,720px);display:flex;flex-direction:column}
+.tpanel header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:3px double var(--rule)}
 .tpanel h2{font-family:var(--f-head);font-weight:900;font-size:24px;margin:0}
-.tpanel .tlist{overflow:auto;padding:4px 16px;flex:1}
-.trow{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--hair)}
-.trow .tt{flex:1;min-width:0}
-.trow .tt b{display:block;font-family:var(--f-head);font-size:16px;line-height:1.25}
-.trow .tt span{font-family:var(--f-label);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.tpanel button.tb{font-family:var(--f-label);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--paper);border:1px solid var(--hair);border-radius:3px;padding:7px 10px;cursor:pointer;white-space:nowrap}
-.tpanel button.tb.danger{color:var(--accent);border-color:var(--accent)}
-.tpanel footer{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 16px;border-top:1px solid var(--rule);font-family:var(--f-label);font-size:12px;letter-spacing:.06em;color:var(--muted)}
-.tempty{padding:36px 0;text-align:center;font-style:italic;color:var(--ink-2)}
-.toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:95;display:flex;gap:14px;align-items:center;background:var(--ink);color:var(--sheet);padding:10px 16px;border-radius:4px;font-family:var(--f-label);font-size:13px;letter-spacing:.06em;box-shadow:0 6px 20px rgba(0,0,0,.35);max-width:calc(100vw - 32px)}
-.toast[hidden]{display:none}
-.toast button{font:inherit;font-weight:700;text-transform:uppercase;color:var(--sheet);background:none;border:1px solid currentColor;border-radius:3px;padding:4px 9px;cursor:pointer}
+.tlist{overflow:auto;padding:4px 16px 12px}
+.trow{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--hair);font-family:var(--f-head);font-size:15px;line-height:1.25}
+.trow span{flex:1;min-width:0}
+.tb{font-family:var(--f-label);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--paper);border:1px solid var(--hair);border-radius:3px;padding:7px 10px;white-space:nowrap}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:95;display:flex;gap:14px;align-items:center;background:var(--ink);color:var(--sheet);padding:10px 16px;border-radius:4px;font-family:var(--f-label);font-size:13px;max-width:calc(100vw - 32px)}
+.toast button{font:inherit;font-weight:700;text-transform:uppercase;color:var(--sheet);background:none;border:1px solid currentColor;border-radius:3px;padding:4px 9px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
-<div class="stand" id="stand">
-  <div class="ear"><span id="volno">Vol. I</span><span>Filed by Claude and the Coach</span></div>
-  <header class="mast"><h1>The Newspaper</h1>
-    <div class="motto">All the reports fit to print, from your faceless YouTube desk</div></header>
-  <div class="dateline"><span id="today"></span><span id="count">The Newsstand</span><button class="trashbtn" id="trashBtn" type="button" aria-label="Open the trash can"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 10v7M14 10v7"/></svg><span id="trashCount">Trash</span></button></div>
-  <main id="rack">
-    <div class="notice"><h2>Stop the presses…</h2><p>Today's edition is being set in type. The papers load from the archive in a moment.</p></div>
-  </main>
-  <div class="colophon">Pick up any edition to read it · New editions arrive as Claude and the Coach file reports</div>
+<div class="stand">
+  <header class="mast"><h1>The Newspaper</h1><div class="motto">One topic, one paper, front and back</div></header>
+  <div class="dateline"><span id="today"></span><span id="count"></span><button class="icon" id="trashBtn" type="button"></button></div>
+  <main id="rack"><div class="notice"><h2>Stop the presses…</h2><p>The papers are on their way to the stand.</p></div></main>
 </div>
 
 <div class="reader" id="reader" hidden>
   <header class="rbar">
-    <button id="toStand" type="button" aria-label="Back to the newsstand">←<span class="wide"> Newsstand</span></button>
-    <div class="rtitle" id="rtitle"></div>
-    <select id="toc" aria-label="Jump to a story"></select>
-    <button id="trashStory" type="button" aria-label="Move this story to the trash"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 10v7M14 10v7"/></svg><span class="wide">Trash story</span></button>
-    <div class="pager"><button id="prev" type="button" aria-label="Previous page">‹</button><span id="pgno"></span><button id="next" type="button" aria-label="Next page">›</button></div>
+    <button id="toStand" type="button" aria-label="Back to the newsstand">← Stand</button>
+    <span class="sp"></span>
+    <button id="trashOne" type="button" aria-label="Move this paper to the trash"></button>
+    <button id="flip" type="button">Flip to back</button>
   </header>
-  <div class="stagewrap" id="stagewrap"><div class="book" id="book"></div></div>
-  <div class="hint" id="hint">Drag a page to turn it, or tap its edge · ← → keys work too</div>
-  <div id="measure"></div>
+  <div class="stage" id="stage"><div class="sheet" id="sheet">
+    <article class="face f" id="front"></article>
+    <article class="face b" id="back"></article>
+  </div></div>
+  <div class="hint">Tap the paper to flip it over</div>
 </div>
 
 <div class="tbox" id="tbox" hidden role="dialog" aria-modal="true" aria-labelledby="ttitle">
-  <div class="tpanel">
-    <header><h2 id="ttitle">The Trash Can</h2><button class="tb" type="button" id="tclose">Close</button></header>
-    <div class="tlist" id="tlist"></div>
-    <footer><span>Trash is kept on this device. Restore puts a story back in its edition.</span><button class="tb danger" type="button" id="tempty">Empty trash</button></footer>
-  </div>
+  <div class="tpanel"><header><h2 id="ttitle">The Trash Can</h2><button class="tb" type="button" id="tclose">Close</button></header><div class="tlist" id="tlist"></div></div>
 </div>
 <div class="toast" id="toast" hidden role="status"><span id="toastMsg"></span><button type="button" id="toastUndo">Undo</button></div>
 
 <script>
-/* Sections in print order. A story's `section` must be one of these names. */
-const SECTIONS = ['Daily Paper', 'Front Page', 'Agent Desk', 'Fact Check', "Coach's Corner", 'Launch Desk', 'Tech Desk', 'Research Desk', 'Playbook', 'History'];
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
-let all = [], stories = [], editions = [], ready = false;
-
-/* ---- the trash can: {id: date trashed}; "deleted forever" ids stay hidden for good ---- */
-const readJSON = (k, d) => { try { return JSON.parse(store.get(k)) ?? d; } catch { return d; } };
-let trash = readJSON('np-trash', {}), gone = new Set(readJSON('np-gone', []));
-const saveTrash = () => { store.set('np-trash', JSON.stringify(trash)); store.set('np-gone', JSON.stringify([...gone])); };
-const TRASH_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 10v7M14 10v7"/></svg>';
+const BIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 10v7M14 10v7"/></svg>';
 
 /* ---- a small Markdown reader for report bodies ---- */
 function inline(t) {
@@ -281,341 +211,212 @@ function md(src) {
   }
   return out.join('\n');
 }
-/* the first few plain paragraphs, for front-page excerpts */
-function excerpt(body, n = 2) {
-  const paras = String(body || '').split(/\n\s*\n/).map(p => p.trim()).filter(p => p && !/^(#|\||[-*]\s|\d+[.)]\s|```|>)/.test(p));
-  return paras.slice(0, n).map(p => '<p>' + inline(p.replace(/\n/g, ' ')) + '</p>').join('');
-}
 
-/* ---- dates ---- */
 const fmtLong = d => { const x = new Date((d || '') + 'T12:00'); return isNaN(x) ? 'Undated' : x.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }); };
-const fmtShort = d => { const x = new Date((d || '') + 'T12:00'); return isNaN(x) ? 'Undated' : x.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' }); };
-const secIdx = s => { const i = SECTIONS.indexOf(s.section); return i < 0 ? 99 : i; };
-const byline = s => `<div class="byline">${esc(s.byline || 'Staff report')}${s.date ? ' · ' + esc(fmtShort(s.date)) : ''}</div>`;
+const fmtShort = d => { const x = new Date((d || '') + 'T12:00'); return isNaN(x) ? 'Undated' : x.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }); };
 
-/* ---- editions: one paper per filing date ---- */
-function buildEditions() {
-  /* the Daily Paper is its own title on its own shelf; everything else goes in that date's Newspaper */
-  const by = {};
-  for (const s of stories) (by[(s.section === 'Daily Paper' ? 'daily-' : '') + (s.date || 'undated')] ||= []).push(s);
-  const firstOf = daily => Object.keys(by).filter(k => k.startsWith('daily-') === daily && !k.endsWith('undated')).sort()[0]?.replace('daily-', '');
-  editions = Object.entries(by).map(([key, list]) => {
-    const daily = key.startsWith('daily-'), date = key.replace('daily-', ''), first = firstOf(daily);
-    const lead = list.find(s => s.lead) || [...list].sort((a, b) => String(b.body || '').length - String(a.body || '').length)[0];
-    const rest = list.filter(s => s !== lead).sort((a, b) => secIdx(a) - secIdx(b) || (a.order ?? 99) - (b.order ?? 99));
-    const no = first && date !== 'undated' ? Math.round((new Date(date + 'T12:00') - new Date(first + 'T12:00')) / 864e5) + 1 : 1;
-    return { key, daily, date, lead, stories: [lead, ...rest], no };
-  }).sort((a, b) => b.date.localeCompare(a.date));
+/* every story is one whole paper. Numbers count up from the oldest and never shift when a paper is trashed. */
+let all = [], papers = [], ready = false, cur = null;
+let trash; try { trash = JSON.parse(store.get('np2-trash')) || {}; } catch { trash = {}; }
+const saveTrash = () => store.set('np2-trash', JSON.stringify(trash));
+const auto = p => p.section === 'Agent Desk';
+function index() {
+  const sorted = [...all].sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')) || (b.lead ? 1 : 0) - (a.lead ? 1 : 0) || (a.order ?? 99) - (b.order ?? 99) || String(b.id).localeCompare(String(a.id)));
+  sorted.forEach((p, i) => { p.no = sorted.length - i; });
+  papers = sorted.filter(p => !(p.id in trash));
 }
+const plain = b => String(b || '').split(/\n\s*\n/).map(p => p.trim()).find(p => p && !/^(#|\||```|>)/.test(p))?.replace(/^\s*([-*]|\d+[.)])\s+/, '').replace(/[*`]/g, '') || '';
 
-const paperName = e => e.daily ? 'The Daily Paper' : 'The Newspaper';
-
-/* front page of an edition; `pages` (story id -> page index) adds page numbers inside the reader */
-function coverHTML(ed, pages) {
-  const L = ed.lead, rest = ed.stories.slice(1), go = s => pages ? ` data-goto="${pages[s.id]}"` : '';
-  return `<div class="cover">
-    <div class="c-ear"><span>Vol. I · No. ${ed.no}</span><span>${ed.stories.length} ${ed.stories.length === 1 ? 'story' : 'stories'} · Free</span></div>
-    <div class="c-mast">${paperName(ed)}</div>
-    <div class="c-motto">${ed.daily ? 'Today’s work, and how to do it' : 'All the reports fit to print'}</div>
-    <div class="c-date"><span>${esc(fmtLong(ed.date))}</span><span>Chromebook Edition</span></div>
-    <div class="c-lead"${go(L)}>
-      <div class="c-kick">${esc(L.section)}</div><div class="c-head">${esc(L.headline)}</div>
-      ${L.dek ? `<div class="c-dek">${esc(L.dek)}</div>` : ''}<div class="c-by">${esc(L.byline || 'Staff report')}</div>
-      <div class="c-ex">${excerpt(L.body, 4)}</div>
-      ${pages ? `<div class="c-cont">Continued on page ${pages[L.id] + 1} →</div>` : ''}
-    </div>
-    ${rest.length ? `<div class="c-inside"><div class="c-boxhead">Inside this edition</div>${rest.slice(0, 6).map(s =>
-      `<div class="c-row"${go(s)}><span class="c-sec">${esc(s.section)}</span><span class="c-hl">${esc(s.headline)}</span>${pages ? `<span class="c-pg">${pages[s.id] + 1}</span>` : ''}</div>`).join('')}</div>` : ''}
-  </div>`;
-}
-
-/* ---- the newsstand ---- */
 function drawStand() {
-  const rack = $('#rack');
-  $('#count').textContent = editions.length ? `${editions.length} ${editions.length === 1 ? 'edition' : 'editions'} on the stand` : 'The Newsstand';
-  const papers = editions.filter(e => !e.daily), dailies = editions.filter(e => e.daily);
-  if (papers[0]) $('#volno').textContent = `Vol. I · No. ${papers[0].no}`;
-  if (!editions.length) {
-    rack.innerHTML = `<div class="notice"><h2>No papers on the stand yet</h2><p>Editions appear here as soon as Claude or the Coach files a report. Ask in Claude Code: “put that report in the newspaper”.</p></div>`;
-    return;
+  $('#count').textContent = `${papers.length} ${papers.length === 1 ? 'paper' : 'papers'}`;
+  const ids = Object.keys(trash).filter(id => all.some(p => p.id === id));
+  $('#trashBtn').innerHTML = BIN + `<span>${ids.length ? `Trash (${ids.length})` : 'Trash'}</span>`;
+  const card = (p, latest) => `<div class="slot"><button class="cover" type="button" data-open="${esc(p.id)}" aria-label="Read: ${esc(p.headline)}">
+      <div class="cv"><div class="m">The Newspaper</div><div class="d"><span>No. ${p.no}</span><span>${esc(fmtShort(p.date))}</span></div>
+      <div class="k">${esc(p.section || 'Report')}</div><div class="h">${esc(p.headline)}</div><div class="x">${esc(p.dek || plain(p.body))}</div></div>
+      ${latest ? '<span class="stamp">Latest</span>' : ''}</button><div class="lip"></div>
+      <div class="tag"><span>No. ${p.no} · ${esc(fmtShort(p.date))}</span><button class="icon" type="button" data-trash="${esc(p.id)}" aria-label="Move ${esc(p.headline)} to the trash">${BIN}</button></div></div>`;
+  const main = papers.filter(p => !auto(p)), reports = papers.filter(auto);
+  const shelf = (t, l, stamp) => l.length ? `<h2 class="shelf">${t}</h2><div class="rack">${l.map((p, i) => card(p, stamp && !i)).join('')}</div>` : '';
+  $('#rack').innerHTML = papers.length ? shelf('The Papers', main, true) + shelf('Agent Reports', reports, false)
+    : `<div class="notice"><h2>The stand is empty</h2><p>Ask Claude or the Coach for a paper. If you put papers in the trash, they can come back from there.</p></div>`;
+}
+
+/* ---- fitting a story onto the two sides of one sheet ---- */
+const over = el => el.scrollHeight > el.clientHeight + 1 || el.scrollWidth > el.clientWidth + 1;
+function keepWords(el, n, first) {
+  /* a copy of a paragraph with only its first n words, or everything after them; inline markup survives */
+  const c = el.cloneNode(true), w = document.createTreeWalker(c, NodeFilter.SHOW_TEXT), nodes = [];
+  while (w.nextNode()) nodes.push(w.currentNode);
+  let seen = 0;
+  for (const t of nodes) {
+    const parts = t.nodeValue.split(/(\s+)/);
+    t.nodeValue = parts.filter(x => { if (!x.trim()) return true; seen++; return first ? seen <= n : seen > n; }).join('');
   }
-  const shelf = (title, list) => list.length ? `<h2 class="shelf">${title}</h2><div class="rack">${list.map((ed, i) => `<div class="slot">
-      <div class="hold"><button class="paper" type="button" data-ed="${esc(ed.key)}" aria-label="Read ${paperName(ed)} for ${esc(fmtLong(ed.date))}"><div class="pg mini">${coverHTML(ed)}</div>${i === 0 ? '<span class="stamp">Latest</span>' : ''}</button></div>
-      <div class="lip"></div>
-      <div class="tag"><span><b>No. ${ed.no}</b> · ${esc(fmtShort(ed.date))} · ${ed.stories.length} ${ed.stories.length === 1 ? 'story' : 'stories'}</span><button class="trashbtn" type="button" data-trash-ed="${esc(ed.key)}" aria-label="Move ${paperName(ed)} for ${esc(fmtLong(ed.date))} to the trash">${TRASH_SVG}</button></div></div>`).join('')}</div>` : '';
-  rack.innerHTML = shelf('The Daily Paper', dailies) + shelf('The Newspaper', papers);
+  c.innerHTML = c.innerHTML.trim();
+  return c;
 }
-$('#rack').addEventListener('click', e => {
-  const t = e.target.closest('[data-trash-ed]');
-  if (t) { const e2 = editions.find(x => x.key === t.dataset.trashEd); if (e2) toTrash(e2.stories.map(s => s.id), `${paperName(e2)} for ${fmtShort(e2.date)} went in the trash`); return; }
-  const b = e.target.closest('[data-ed]'); if (!b) return;
-  const go = () => { location.hash = 'e-' + b.dataset.ed; };
-  document.startViewTransition && !reduce ? document.startViewTransition(go) : go();
-});
-
-/* ---- the reader: paginate an edition with CSS columns, then bind the pages into turnable leaves ---- */
-const GAP = 40;
-let ed = null, flow = '', pagesOf = {}, starts = [], T = 0, L = 0, current = 0, maxCur = 0, spread = false, W = 0, H = 0, cw = 0, ch = 0, pad = 0, leaves = [], busy = false, drag = null;
-
-function flowHTML(e) {
-  return e.stories.map(s => `<section class="st" data-id="${esc(s.id)}"><header class="sthead"><div class="label kicker">${esc(s.section)}</div>
-    <h1>${esc(s.headline)}</h1>${s.dek ? `<p class="dek">${esc(s.dek)}</p>` : ''}${byline(s)}</header>
-    <div class="body">${md(s.body)}</div>${s.source ? `<p class="byline onfile">On file: ${esc(s.source)}</p>` : ''}<p class="end">■</p></section>`).join('');
-}
-const toCur = p => spread ? Math.ceil(p / 2) : p;
-const firstPage = c => spread ? Math.max(0, 2 * c - 1) : c;
-const storyAt = p => { let s = null; for (const x of starts) if (x.page <= p) s = x; return s; };
-
-function pageHTML(i) {
-  if (i < 0 || i >= T) return '<div class="pg"></div>';
-  const box = `padding:${pad}px`;
-  if (i === 0) return `<div class="pg" style="${box}">${coverHTML(ed, pagesOf)}</div>`;
-  const rh = s => `<div class="rh"><span class="m">The Newspaper</span><span>${esc(s)}</span></div>`;
-  if (i === T - 1) {
-    const sameTitle = editions.filter(x => x.daily === ed.daily), idx = sameTitle.indexOf(ed), older = sameTitle[idx + 1], newer = sameTitle[idx - 1];
-    return `<div class="pg" style="${box}">${rh(fmtShort(ed.date))}<div class="endc"><div class="c-mast">${paperName(ed)}</div>
-      <p>That's all of ${paperName(ed)} for ${esc(fmtLong(ed.date))}.</p>
-      <button type="button" data-act="stand">Back to the newsstand</button>
-      ${older ? `<button type="button" data-ed="${esc(older.key)}">Older: ${esc(fmtShort(older.date))} edition</button>` : ''}
-      ${newer ? `<button type="button" data-ed="${esc(newer.key)}">Newer: ${esc(fmtShort(newer.date))} edition</button>` : ''}</div><div class="folio">${i + 1}</div></div>`;
-  }
-  const s = storyAt(i);
-  return `<div class="pg" style="${box}">${rh((s ? s.section : '') + ' · ' + fmtShort(ed.date))}
-    <div class="clip" style="width:${cw}px;height:${ch}px"><div class="flow" style="width:${cw}px;height:${ch}px;column-width:${cw}px;column-gap:${GAP}px;transform:translateX(${-(i - 1) * (cw + GAP)}px)">${flow}</div></div>
-    <div class="folio">${i + 1}</div></div>`;
-}
-
-function build(keepPage) {
-  const wrap = $('#stagewrap'), aw = wrap.clientWidth, ah = wrap.clientHeight;
-  spread = aw >= 860 && ah >= 420;
-  if (spread) { H = Math.min(ah - 8, 1000); W = Math.min(aw / 2, H * .72); H = Math.min(H, W / .62); }
-  else { W = Math.min(aw, 580); H = Math.min(ah - 4, W * 1.62); }
-  W = Math.floor(W); H = Math.floor(H);
-  pad = W < 440 ? 16 : 26;
-  cw = W - pad * 2; ch = H - pad * 2 - 28 - 24;
-  const reader = $('#reader');
-  reader.style.setProperty('--pfs', W < 440 ? '14.5px' : '15.5px');
-
-  /* lay the edition out once, offscreen, as one long row of page-wide columns */
-  const m = $('#measure');
-  m.innerHTML = `<div class="flow" style="width:${cw}px;height:${ch}px;column-width:${cw}px;column-gap:${GAP}px">${flow}</div>`;
-  /* the reader may still be scaling in, so measure in its own units */
-  const f = m.firstElementChild, fr = f.getBoundingClientRect(), k = fr.width / cw || 1, col = el => Math.floor(((el.getBoundingClientRect().left - fr.left) / k + 2) / (cw + GAP));
-  pagesOf = {}; starts = [];
-  f.querySelectorAll('.st').forEach(el => { const p = 1 + col(el.firstElementChild); pagesOf[el.dataset.id] = p; starts.push({ page: p, section: ed.stories.find(s => s.id === el.dataset.id)?.section || '' }); });
-  const ends = f.querySelectorAll('.end'), n = ends.length ? col(ends[ends.length - 1]) + 1 : 1;
-  m.innerHTML = '';
-  T = n + 2;
-  L = spread ? Math.ceil(T / 2) : T;
-  maxCur = toCur(T - 1);
-
-  const book = $('#book');
-  book.className = 'book' + (spread ? '' : ' single');
-  book.style.width = (spread ? 2 * W : W) + 'px'; book.style.height = H + 'px';
-  book.innerHTML = Array.from({ length: L }, (_, k) => `<div class="leaf" style="left:${spread ? W : 0}px;width:${W}px;height:${H}px">
-    <div class="face front"><div class="fc"></div><div class="shade"></div>${k < L - 1 || !spread ? '<div class="curl"></div>' : ''}</div>
-    <div class="face back"><div class="fc"></div><div class="shade"></div></div></div>`).join('');
-  leaves = [...book.children];
-
-  $('#toc').innerHTML = ed.stories.map(s => `<option value="${esc(s.id)}">p. ${pagesOf[s.id] + 1} · ${esc(s.headline)}</option>`).join('');
-  current = Math.min(maxCur, Math.max(0, toCur(keepPage || 0)));
-  place(); fill(); ui();
-}
-
-function setAngle(leaf, a) {
-  leaf.style.transform = `perspective(${W * 3.2}px) rotateY(${-a}deg)`;
-  const fs = leaf.querySelector('.front .shade'), bs = leaf.querySelector('.back .shade');
-  fs.style.opacity = Math.min(1, a / 90) * .9;
-  bs.style.opacity = Math.min(1, (180 - a) / 90) * .9;
-}
-function place() {
-  leaves.forEach((lf, k) => { const flipped = k < current; lf.style.zIndex = flipped ? k + 1 : 2 * L - k; setAngle(lf, flipped ? 180 : 0); });
-  const book = $('#book');
-  book.style.transform = spread && current === 0 ? `translateX(${-W / 2}px)` : spread && current >= L ? `translateX(${W / 2}px)` : 'none';
-}
-/* only the leaves near the open spread hold page content */
-function fill(extra) {
-  leaves.forEach((lf, k) => {
-    const near = (k >= current - 2 && k <= current + 1) || k === extra;
-    if (near && lf.dataset.k !== 'y') {
-      lf.querySelector('.front .fc').innerHTML = pageHTML(spread ? 2 * k : k);
-      lf.querySelector('.back .fc').innerHTML = spread ? pageHTML(2 * k + 1) : '<div class="pg"></div>';
-      lf.dataset.k = 'y';
-    } else if (!near && Math.abs(k - current) > 4 && lf.dataset.k === 'y') {
-      lf.querySelector('.front .fc').innerHTML = ''; lf.querySelector('.back .fc').innerHTML = ''; lf.dataset.k = '';
+const words = el => el.textContent.trim().split(/\s+/).length;
+/* pour blocks into the box until full; return whatever did not fit */
+function pour(box, blocks) {
+  const left = [...blocks];
+  while (left.length) {
+    const n = left[0];
+    box.appendChild(n);
+    if (!over(box)) { left.shift(); continue; }
+    n.remove();
+    if (n.tagName === 'P') {
+      let lo = 0, hi = words(n);
+      while (hi - lo > 1) { const mid = (lo + hi) >> 1, t = keepWords(n, mid, true); box.appendChild(t); over(box) ? hi = mid : lo = mid; t.remove(); }
+      if (lo >= 8) { box.appendChild(keepWords(n, lo, true)); left[0] = keepWords(n, lo, false); }
+    } else if (n.tagName === 'UL' || n.tagName === 'OL') {
+      const part = n.cloneNode(false); box.appendChild(part);
+      const items = [...n.children];
+      while (items.length) { part.appendChild(items[0]); if (over(box)) { items[0].remove(); break; } items.shift(); }
+      if (!part.children.length) part.remove();
+      if (!items.length) { left.shift(); continue; }
+      n.replaceChildren(...items);
     }
-  });
+    break;
+  }
+  /* no heading stranded at the bottom of a side */
+  const last = box.lastElementChild;
+  if (last && /^H[2-4]$/.test(last.tagName)) { last.remove(); left.unshift(last); }
+  return left;
 }
-function ui() {
-  const p = firstPage(current), last = spread ? Math.min(T - 1, 2 * current) : p;
-  $('#pgno').textContent = spread && current > 0 && last > p ? `Pages ${p + 1}–${last + 1} of ${T}` : innerWidth <= 620 ? `${p + 1} / ${T}` : `Page ${p + 1} of ${T}`;
-  $('#prev').disabled = current <= 0; $('#next').disabled = current >= maxCur;
-  const s = [...ed.stories].reverse().find(x => pagesOf[x.id] <= last);
-  if (s) $('#toc').value = s.id;
-  store.set('np-page-' + ed.key, String(p));
+function blocksOf(p) {
+  const t = document.createElement('template');
+  t.innerHTML = md(p.body) + (p.source ? `<p class="file">On file: ${esc(p.source)}</p>` : '') + '<p class="end">■</p>';
+  return [...t.content.children];
 }
-function animate(k, from, to, done) {
-  const lf = leaves[k], t0 = performance.now(), dur = reduce ? 0 : 220 + 560 * Math.abs(to - from) / 180;
-  busy = true; lf.style.zIndex = 1000;
-  const step = t => {
-    const p = dur ? Math.min(1, (t - t0) / dur) : 1, e = 1 - Math.pow(1 - p, 3);
-    setAngle(lf, from + (to - from) * e);
-    if (p < 1) requestAnimationFrame(step); else { busy = false; done(); }
-  };
-  requestAnimationFrame(step);
+function layout() {
+  const p = cur; if (!p) return;
+  const st = $('#stage'), aw = st.clientWidth, ah = st.clientHeight;
+  let H = Math.min(ah - 8, 980), W = Math.min(aw, H * .78, 680);
+  H = Math.min(H, W * 1.75);
+  W = Math.floor(W); H = Math.floor(H);
+  const pad = W < 440 ? 14 : 22, sheet = $('#sheet');
+  sheet.style.width = W + 'px'; sheet.style.height = H + 'px';
+  const two = W >= 560 ? ' two' : '';
+  $('#front').style.padding = $('#back').style.padding = pad + 'px';
+  $('#front').innerHTML = `<div class="f-mast">The Newspaper</div>
+    <div class="f-date"><span>No. ${p.no}</span><span>${esc(fmtLong(p.date))}</span></div>
+    <div class="f-k">${esc(p.section || 'Report')}</div><h1 class="f-h">${esc(p.headline)}</h1>
+    ${p.dek ? `<p class="f-d">${esc(p.dek)}</p>` : ''}<div class="f-by">${esc(p.byline || 'Staff report')}</div>
+    <div class="tx${two}" id="txF"></div><div class="folio">Turn over →</div>`;
+  $('#back').innerHTML = `<div class="rh"><span class="m">The Newspaper</span><span>No. ${p.no} · ${esc(fmtShort(p.date))}</span></div>
+    <div class="tx${two}" id="txB"></div><div class="folio">← Back side</div>`;
+  const F = $('#txF'), B = $('#txB'), top = W < 440 ? 14 : 15;
+  let fit = false;
+  for (let fs = top; fs >= 12 && !fit; fs -= .5) {
+    F.style.setProperty('--fs', fs + 'px'); B.style.setProperty('--fs', fs + 'px');
+    F.innerHTML = ''; B.innerHTML = '';
+    const rest = pour(F, blocksOf(p));
+    fit = !pour(B, rest).length;
+  }
+  if (!fit) {
+    /* very long older reports: smallest type, and the back scrolls so no words are lost */
+    F.innerHTML = ''; B.innerHTML = ''; B.className = 'tx scroll';
+    pour(F, blocksOf(p)).forEach(n => B.appendChild(n));
+    if (B.scrollHeight > B.clientHeight + 1) sheet.dataset.scrolls = '1';
+  } else {
+    delete sheet.dataset.scrolls;
+    /* spare room on the back goes to other papers */
+    const others = papers.filter(x => x !== p && !auto(x)).slice(0, 5);
+    if (others.length) {
+      const box = document.createElement('div'); box.className = 'more'; box.innerHTML = '<b>Other papers</b>'; B.appendChild(box);
+      for (const o of others) {
+        const b = document.createElement('button'); b.type = 'button'; b.dataset.open = o.id; b.textContent = o.headline; box.appendChild(b);
+        if (over(B)) { b.remove(); break; }
+      }
+      if (box.children.length < 2) box.remove();
+    }
+  }
+  $('.hint').textContent = sheet.dataset.scrolls ? 'Tap to flip · this older report scrolls on the back' : 'Tap the paper to flip it over';
+  sheet.setAttribute('data-fit', fit ? 'yes' : 'no');
+  showSide();
 }
-function turn(dir) {
-  if (busy || !ed) return;
-  if (dir > 0 && current < maxCur) { const k = current; fill(k + 1); animate(k, 0, 180, () => { current++; place(); fill(); ui(); }); }
-  else if (dir < 0 && current > 0) { const k = current - 1; fill(k - 1); animate(k, 180, 0, () => { current--; place(); fill(); ui(); }); }
+function showSide() {
+  const t = $('#sheet').classList.contains('turned');
+  $('#flip').textContent = t ? 'Flip to front' : 'Flip to back';
+  $('#front').setAttribute('aria-hidden', t); $('#back').setAttribute('aria-hidden', !t);
+  [...$('#front').querySelectorAll('a,button')].forEach(x => { x.tabIndex = t ? -1 : 0; });
+  [...$('#back').querySelectorAll('a,button')].forEach(x => { x.tabIndex = t ? 0 : -1; });
 }
-function goToPage(p) {
-  const c = Math.min(maxCur, Math.max(0, toCur(p)));
-  if (c === current) return;
-  if (Math.abs(c - current) === 1) return turn(c - current);
-  current = c; place(); fill(); ui();
-}
+const flip = () => { $('#sheet').classList.toggle('turned'); showSide(); };
 
-/* drag to turn: grab the right page to go forward, the left page (or left edge on a phone) to go back */
-const book = $('#book');
-book.addEventListener('pointerdown', e => {
-  if (busy || e.button > 0 || e.target.closest('.tablewrap, pre, a[href], button, [data-goto]')) return;
-  const x = e.clientX - book.getBoundingClientRect().left;
-  let dir = spread ? (x > W ? 1 : -1) : (x > W * .3 ? 1 : -1);
-  if ((dir > 0 && current >= maxCur) || (dir < 0 && current <= 0)) dir = 0;
-  drag = { dir, x0: e.clientX, t0: performance.now(), moved: false, k: dir > 0 ? current : current - 1, a: dir > 0 ? 0 : 180 };
-  try { book.setPointerCapture(e.pointerId); } catch {}
+/* tap anywhere on the paper or swipe sideways to flip; links, buttons and scrolling keep working */
+let press = null;
+const sheetEl = $('#sheet');
+sheetEl.addEventListener('pointerdown', e => { press = e.target.closest('a,button,.tablewrap') ? null : { x: e.clientX, y: e.clientY }; });
+sheetEl.addEventListener('pointerup', e => {
+  if (!press) return;
+  const dx = e.clientX - press.x, dy = e.clientY - press.y; press = null;
+  const tap = Math.abs(dx) < 10 && Math.abs(dy) < 10, swipe = Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5;
+  if ((tap && !String(getSelection())) || swipe) flip();
 });
-book.addEventListener('pointermove', e => {
-  if (!drag || !drag.dir) return;
-  const dx = e.clientX - drag.x0, span = spread ? 2 * W : W;
-  if (!drag.moved && Math.abs(dx) < 8) return;
-  if (!drag.moved) { drag.moved = true; fill(drag.dir > 0 ? drag.k + 1 : drag.k - 1); leaves[drag.k].style.zIndex = 1000; }
-  const r = Math.max(0, Math.min(1, (drag.dir > 0 ? -dx : dx) / span));
-  drag.a = drag.dir > 0 ? r * 180 : 180 - r * 180;
-  setAngle(leaves[drag.k], drag.a);
-});
-const endDrag = e => {
-  if (!drag) return;
-  const d = drag; drag = null;
-  if (!d.dir) return;
-  if (!d.moved) return turn(d.dir);
-  const v = (e.clientX - d.x0) / Math.max(1, performance.now() - d.t0), prog = d.dir > 0 ? d.a / 180 : (180 - d.a) / 180;
-  const done = prog > .33 || (d.dir > 0 ? v < -.45 : v > .45);
-  const to = d.dir > 0 ? (done ? 180 : 0) : (done ? 0 : 180);
-  animate(d.k, d.a, to, () => { if (done) current += d.dir; place(); fill(); ui(); });
-};
-book.addEventListener('pointerup', endDrag);
-book.addEventListener('pointercancel', endDrag);
-book.addEventListener('click', e => {
-  const g = e.target.closest('[data-goto]'), a = e.target.closest('[data-act="stand"]'), o = e.target.closest('[data-ed]');
-  if (g) goToPage(+g.dataset.goto); else if (a) location.hash = ''; else if (o) location.hash = 'e-' + o.dataset.ed;
-});
-$('#prev').onclick = () => turn(-1);
-$('#next').onclick = () => turn(1);
+sheetEl.addEventListener('pointercancel', () => { press = null; });
+sheetEl.addEventListener('click', e => { const o = e.target.closest('[data-open]'); if (o) location.hash = 'a-' + encodeURIComponent(o.dataset.open); });
+$('#flip').onclick = flip;
 $('#toStand').onclick = () => { location.hash = ''; };
-$('#toc').onchange = e => goToPage(pagesOf[e.target.value]);
+$('#trashOne').innerHTML = BIN + '<span>Trash</span>';
+$('#trashOne').onclick = () => { if (cur) toTrash(cur.id); };
 addEventListener('keydown', e => {
-  if (e.key === 'Escape' && !$('#tbox').hidden) { $('#tbox').hidden = true; return; }
-  if (!$('#tbox').hidden) return;
-  if ($('#reader').hidden || e.target.closest('select')) return;
-  if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); turn(1); }
-  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); turn(-1); }
+  if (!$('#tbox').hidden) { if (e.key === 'Escape') $('#tbox').hidden = true; return; }
+  if ($('#reader').hidden) return;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowLeft' || (e.key === ' ' && !e.target.closest('button'))) { e.preventDefault(); flip(); }
   else if (e.key === 'Escape') location.hash = '';
 });
 let rt = 0;
-addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { if (ed && !$('#reader').hidden) build(firstPage(current)); }, 160); });
+addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(layout, 160); });
 
-/* ---- trash actions ---- */
-function refresh() {
-  stories = all.filter(s => !(s.id in trash) && !gone.has(s.id));
-  buildEditions(); drawStand(); drawTrash();
-  if (!ready) return;
-  if (ed && !$('#reader').hidden) {
-    const e = editions.find(x => x.key === ed.key);
-    if (!e) { location.hash = ''; return; }
-    const keep = firstPage(current); ed = e; flow = flowHTML(e); build(keep);
-  }
+/* ---- trash: nothing is ever deleted for good from here ---- */
+let undo = null, toastT = 0;
+function toTrash(id) {
+  trash[id] = new Date().toISOString(); saveTrash(); index(); drawStand(); drawTrash();
+  if (cur?.id === id) location.hash = '';
+  undo = id; $('#toastMsg').textContent = 'Paper moved to the trash'; $('#toast').hidden = false;
+  clearTimeout(toastT); toastT = setTimeout(() => { $('#toast').hidden = true; undo = null; }, 6000);
 }
-let undoIds = null, toastT = 0;
-function toast(msg, ids) {
-  undoIds = ids; $('#toastMsg').textContent = msg; $('#toastUndo').hidden = !ids; $('#toast').hidden = false;
-  clearTimeout(toastT); toastT = setTimeout(() => { $('#toast').hidden = true; undoIds = null; }, 6000);
-}
-function toTrash(ids, msg) {
-  const when = new Date().toISOString();
-  ids.forEach(id => { trash[id] = when; });
-  saveTrash(); refresh(); toast(msg, ids);
-}
-function restore(ids) { ids.forEach(id => { delete trash[id]; }); saveTrash(); refresh(); }
-function forever(ids) { ids.forEach(id => { delete trash[id]; gone.add(id); }); saveTrash(); refresh(); }
+function restore(id) { delete trash[id]; saveTrash(); index(); drawStand(); drawTrash(); }
 function drawTrash() {
-  const ids = Object.keys(trash).filter(id => all.some(s => s.id === id));
-  $('#trashCount').textContent = ids.length ? `Trash (${ids.length})` : 'Trash';
-  const list = ids.map(id => all.find(s => s.id === id)).sort((a, b) => trash[b.id].localeCompare(trash[a.id]));
-  $('#tlist').innerHTML = list.length ? list.map(s => `<div class="trow"><div class="tt"><b>${esc(s.headline)}</b><span>${esc(s.section || '')} · ${esc(fmtShort(s.date))} edition</span></div>
-    <button class="tb" type="button" data-restore="${esc(s.id)}">Restore</button><button class="tb danger" type="button" data-forever="${esc(s.id)}" aria-label="Delete ${esc(s.headline)} forever">Delete</button></div>`).join('')
-    : '<div class="tempty">The trash can is empty.</div>';
-  $('#tempty').disabled = !list.length;
+  const list = all.filter(p => p.id in trash).sort((a, b) => trash[b.id].localeCompare(trash[a.id]));
+  $('#tlist').innerHTML = list.length ? list.map(p => `<div class="trow"><span>${esc(p.headline)}</span><button class="tb" type="button" data-restore="${esc(p.id)}">Put back</button></div>`).join('')
+    : '<p style="text-align:center;font-style:italic;padding:28px 0;margin:0">The trash can is empty.</p>';
 }
 $('#trashBtn').onclick = () => { drawTrash(); $('#tbox').hidden = false; $('#tclose').focus(); };
 $('#tclose').onclick = () => { $('#tbox').hidden = true; };
 $('#tbox').addEventListener('click', e => {
   if (e.target === $('#tbox')) return void ($('#tbox').hidden = true);
-  const r = e.target.closest('[data-restore]'), f = e.target.closest('[data-forever]');
-  if (r) restore([r.dataset.restore]);
-  else if (f && confirm('Delete this story forever? It cannot be restored.')) forever([f.dataset.forever]);
+  const r = e.target.closest('[data-restore]'); if (r) restore(r.dataset.restore);
 });
-$('#tempty').onclick = () => { const ids = Object.keys(trash); if (ids.length && confirm(`Delete all ${ids.length} trashed ${ids.length === 1 ? 'story' : 'stories'} forever? They cannot be restored.`)) forever(ids); };
-$('#toastUndo').onclick = () => { if (undoIds) restore(undoIds); $('#toast').hidden = true; undoIds = null; };
-$('#trashStory').onclick = () => {
-  if (!ed) return;
-  const s = ed.stories.find(x => x.id === $('#toc').value) || ed.stories[0];
-  if (s) toTrash([s.id], `“${s.headline}” went in the trash`);
-};
+$('#toastUndo').onclick = () => { if (undo) restore(undo); $('#toast').hidden = true; undo = null; };
+$('#rack').addEventListener('click', e => {
+  const t = e.target.closest('[data-trash]'); if (t) return toTrash(t.dataset.trash);
+  const o = e.target.closest('[data-open]'); if (o) location.hash = 'a-' + encodeURIComponent(o.dataset.open);
+});
 
-async function openEdition(e, storyId) {
-  const same = ed === e && !$('#reader').hidden;
-  ed = e; flow = flowHTML(e);
-  $('#rtitle').innerHTML = `${paperName(e)}<small>${esc(fmtLong(e.date))} · No. ${e.no}</small>`;
-  $('#reader').hidden = false; document.body.classList.add('reading');
-  try { await document.fonts.ready; } catch {}
-  const keep = same ? firstPage(current) : +(store.get('np-page-' + e.key) || 0);
-  build(keep);
-  if (storyId && pagesOf[storyId] != null) { current = Math.min(maxCur, toCur(pagesOf[storyId])); place(); fill(); ui(); }
-}
-
-function route() {
+async function route() {
   if (!ready) return;
   const h = decodeURIComponent((location.hash || '').slice(1));
-  let e = null, sid = null;
-  if (h.startsWith('e-')) e = editions.find(x => x.key === h.slice(2));
-  else if (h.startsWith('a-')) { sid = h.slice(2); e = editions.find(x => x.stories.some(s => s.id === sid)); }
-  if (e) openEdition(e, sid);
-  else { $('#reader').hidden = true; document.body.classList.remove('reading'); ed = null; }
+  const p = h.startsWith('a-') ? all.find(x => x.id === h.slice(2)) : null;
+  if (!p) { $('#reader').hidden = true; document.body.classList.remove('reading'); cur = null; return; }
+  cur = p; $('#reader').hidden = false; document.body.classList.add('reading');
+  $('#sheet').classList.remove('turned');
+  try { await document.fonts.ready; } catch {}
+  layout();
 }
 
 (function boot() {
   $('#today').textContent = new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   addEventListener('hashchange', route);
-  const load = list => {
-    all = list.filter(s => s.headline);
-    stories = all.filter(s => !(s.id in trash) && !gone.has(s.id));
-    buildEditions(); drawStand(); drawTrash();
-    const was = ready; ready = true;
-    if (!was || $('#reader').hidden) route();
-  };
+  const load = list => { all = list.filter(s => s.headline); index(); drawStand(); drawTrash(); ready = true; route(); };
   (async () => {
     let db = null;
     try { db = window.claude?.use ? await window.claude.use('db') : null; } catch { db = null; }
-    if (db) {
-      db.collection('articles').onSnapshot(snap => load(snap.docs.map(d => ({ id: d.id, ...d.data() }))),
-        () => { $('#rack').innerHTML = `<div class="notice"><h2>The archive didn't answer</h2><p>Reload the page to try again.</p></div>`; });
-      return;
-    }
-    /* outside claude.ai (the phone app copy), the paper prints from a bundled archive file */
+    if (db) { db.collection('articles').onSnapshot(s => load(s.docs.map(d => ({ id: d.id, ...d.data() }))), () => { $('#rack').innerHTML = `<div class="notice"><h2>The archive didn't answer</h2><p>Reload the page to try again.</p></div>`; }); return; }
     try { const r = await fetch('articles.json', { cache: 'no-cache' }); if (!r.ok) throw 0; load(await r.json()); }
-    catch { $('#rack').innerHTML = `<div class="notice"><h2>The press is off</h2><p>This paper prints from its archive on claude.ai. Open it there, signed in, to read the editions.</p></div>`; }
+    catch { $('#rack').innerHTML = `<div class="notice"><h2>The press is off</h2><p>The papers could not load. Check your connection and reopen the app.</p></div>`; }
   })();
 })();
 </script>
