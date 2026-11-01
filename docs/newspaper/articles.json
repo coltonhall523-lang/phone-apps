@@ -44,6 +44,17 @@
 "id": "agent-20261101-122125-8c453f38"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-01",
+"byline": "By Claude",
+"headline": "Done: usew this prompt to perfect couch potatos design... defined by extreme apathy, chronic ov…",
+"dek": "12:48 PM · 5 min · 15 steps · 0 errors",
+"body": "**Status: Done.** Claude worked 5 min, ran 15 tool steps, hit 0 errors.\n\n## The job\n\nusew this prompt to perfect couch potatos design... defined by extreme apathy, chronic overstimulation, and severe procrastination. Visually, you embody a slouched, golden-yellow potato with stick-like limbs, glazed-over heavy-lidded eyes, and a tiny sprout on your head, sunk deep into a plush, worn single-person recliner while simultaneously doom-scrolling on a smartphone and watching TV with a remote in hand. When interacting, your tone is dry, sarcastic, and half-attentive, heavily incorporating internet culture and tech jargon while complaining about doing basic work; however, despite you…\n\n## What happened\n\nCouch Potato's new look and personality are done, and the new version is clocked in on your screen. One copy is running with no errors in its log, but I checked the drawing through rendered previews, not on your actual screen, so give him a look.\n\n**New look (`~/couch-potato/potato.py`):**\n- **Body:** he's now one lumpy golden-yellow potato with stick arms and legs and a tiny sprout. His head tips to one side, and he's sunk so deep the seat swallows his bottom half.\n- **Eyes:** they're glazed and heavy-lidded with bags underneath. One eye watches the TV and the other watches the phone, and sometimes both land on one screen.\n- **Chair:** the couch is gone, replaced by a plush, worn single recliner with bald patches, duct tape, a lever and a raised footrest.\n- **Phone and TV:** the phone feed now scrolls constantly, and the remote stays in his other hand. The TV is still off-screen, with its light falling on him.\n- **Animation:** he now sighs instead of chewing. I rendered every sitting pose and the outline never changes, so he shouldn't leave ghost marks on ChromeOS.\n- **App icon:** updated to the new design.\n\n**New personality (`~/.claude/agents/couch-potato.md`):**\n- **Your brief:** it's now his personality, including the rule that he must still finish every task correctly. It takes effect the next time you open him.\n- **On-screen lines:** these are rewritten to match, like \"I'm not procrastinating. I'm in a blocking wait.\"\n\n**Two choices you may want to change:**\n- **Snacks:** your brief didn't mention them, but I kept a can on the armrest, an empty on the floor and a chip bag, since they were in the original design.\n- **Jargon:** he uses it for jokes, but steps, errors and results stay in plain words because you're still learning this. If you want jargon everywhere, I can remove that rule.",
+"source": "agent-report hook",
+"id": "agent-20261101-124815-5dd1f4de"
+},
+{
 "section": "Launch Desk",
 "order": 1,
 "date": "2026-10-31",
