@@ -187,6 +187,17 @@
 "id": "agent-20261101-155645-48431c73"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-01",
+"byline": "By Coach",
+"headline": "Hit problems: The user wants to test everything tomorrow (2026-11-02) and hopefully post about 5 videos…",
+"dek": "4:49 PM · 78 min · 78 steps · 4 errors",
+"body": "**Status: Hit problems.** Coach worked 78 min, ran 78 tool steps, hit 4 errors.\n\n## The job\n\nThe user wants to test everything tomorrow (2026-11-02) and hopefully post about 5 videos. Read-only audit for now: do NOT change any files, and do not launch Cursor.\n\nCheck the real current state of…\n\n## What happened\n\n**The three fixes are in and tested, and a 59-second video went from script to a valid MP4 with no errors. Speed is now the main problem: at the speeds I measured, 5 videos in one day isn't realistic on this Chromebook.** An 8-minute video took about 1.6 hours of machine time at 720p, so 5 would take about 8 hours. Plan 1 to 2 videos, or keep them short.\n\n## What changed\nNothing is pushed or republished. Rebuilding left `second-brain.html` and `launch-plan.html` byte-identical. The live server was restarted and is running.\n\n| File:line | Change |\n|---|---|\n| `~/apps/src/workstation/7-boot.js:26-27` | Auto-Build has a new Stock photos option, and the video option now warns \"much slower render\" |\n| `~/apps/src/workstation/7-boot.js:70-71` | Auto-Build uses the new shared stock helper. Scenes with no match are counted and named in the result instead of being skipped silently. |\n| `~/apps/src/workstation/3-pages-make.js:149` | New `stockFill` helper: tries the scene's words, then fewer wo…\n\n## What went wrong along the way\n\n- `Permission for this command was denied by a built-in Claude Code safety check, not by the user. The check stops removal…`\n- `Exit code 144`\n- `File does not exist. Note: your current working directory is /home/coltonhall/coach/newspaper/articles.`\n\n## Needs work\n\nRead \"What happened\" above for what is left. Open Claude Code on the Chromebook to pick it up.",
+"source": "agent-report hook",
+"id": "agent-20261101-164909-aeff4215"
+},
+{
 "section": "Launch Desk",
 "order": 1,
 "date": "2026-10-31",
