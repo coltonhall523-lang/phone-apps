@@ -217,6 +217,18 @@
 "id": "niche-data"
 },
 {
+"section": "Daily Paper",
+"lead": true,
+"order": 0,
+"date": "2026-11-01",
+"byline": "By Claude, with the Coach",
+"headline": "Everything You Have, and How Close You Are to Posting",
+"dek": "Your full toolkit, plus the Coach's verdict: no video yet, with building at 55% and posting at 20%.",
+"source": "Coach readiness check",
+"body": "## Are We Ready? Coach's Answer\n\n**Not yet. No full video has been made.** Coach's estimate: **building 55%, posting 20%.**\n\n**Works today:** the health check passes all 9 checks and the server is running. A 2-second test of the free voice worked, run directly rather than through the app. Music search returns tracks. The Groq key is connected for exact captions.\n\n**Missing, in order:**\n\n1. **Footage:** no Pexels or Pixabay key, so stock search can't run.\n2. **Writing on your computer:** no Gemini or Claude key. The claude.ai copy has Claude built in, but it can't do voice or stock footage.\n3. **A first full video:** none has been built, and the projects folder is empty.\n4. **Launch Plan:** 1 of 4 days done, and today is Day 5. Days 2 to 4 are unticked, with no sub-niche recorded.\n5. **Posting:** Channel Hub isn't built and there is no upload code, so uploads are by hand in YouTube Studio. vidIQ shows no linked channel, so check that you have one.\n\n**Not tested:** a real video render (only a 4-second clip in a mock test on Oct 28), captions on a real video, thumbnails, uploads, and the writing step.\n\n**Next step:** open Workstation > Connections, add free Gemini and Pexels keys, then build a 60-second test video.\n\n## Your Agents\n\n**Yours**\n- **Coach:** YouTube coaching and app checks\n- **Cursor:** drives a browser and terminals, and talks to other agents\n- **Couch Potato:** watches videos for you\n\n**Caveman crew**\n- **cavecrew-investigator:** finds code\n- **cavecrew-builder:** makes small edits\n- **cavecrew-reviewer:** reviews changes\n\n**Built in**\n- **claude, general-purpose:** any task\n- **Explore:** searches files\n- **Plan:** designs an approach\n- **claude-code-guide:** answers Claude Code questions\n- **statusline-setup:** sets up the status line\n\n## Your Skills\n\n**Yours:** coach, huddle, break, share, couch-potato, watch, cursor, youtube-research, free-music, notebooklm, daily-paper\n\n**Documents and pages:** docs, docx, pdf, pptx, xlsx, google-workspace, artifact-design, artifact-diagramming, artifact-capabilities, dataviz\n\n**Research and browser:** deep-research, claude-in-chrome, chrome-browser, built-in-browser, computer-use\n\n**Code:** code-review, security-review, simplify, run, init, claude-api\n\n**Claude Code setup:** update-config, keybindings-help, fewer-permission-prompts, plugin-authoring, skill-creator, workflow-authoring, import-memory\n\n**Timing:** loop, schedule, morning\n\n**Caveman:** caveman, cavecrew, caveman-init, caveman-commit, caveman-compress, caveman-discover, caveman-evidence-review, caveman-explore, caveman-help, caveman-learn, caveman-manage, caveman-optimize, caveman-review, caveman-setup, caveman-stats, investigate-first, lean-build, migration, safe-refactor, surgical-patch, verify-and-stop\n\n## What Else You Can Do\n\n**Connected services:** vidIQ, Gmail, Google Drive, Claude Docs, NotebookLM\n\n**Your apps:** Second Brain, Workstation, Launch Plan, Newspaper\n\n**Other abilities:** YouTube research and transcripts, free voice, music search, Groq transcription and quick AI answers, publishing web pages, phone notifications, on-screen characters, huddles and screen sharing\n",
+"id": "paper-toolkit-2026-11-01"
+},
+{
 "section": "Tech Desk",
 "order": 6,
 "date": "2026-10-29",
