@@ -33,6 +33,17 @@
 "id": "agent-20261031-151543-b8cefa54"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-01",
+"byline": "By Claude",
+"headline": "Done: i want to build a new sub agent called couch potato i want this subagent to have a charac…",
+"dek": "12:21 PM · 4 min · 10 steps · 0 errors",
+"body": "**Status: Done.** Claude worked 4 min, ran 10 tool steps, hit 0 errors.\n\n## The job\n\ni want to build a new sub agent called couch potato i want this subagent to have a character just like the  coach i want this character to be a  living cartoon potato that is sitting on a couch with snacks and pop cans i also want this character to have a remote in on ehand and a phone in the other, once this sub agent is build we will go ahead and give him his specific skills.\n\n## What happened\n\nCouch Potato is built and clocked in on your screen now, in the bottom-right, left of the coach's corner. He sits on a teal couch with a remote in one hand and a phone in the other. Around him are popcorn, a chip bag and pop cans, plus a little sprout on his head.\n\n**Tested:**\n- Window opens at the right spot, with only his pixels showing (1366x768 screen).\n- All 48 idle poses keep the same outline, so sitting still should leave no ghost trails.\n- Agent answers in character and says he has no skills yet.\n- Preview image looks right.\n\n**Not tested:** clicking him, dragging him, the right-click menu, and the app icon. I also can't see your ChromeOS screen.\n\n**How to use him:**\n- `/couch-potato clockin`, `clockout` or `status` controls the character.\n- Click him or use the Couch Potato app icon to open his terminal.\n- Right-click for the menu.\n- Drag him and let go to move him. He stays seated and the whole couch hops over, kicking up dust.\n- While idle he glances at the phone and TV, chews, blinks and thumbs the remote.\n\n**Differences from the coach:** no huddle speech bubble or screen share yet. His agent also only launches when you ask for him by name, until he has skills.\n\nHe's 192x144 pixels, about 2.5x the coach's size, so the snacks stay readable.\n\nCan you see him, and is the size OK? Try a drag too, and tell me if he leaves a trail. After that, send me the skills you want him to have.",
+"source": "agent-report hook",
+"id": "agent-20261101-122125-8c453f38"
+},
+{
 "section": "Launch Desk",
 "order": 1,
 "date": "2026-10-31",
