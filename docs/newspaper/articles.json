@@ -209,6 +209,17 @@
 "id": "agent-20261101-164920-48431c73"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-02",
+"byline": "By Coach",
+"headline": "Hit problems: The user (beginner faceless YouTube creator, not a programmer) just said: \"ok i want to h…",
+"dek": "9:36 AM · 4 min · 73 steps · 12 errors",
+"body": "**Status: Hit problems.** Coach worked 4 min, ran 73 tool steps, hit 12 errors.\n\n## The job\n\nThe user (beginner faceless YouTube creator, not a programmer) just said: \"ok i want to have 5 video posted by the end of the day what do i gotta do give me a checklist in newspaper\". Today is 2026-1…\n\n## What happened\n\n**I did not file the story, so nothing is in the Newspaper yet.** This session refused every file write, including to scratch space, so I never created the JSON. I didn't run `publish.sh` because there was nothing new to publish, and it would have pushed any unrelated pending changes. Neither copy changed, so I had nothing to verify on the phone.\n\n## Short checklist\n**The 5 videos:** \"Creepiest ___ Creatures Explained in 3 Minutes\", with River, Lake, Swamp, Cave and Amazon River.\n\n**Time budget:** about 7 hours, roughly 3 h 50 min hands-on and 3 h 20 min of machine time.\n\n| Step | Where | Time |\n|---|---|---|\n| Create channel, 2-Step on, phone verified (if not done) | YouTube Studio | 25 min |\n| Add Gemini and Pexels keys | Workstation > Connections | 15 min |\n| Write 5 scripts, about 450 words, each with its own animals and angle | Script & Scenes | 50 min |\n| Build #1 with stock photos, export at 720p (1080p is the default and takes about 3.6x as long), then watch it | Auto-Build, E…\n\n## What went wrong along the way\n\n- `Claude requested permissions to write to /tmp/np5/five-videos-checklist-2026-11-02.json, but you haven't granted it yet.`\n- `Claude requested permissions to write to /home/coltonhall/coach/newspaper/articles/five-videos-checklist-2026-11-02.jso…`\n- `Newline followed by # inside a quoted argument can hide arguments from path validation`\n\n## Needs work\n\nRead \"What happened\" above for what is left. Open Claude Code on the Chromebook to pick it up.",
+"source": "agent-report hook",
+"id": "agent-20261102-093610-ad5853db"
+},
+{
 "section": "Launch Desk",
 "order": 1,
 "date": "2026-10-31",
