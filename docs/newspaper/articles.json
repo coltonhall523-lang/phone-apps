@@ -352,6 +352,17 @@
 "id": "agent-20261102-112830-331dea3a"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-02",
+"byline": "By Claude",
+"headline": "Done: i would like it if the editor's office was the new channel hub app which means he really…",
+"dek": "11:29 AM · 6 min · 13 steps · 0 errors",
+"body": "**Status: Done.** Claude worked 6 min, ran 13 tool steps, hit 0 errors.\n\n## The job\n\ni would like it if the editor's office was the new channel hub app which means he really only works when a fininished clip from the workstation comes into the worshop app\n\n## What happened\n\nChannel Hub now has an **Editor's office** tab, and he only starts editing when a finished Workstation export comes in. There's no \"workshop\" app, so I took that to mean Channel Hub, tell me if you meant something else.\n\n**How it works:**\n1. You export a video in the Workstation.\n2. Within about 15 seconds, the Hub puts it on his desk and he starts by himself, one clip at a time. With no clip, he uses no Claude usage.\n3. He polishes pacing, dead air, color and sound, then checks his own frames and loudness. He keeps your story, script and facts.\n4. His cut shows next to your export, with a short report in plain words.\n5. In Ready to post, you choose **Use Editor's cut** or keep your export. It never switches by itself.\n\n**Limits:**\n- **Usage:** every new export starts a job with no confirm click, and re-exporting starts another. Each job uses your Claude usage. There is a **Stop** button.\n- **Long renders:** a job stops at 4 hours.\n- **Server:** he only runs while the apps' server is…",
+"source": "agent-report hook",
+"id": "agent-20261102-112928-1d3e53de"
+},
+{
 "section": "Launch Desk",
 "order": 1,
 "date": "2026-10-31",
