@@ -530,6 +530,18 @@
 "id": "playbook"
 },
 {
+"section": "Reel Skills",
+"date": "2026-11-02",
+"byline": "By Couch Potato",
+"headline": "Five Reels Watched, Ten Skills Worth Having",
+"dek": "Seven are already built for Editor, one needs your yes, and two are still just ideas.",
+"lead": true,
+"order": 0,
+"source": "Reels links doc",
+"body": "**Built, in Editor's kit**\n\n1. **Dead air:** cuts pauses over 400 ms.\n2. **Sound mix:** cleans voice, ducks music, adds effects, masters to -14 LUFS.\n3. **Review loop:** checks his render, fixes faults, asks you only the real decisions.\n4. **Reference style:** turns 3 to 5 videos you like into a style sheet.\n5. **On-screen graphics:** step labels, count-up numbers, stamps, callouts.\n6. **Pacing and cuts:** cut-length rules, whip-pan stand-in, slow zooms.\n7. **Color look:** lifts shadows, optional warmth.\n\n**Needs your yes**\n\n8. **Captions:** word-by-word, key words in yellow. Install was blocked. It sends audio to Groq.\n\n**Ideas, not built**\n\n9. **Learn from YouTube:** tutorials become a ruleset skill.\n10. **Premise check:** confirms an idea isn't taken and sources its numbers before scripting.\n\n**Read this part**\n\nEverything ran on test clips only, never real footage. Nothing proves it raises views. Many sound and pacing numbers came from an AI breakdown that labeled itself \"fabricated\", so treat them as starting points.\n\n**Skipped**\n\nFreeLLM API (not for production), Graphify's savings claims (failed the docs check), Remotion and code-built 3D (too heavy for 2 GB of memory; not tried).",
+"id": "reel-skills-2026-11-02"
+},
+{
 "section": "Research Desk",
 "order": 12,
 "date": "2026-10-27",
