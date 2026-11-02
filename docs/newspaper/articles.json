@@ -406,6 +406,18 @@
 },
 {
 "section": "Daily Paper",
+"lead": true,
+"order": 0,
+"date": "2026-11-02",
+"byline": "By the Coach",
+"source": "Coach huddle, Nov 2",
+"headline": "Five Myth Videos: Your Test Week Checklist",
+"dek": "One format, five cartoon myth videos, about 7 hours of work if you start now.",
+"body": "**Format:** How Every ___ Got Their Powers Explained in 3 Minutes.\n\n**The 5 videos:** Greek Hero (first), Norse God, Egyptian God, Aztec God, Japanese Demon.\n\n**Unproven:** this title has worked on Marvel, not myths, and the winners run 8+ minutes. Test week checks that. The niche verdict is Nov 7.\n\n## Get Ready\n- [ ] Create the channel, turn on 2-Step, verify your phone: 25 min\n- [ ] Add your Gemini key on the Workstation Connections page. Skip Pexels: 15 min\n- [ ] Test one image. If Gemini asks for billing, stop and tell Coach before paying\n\n## Build\n- [ ] Write 5 scripts, about 450 words, each with its own research and angle: 50 min\n- [ ] In Auto-Build, pick \"AI image per scene\" and \"minimal\". Build #1, export at 720p, watch it: 40 min\n- [ ] Checkpoint: if #1 isn't exported 3 hours after you start, make only 2 today\n- [ ] Build and export #2 to #5: 160 min\n- [ ] Make 5 thumbnails: 1 or 2 big characters, little text: 50 min\n- [ ] Watch all 5: right character in each picture? Facts true? 30 min\n\n## Post\n- [ ] Upload by hand in YouTube Studio: title, thumbnail, description, captions: 60 min\n- [ ] Set not made for kids. Answer the altered-content question honestly\n- [ ] Make 2 public today. Schedule 3 for Nov 3, 4 and 5\n\n**Watch out:** still images with slow zooms, not real animation, and characters can change look between scenes. Same script with one word swapped can't earn.",
+"id": "paper-myth-checklist-2026-11-02"
+},
+{
+"section": "Daily Paper",
 "order": 0,
 "date": "2026-11-01",
 "lead": true,
