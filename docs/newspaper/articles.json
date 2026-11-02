@@ -308,6 +308,17 @@
 "id": "agent-20261102-101123-253703d7"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-02",
+"byline": "By Claude",
+"headline": "Hit problems: yes hook that up real quick and try that again",
+"dek": "10:17 AM · 5 min · 3 steps · 1 errors",
+"body": "**Status: Hit problems.** Claude worked 5 min, ran 3 tool steps, hit 1 errors.\n\n## The job\n\nyes hook that up real quick and try that again\n\n## What happened\n\nGroq is hooked up, but it's only half proven: **I still haven't seen it transcribe real speech from a reel.** Couch Potato can now send a reel's audio to Groq, using a copy of your key in `~/.config/watch/.env`.\n\n| Test | Result |\n|---|---|\n| Instagram's own reel, local mode | Download, 15 frames and Groq upload all worked. The transcript was only `[00:00] Outro Music`, so there was no speech to test. |\n| University of Wyoming reel, local mode | The video downloaded, but the report says `no audio stream`, so nothing went to Groq. |\n| Gemini mode | Failed again: `HTTP 503` on the Wyoming reel, and the run on Instagram's reel hit my 200-second limit. |\n\n**Gemini problem:** it's still Couch Potato's default mode, and it doesn't fall back by itself. Until Google's servers calm down, he has to run with `--engine local`, or Reels will keep failing like this. The failed and stopped Gemini runs may also have left copies of those public reels on Google's servers, because I can't confirm they w…\n\n## What went wrong along the way\n\n- `Exit code 143 GEMINI_API_KEY GROQ_API_KEY OPENAI_API_KEY WATCH_DETAIL WATCH_WHISPER_BACKEND WATCH_ENGINE SETUP_COMPLETE…`\n\n## Needs work\n\nRead \"What happened\" above for what is left. Open Claude Code on the Chromebook to pick it up.",
+"source": "agent-report hook",
+"id": "agent-20261102-101745-253703d7"
+},
+{
 "section": "Launch Desk",
 "order": 1,
 "date": "2026-10-31",
