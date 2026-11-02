@@ -242,6 +242,17 @@
 "id": "agent-20261102-094450-a1629a12"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-02",
+"byline": "By Coach",
+"headline": "Needs you: The user is a beginner faceless YouTube creator, not a programmer. Today is 2026-11-02. T…",
+"dek": "9:50 AM · 3 min · 54 steps · 14 errors",
+"body": "**Status: Needs you.** Coach worked 3 min, ran 54 tool steps, hit 14 errors.\n\n## The job\n\nThe user is a beginner faceless YouTube creator, not a programmer. Today is 2026-11-02. They have no channel yet (they'll create one on an old Google account). Today starts their 5-video test week (N…\n\n## What happened\n\n**Verdict: no-go on Marvel for this test. Go with a change: keep the cartoon look and hero energy, but use myths instead of Marvel.** Marvel's demand is real. The problems are legal risk and that you can't reliably make it today.\n\n**Evidence (long form; reach = views ÷ subs)**\n\n| Channel | First upload | Videos | Subs | Median views | Best video |\n|---|---|---|---|---|---|\n| Stickman 616 (Marvel) | Jan 2026, older account | 45 | 26.1K | 102.8K | [1.9M, 73x](https://youtu.be/sq28nE0KxfM) |\n| Spidy Raj (Marvel) | Oct 2025 | 17 | 12.1K | 109K | [517K, 43x](https://youtu.be/07wJAuQTMuc) |\n| Yorp (myths) | Aug 2026 | 37 | 9.1K | 32.7K | [920K, 102x](https://youtu.be/CYGNdqzCv0M) |\n| Yaby Man (myths) | Aug 2026 | 13 | 462 | 3.3K | [92.5K, 200x](https://youtu.be/-rPYM6xDlNI) |\n\n- **Shorts:** [InfoZing got 9.8M](https://youtu.be/saHlolplYlA), 156x its subs.\n- **Crowding:** Marvel fails the pool test; with Stickvengers, these Marvel channels total 195 videos. [One late copy got 23 views](https…\n\n## What went wrong along the way\n\n- `This Bash command contains multiple operations. The following part requires approval: cd /tmp && python3 -I /home/colto…`\n- `Exit code 1 YouTube API error: 404 playlistNotFound`\n- `This command requires approval`\n\n## Needs work\n\nRead \"What happened\" above for what is left. Open Claude Code on the Chromebook to pick it up.",
+"source": "agent-report hook",
+"id": "agent-20261102-095026-a5315720"
+},
+{
 "section": "Launch Desk",
 "order": 1,
 "date": "2026-10-31",
