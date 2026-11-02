@@ -552,6 +552,17 @@
 "id": "playbook"
 },
 {
+"section": "Research Desk",
+"date": "2026-11-02",
+"byline": "By Couch Potato",
+"headline": "What the Five Reels Really Taught, and What They Oversold",
+"dek": "Reel by reel: what's useful, what's locked behind a comment, and which claims fell apart.",
+"order": 1,
+"source": "~/reel-vault/plan.md",
+"body": "**The five reels**\n\n**@raycfu:** feed tutorials to Claude using transcripts plus Gemini's view of the video. You already have this tool. Biggest catch: his screen labels its own sound notes \"fabricated\". Comment for his guide (word unclear).\n\n**@mrcreates.ai:** one folder, five tools, three prompts. Best line: \"Make it inspired by them, not a copy.\" Comment EDITOR for the prompts.\n\n**@morrow.studio3d:** 3D videos built from code, with Claude checking its own frames. The reel shows a 16 GB MacBook, and yours has 2 GB. Kits are in his bio link.\n\n**@kayvon.ai:** Graphify, a token saver. He says 70% aloud and 70x in the caption, and its README says 80%. \"Rereads your entire code base\" doesn't match Claude Code's docs. Comment REPO, or read the name on screen: safishamsi/graphify.\n\n**@ashutoshwithclaude:** FreeLLM API, a pool of free AI models. Real tool, but its own README says \"not production\". Comment TOKENS.\n\n**Worth stealing**\n\n- Check nobody has posted your idea before scripting.\n- Give every number a source.\n- Name each fault, fix it, then look at that frame again.\n- Ask the user only the calls they must make.\n\n**Don't believe yet**\n\n- \"Almost 35 million views\": not checked.\n- \"$20 plan turns into a $100 plan\": not shown.\n- \"Edits with the best techniques\" from YouTube: his own screen says \"fabricated\".\n\n**Your move**\n\nSay yes or no to the Captions skill. The skills are in the other reel paper.",
+"id": "reel-findings-2026-11-02"
+},
+{
 "section": "Reel Skills",
 "date": "2026-11-02",
 "byline": "By Couch Potato",
