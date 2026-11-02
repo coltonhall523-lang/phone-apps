@@ -286,6 +286,17 @@
 "id": "agent-20261102-100148-a40b0886"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-02",
+"byline": "By Couch-potato",
+"headline": "Needs you: The user asks: can you watch Instagram Reels yet?",
+"dek": "10:11 AM · 14 min · 15 steps · 0 errors",
+"body": "**Status: Needs you.** Couch-potato worked 14 min, ran 15 tool steps, hit 0 errors.\n\n## The job\n\nThe user asks: can you watch Instagram Reels yet?\n\nFind out for real rather than guessing. Check how your /watch skill downloads videos (yt-dlp and its Instagram support, plus whether cookies or a lo…\n\n## What happened\n\n**Partly.** *sigh* Public Reels download without a login, and I can see the pictures. I did not get any audio or speech, and the default Gemini mode failed on all 3 tries.\n\n**Tested**\n- **Setup:** yt-dlp 2026.10.26 has an Instagram extractor. /watch only uses cookies if told to, and none are set in its config. I used no login or cookies, and installed or changed nothing.\n- **Reel 1 (`/reel/Cc6Rir3lIvB/`, University of Wyoming):** yt-dlp read its details without a login.\n- **Reel 2 (`/reel/Da-2R72yymt/`, Instagram's own account):** yt-dlp read its details without a login.\n- **Local mode, reel 2: worked.** The 14.7s video downloaded and 6 frames came out. I viewed 3 of them: a man in front of a wall of shoes, then in a soccer-ball outfit holding a grass-covered bag.\n- **Gemini mode (the default), reel 1: failed 3 out of 3.** The download and upload seemed to work, then Gemini's servers failed:\n  - `HTTP 503: gemini-3.7-flash is currently experiencing high demand` (twice)\n  - `HTTP 504:…\n\n## Needs work\n\nRead \"What happened\" above for what is left. Open Claude Code on the Chromebook to pick it up.",
+"source": "agent-report hook",
+"id": "agent-20261102-101118-a40b0886"
+},
+{
 "section": "Launch Desk",
 "order": 1,
 "date": "2026-10-31",
