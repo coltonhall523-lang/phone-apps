@@ -231,6 +231,17 @@
 "id": "agent-20261102-093633-c1776c54"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-02",
+"byline": "By Coach",
+"headline": "Done: The user wants your review of a new app idea, Channel Hub, BEFORE anything is built. Chec…",
+"dek": "9:44 AM · 2 min · 10 steps · 0 errors",
+"body": "**Status: Done.** Coach worked 2 min, ran 10 tool steps, hit 0 errors.\n\n## The job\n\nThe user wants your review of a new app idea, Channel Hub, BEFORE anything is built. Check it against your playbook (~/coach/playbook.md) and the lessons in ~/transcripts. Read-only: do NOT edit any…\n\n## What happened\n\n**Tags:** [PB] = `~/coach/playbook.md` line. [REC] = transcript. [PLAN] = `~/coach/launchplan/launch-plan.html` (coach rules of thumb, not lessons). [FC] = `~/coach/factcheck/`. [ME] = my opinion.\nNo transcript is newer than the playbook, so no lessons are missing.\n\n## 1. Verdict\nThe idea is sound. The timing is wrong, and three parts are flawed.\n- **Fits:** the chain matches niche breakdown, pivot, then format reuse [PB:15-24, 43].\n- **Flaw 1:** the pipeline is literally \"same video, swap the noun\". YouTube's inauthentic-content rule makes that **not monetizable** [PB:89]. This is the biggest risk.\n- **Flaw 2:** public stats can't show the metrics the lessons rank highest: CTR, watch %, impressions [PB:80-85]. They also can't run the Nov 7 niche verdict [PLAN].\n- **Flaw 3:** \"predictions and values\" conflict with the lessons. RPM can't be known in advance [PB:93], and tool earnings are \"all over the place\" [PB:100].\n\n## 2. Metrics that matter\n\n**Outlier**\n- Definition: views vs that…",
+"source": "agent-report hook",
+"id": "agent-20261102-094450-a1629a12"
+},
+{
 "section": "Launch Desk",
 "order": 1,
 "date": "2026-10-31",
