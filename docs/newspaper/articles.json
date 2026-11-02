@@ -253,6 +253,17 @@
 "id": "agent-20261102-095026-a5315720"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-02",
+"byline": "By Claude",
+"headline": "Done: well i was thinking about doing a cartoon sytle marvel channel",
+"dek": "9:50 AM · 3 min · 1 steps · 0 errors",
+"body": "**Status: Done.** Claude worked 3 min, ran 1 tool steps, hit 0 errors.\n\n## The job\n\nwell i was thinking about doing a cartoon sytle marvel channel\n\n## What happened\n\n@@burst [ ! ] Researcher\nNo-go on Marvel for this test. Demand is real, but the risk is too high: Disney went after AI videos naming Iron Man and Deadpool, and Google pulled dozens. A removal request brings a strike on your channel. Drawing Spider-Man yourself doesn't make him yours. Those Marvel channels are still up, but that doesn't make them safe.\n\n@@speech Researcher\nMarvel numbers are strong. Spidy Raj: 17 videos, 12.1K subs, 109K median views per video. Stickman 616: 45 videos, 26.1K subs, 102.8K median. But the lane is crowded, about 195 videos across the channels I checked, and one late copy got 23 views.\n\nMyths are the safer swap, same cartoon hero energy. Yorp started uploading in Aug 2026: 37 videos, 9.1K subs, 32.7K median, best video 920K. Yaby Man is much smaller: 13 videos, 462 subs, 3.3K median, best video 92.5K. Myths are crowded too, and those numbers are lower. \n\nToday you'd also be making still images with slow zooms, not real animation, which needs a paid service…",
+"source": "agent-report hook",
+"id": "agent-20261102-095034-c1776c54"
+},
+{
 "section": "Launch Desk",
 "order": 1,
 "date": "2026-10-31",
