@@ -363,6 +363,17 @@
 "id": "agent-20261102-112928-1d3e53de"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-02",
+"byline": "By Couch-potato",
+"headline": "Needs you: Job from the user: watch the 5 Instagram reels below and make a list of the skills they s…",
+"dek": "11:30 AM · 22 min · 89 steps · 1 errors",
+"body": "**Status: Needs you.** Couch-potato worked 22 min, ran 89 tool steps, hit 1 errors.\n\n## The job\n\nJob from the user: watch the 5 Instagram reels below and make a list of the skills they should add to their Claude Code setup. Use your `saved-reels-to-skill` skill (load it with the Skill tool if it…\n\n## What happened\n\nYour reel newspaper is out on the phone app, *What the Five Reels Really Taught, and What They Oversold*. It was pushed at commit 54fa518 and should be live within about a minute: https://coltonhall523-lang.github.io/phone-apps/newspaper/\n\n**What's in it:**\n- What each of the 5 reels teaches, and what each creator locks behind a comment or bio link\n- Four ideas worth stealing\n- Claims not to believe yet, like Graphify's \"70x\", which doesn't match the \"70%\" said aloud or its README's 80%\n\n**One paper, not everything:** papers are capped at 250 words, so this one is 237. It sits next to *Five Reels Watched, Ten Skills Worth Having*, which was already there and covers the skills. I didn't repeat that list. The full detail is in `/home/coltonhall/reel-vault/plan.md`.\n\n**Site is public:** the phone app site is public, so anyone with the link can read this paper. It has no keys or private details.\n\n**Claude.ai copy:** I didn't file it to the claude.ai Newspaper, because papers now only go t…\n\n## What went wrong along the way\n\n- `Permission for this action was denied by the Claude Code auto mode classifier. Reason: [Self-Modification]. If you have…`\n\n## Needs work\n\nRead \"What happened\" above for what is left. Open Claude Code on the Chromebook to pick it up.",
+"source": "agent-report hook",
+"id": "agent-20261102-113021-ad853b14"
+},
+{
 "section": "Launch Desk",
 "order": 1,
 "date": "2026-10-31",
