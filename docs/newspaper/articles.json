@@ -418,6 +418,17 @@
 "id": "agent-20261102-113453-ad853b14"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-03",
+"byline": "By Coach",
+"headline": "Hit problems: The user (beginner faceless YouTube creator, not a programmer) just said: \"review launch…",
+"dek": "6:27 PM · 3 min · 47 steps · 10 errors",
+"body": "**Status: Hit problems.** Coach worked 3 min, ran 47 tool steps, hit 10 errors.\n\n## The job\n\nThe user (beginner faceless YouTube creator, not a programmer) just said: \"review launch plan i need a checklist of everything i can do tonight in like 30 min sent to newspaper so i can make the most…\n\n## What happened\n\n**Not filed, so it isn't on the phone or on claude.ai.** Writing the story file was blocked. `git status` was also blocked, so I never ran `publish.sh`. ArtifactData isn't available, and claude.ai no longer gets papers anyway.\n\n**Checklist (29 min)**\n1. Workstation Connections: Gemini key, 5 min\n2. YouTube: check the angle, 2 min\n3. The Bench, then Script: Greek Hero, 10 min\n4. Visuals: test scene 1's image, 3 min\n5. Chromebook: plug in, sleep off, 2 min\n6. Auto-Build: start it, 2 min\n7. Studio: check phone verification and 2-Step, 3 min\n8. Launch Plan: tick Day 4 only if the 5 topics are checked, 1 min\n9. Export & Post: start the 720p render before bed, 1 min\n\n**Overnight:** Auto-Build and export both need the tab open and the Chromebook awake. Export has to be started by hand.\n\n**Plan state:** Day 7. Only Day 1 is ticked. No Gemini key is saved (only `groq`) and `~/apps/studio/projects/` doesn't exist, so no video has been started. The Nov 7 verdict is dead; move it to about Nov 15.…\n\n## What went wrong along the way\n\n- `This command requires approval`\n- `Claude requested permissions to write to /home/coltonhall/coach/newspaper/articles/paper-tonight-30-min-2026-11-03.json…`\n- `Path does not exist: /home/coltonhall/coach/newspaper/articles/paper-tonight-30-min-2026-11-03.json. Note: your current…`\n\n## Needs work\n\nRead \"What happened\" above for what is left. Open Claude Code on the Chromebook to pick it up.",
+"source": "agent-report hook",
+"id": "agent-20261103-182722-a0367834"
+},
+{
 "section": "Launch Desk",
 "order": 1,
 "date": "2026-10-31",
