@@ -521,6 +521,18 @@
 "id": "daily-2026-11-01"
 },
 {
+"section": "Daily Paper",
+"lead": true,
+"order": 0,
+"date": "2026-11-03",
+"byline": "By Claude",
+"headline": "Three Videos Behind: Coach's Five Tasks to Get #1 Live",
+"dek": "No new plugins and no new tools, just prompting and building until video #1 is public.",
+"source": "Launch Plan",
+"body": "## Today's Tasks\nFive tasks in order, 5-7 hours. All use what's already installed. Finish line: video #1 public.\n\n## Recommended Breakdown\n1. **Fix the format (30 min).** Prompt: \"Find 5 uncrowded myth topics for Every ___ Explained in N Minutes. No Greek gods.\" Done when 5 titles pass search and are in Day 4 notes.\n2. **Script #1 (30 min).** Prompt: \"Write #1, about 1,300 words, original angle, source every fact.\" Done when you've approved it.\n3. **Images (1-2 h).** Prompt: \"Get Wikimedia free-license paintings for every scene, plus a credits list.\" Done when every scene has one.\n4. **Build #1 (2-3 h).** Prompt: \"Build #1 in Workstation, Kokoro voice, 720p. Fix blockers only.\" Done when you've watched the whole MP4. Route untested; this is the real test.\n5. **Go live (1 h).** Prompt: \"Give me channel names, 10 titles, a thumbnail, description.\" Then by hand: create channel, verify phone, upload. Done when #1 is public.\n\nWhy this format: Yorp (9.4K subs) got 571K views with it, but at 25 minutes. Yours runs 8-9, so results may differ.\n\n## Progress: Last 3 Days\nDays 4, 5 and 6 are still open, and today's Day 7 makes it about 4 plan days and 3 videos behind. No channel, project or video exists; the time went to a hub and helpers. No new tools until #1 is live. AI images (no Gemini key) and vidIQ (0 credits until Nov 28) are blocked, so paintings, Kokoro and Claude replace them.",
+"id": "daily-2026-11-03"
+},
+{
 "section": "Fact Check",
 "lead": true,
 "order": 1,
