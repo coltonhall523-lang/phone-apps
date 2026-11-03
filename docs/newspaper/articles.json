@@ -440,6 +440,17 @@
 "id": "agent-20261103-182746-c1776c54"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-03",
+"byline": "By Coach",
+"headline": "Done: The user (a beginner faceless YouTube creator, not a programmer) said: \"ask coach to revi…",
+"dek": "6:37 PM · 2 min · 14 steps · 0 errors",
+"body": "**Status: Done.** Coach worked 2 min, ran 14 tool steps, hit 0 errors.\n\n## The job\n\nThe user (a beginner faceless YouTube creator, not a programmer) said: \"ask coach to review the launch plan and see what i haven't done yet, i know im behind, then have him give me a 5 task checklist…\n\n## What happened\n\nWHERE YOU STAND\nDays 1-3 are done. Nothing is done but unticked: myths and a format are chosen, but the 5 topics were never checked. No channel, project or video exists, so you're 3 videos and about 4 plan days behind. You built a hub and helpers instead; no new tools until #1 is live.\n\nBlocked without connectors: AI images (no Gemini key) and vidIQ (0 credits until Nov 28). Route: free-license paintings, Kokoro voice, Claude for writing.\n\n5 TASKS\n1. Fix the format (30 min). Prompt: \"Find 5 uncrowded myth topics for Every ___ Explained in N Minutes. No Greek gods.\" Yorp, 9.4K subs, got 571K this way; \"How Every Greek God Got Their Powers\" got 21. Done when: 5 titles pass search, saved in Day 4 notes.\n2. Script #1 (30 min). Prompt: \"Write #1, about 1,300 words, original angle, source every fact.\" Done when: you've approved it.\n3. Images (1-2 h). Prompt: \"Get Wikimedia free-license paintings for every scene, plus a credits list.\" Done when: every scene has one.\n4. Build #1 (2-3 h). Prom…",
+"source": "agent-report hook",
+"id": "agent-20261103-183703-ae3f26f3"
+},
+{
 "section": "Launch Desk",
 "order": 1,
 "date": "2026-10-31",
