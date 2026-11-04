@@ -484,6 +484,17 @@
 "id": "agent-20261104-164615-ac95062f"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-04",
+"byline": "By Claude",
+"headline": "Done: ",
+"dek": "4:46 PM · 5 min · 1 steps · 0 errors",
+"body": "**Status: Done.** Claude worked 5 min, ran 1 tool steps, hit 0 errors.\n\n## The job\n\na49e79fc5d01151d5\ntoolu_01UioDvXVfnyAJYnLEME2eJw\n/tmp/claude-1000/-home-coltonhall/0cafc56e-a936-4cfc-bd11-228e1fd214c2/tasks/a49e79fc5d01151d5.output\ncompleted\nAgent \"Editor meeting, cartoon plays,…\n\n## What happened\n\nCouch Potato finished, but none of his 3 channels are in Hub yet. His adds failed with `HTTP 403 {\"error\": \"Not allowed.\"}` because the server only accepts them from the Hub page itself. Coach now adds them through that page with Cursor.\n\n**Top 3:**\n1. **Mysteries of Mythology** (@mysteriesofmythology): 199K subs, median 173,317 views over 52 long videos. Mixed paintings, illustration and some AI stills. Best overall fit.\n2. **Deep Dive History** (@deepdivehistorypodcast): 111K subs, median 684,467 views, but only 8 videos, so treat that as a rough read. Closest to cinematic documentary, with a human actor narrating.\n3. **Jake Doubleyoo** (@jakedoubleyoo): 569K subs, median 605,886 views over 37 videos. Strongest mythology-first cartoon channel, but hand-made, only 5 long videos last year, and his median is falling.\n\nYour 3 existing Hub channels didn't make top 3. Pantheon Mythology was runner-up, and they stay in Hub.\n\n**What matters for your cartoon plan:**\n- Strong cartoon proof is…",
+"source": "agent-report hook",
+"id": "agent-20261104-164653-0cafc56e"
+},
+{
 "section": "Coach's Corner",
 "headline": "Cartoon AI on a Chromebook: What the Tutorials Get Right and Wrong",
 "dek": "18 tutorials, live price pages and YouTube's rules, boiled down to the plays that work by Saturday.",
