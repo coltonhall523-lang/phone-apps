@@ -473,6 +473,17 @@
 "id": "agent-20261104-164113-a49e79fc"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-04",
+"byline": "By Couch-potato",
+"headline": "Hit problems: The user wants you to find the top 3 YouTube creators in their niche, connect them to the…",
+"dek": "4:46 PM · 89 min · 113 steps · 4 errors",
+"body": "**Status: Hit problems.** Couch-potato worked 89 min, ran 113 tool steps, hit 4 errors.\n\n## The job\n\nThe user wants you to find the top 3 YouTube creators in their niche, connect them to the Channel Hub, and write full breakdowns of their videos. Coach will add your work to his playbook afterwards,…\n\n## What happened\n\nReport is finished. The Hub step failed: none of the top 3 channels are connected. Sigh. Details below.\n\n**Top 3 channels**\n1. **Mysteries of Mythology** (@mysteriesofmythology): mixed paintings, illustration and some AI stills. 199K subs, long-form median 173,317 from 52 videos. Best overall fit, active, and its median is rising.\n2. **Deep Dive History** (@deepdivehistorypodcast): mixed, paintings first. 111K subs, median 684,467 from only 8 videos. Closest to a cinematic documentary, with a human actor narrating. The sample is thin, so its best vs average comparison is directional only.\n3. **Jake Doubleyoo** (@jakedoubleyoo): cartoon, hand-made cut-out. 569K subs, median 605,886 from 37 videos. Strongest cartoon channel that is truly mythology-first. Limits: only 5 long videos last year, his median has fallen, and he has short live-action inserts, so he is not strictly faceless.\n\n**Existing Hub channels**\n- @pantheonmythology: not top 3. It was my pick for third place until the cart…\n\n## What went wrong along the way\n\n- `Not enough credits. This tool costs 5 credits. No credits were charged. If the connected vidIQ account is not the one y…`\n- `Exit code 144`\n- `Permission for this command was denied by a built-in Claude Code safety check, not by the user. The check stops removal…`\n\n## Needs work\n\nRead \"What happened\" above for what is left. Open Claude Code on the Chromebook to pick it up.",
+"source": "agent-report hook",
+"id": "agent-20261104-164615-ac95062f"
+},
+{
 "section": "Coach's Corner",
 "headline": "Cartoon AI on a Chromebook: What the Tutorials Get Right and Wrong",
 "dek": "18 tutorials, live price pages and YouTube's rules, boiled down to the plays that work by Saturday.",
