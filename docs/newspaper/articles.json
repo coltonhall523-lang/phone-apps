@@ -605,6 +605,17 @@
 "id": "agent-20261105-011207-a49e79fc"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-05",
+"byline": "By Claude",
+"headline": "Done: how about now",
+"dek": "1:12 AM · 130 min · 4 steps · 0 errors",
+"body": "**Status: Done.** Claude worked 130 min, ran 4 tool steps, hit 0 errors.\n\n## The job\n\nhow about now\n\n## What happened\n\n**Everybody's done for the night.** No jobs are still running, and Coach has sent his final report. Plan on **3 videos Saturday**: 4 if the Mac is fast and nothing breaks, 2 if setup eats the morning or the Mac isn't there.\n\nAll 5 scripts are rewritten as comedy and voiced, 4.1 to 4.9 minutes each (scene counts in the log match). Images, renders and uploads are still to do. The Mac kit, Launch Plan and newspaper are updated. Nothing was uploaded and no money was spent.\n\n## What you do\n**By Friday night:**\n1. Make sure you have a screen, keyboard and mouse for the Mac, since Mac minis usually don't include them.\n2. Get a USB drive of 2 GB or more that fits both machines. Newer minis may be USB-C only.\n\n**Before Saturday, if you can (each one protects your Saturday time):**\n3. Pack on the Chromebook, about 10 minutes, then copy the folder to the USB drive:\n   ```\n   bash ~/coach/mac-kit/pack-on-chromebook.sh\n   ```\n4. Do Apple's setup, then run the installer. Coach guesses 1 to 2 hours,…",
+"source": "agent-report hook",
+"id": "agent-20261105-011227-0cafc56e"
+},
+{
 "section": "Coach's Corner",
 "headline": "Cartoon AI on a Chromebook: What the Tutorials Get Right and Wrong",
 "dek": "18 tutorials, 18 competitor videos, YouTube's rules and a ChatGPT critique, boiled down to what works by Saturday.",
