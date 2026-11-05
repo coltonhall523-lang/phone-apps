@@ -594,6 +594,17 @@
 "id": "agent-20261104-222440-a49e79fc"
 },
 {
+"section": "Agent Desk",
+"order": 50,
+"date": "2026-11-05",
+"byline": "By Coach",
+"headline": "Done: The user gave you a multi-part job. Their goal: **3 to 5 videos posted and marinating by…",
+"dek": "1:12 AM · 544 min · 185 steps · 9 errors",
+"body": "**Status: Done.** Coach worked 544 min, ran 185 tool steps, hit 9 errors.\n\n## The job\n\nThe user gave you a multi-part job. Their goal: **3 to 5 videos posted and marinating by the end of Saturday 2026-11-07.** Today is Wednesday 2026-11-04. They want to make **cartoon AI videos**. Work…\n\n## What happened\n\n**All 5 jobs are done. Plan on 3 videos Saturday.** It's 4 if the Mac is fast and nothing breaks, and 2 if setup eats the morning or the Mac isn't there. All 5 are built and voiced, but posting 5 would need everything to go right on a first run, and I don't expect that. **Nothing has been tested on a real Mac.**\n\n## What the user must do, and by when\n**By Friday night:**\n1. Confirm they have a screen, keyboard and mouse for the Mac. Mac minis are normally sold without them. This is general knowledge, and I don't know their model.\n2. Have a USB drive of 2 GB or more that fits both machines. Newer minis may be USB-C only.\n\n**Before Saturday, only if they can. These add videos but aren't required:**\n3. Pack on the Chromebook: `bash ~/coach/mac-kit/pack-on-chromebook.sh`, then copy the folder to the USB drive. About 10 minutes.\n4. Do Apple's setup, then run the installer. My guess is 1 to 2 hours, and this is the biggest single time cost.\n5. Verify their phone for YouTube, about 2 minutes…\n\n## What went wrong along the way\n\n- `Exit code 143 Browser closed Opened https://chatgpt.com/ 13882 ERROR: page.evaluate: Execution context was destroyed, m…`\n- `Exit code 143 0 * https://chatgpt.com/uc/6aebaf63-ebd8-83ea-a009-8cf9648d332d 1 about:blank ERROR: page.screenshot: Tim…`\n- `Exit code 1 plan 256 ed 254 False pl 254 v1 25 66 wall 365s dur 2.6 words 7 25 0 saturday-plan-2026-11-04 False saturda…`",
+"source": "agent-report hook",
+"id": "agent-20261105-011207-a49e79fc"
+},
+{
 "section": "Coach's Corner",
 "headline": "Cartoon AI on a Chromebook: What the Tutorials Get Right and Wrong",
 "dek": "18 tutorials, 18 competitor videos, YouTube's rules and a ChatGPT critique, boiled down to what works by Saturday.",
